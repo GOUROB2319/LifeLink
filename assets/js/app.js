@@ -3,11 +3,11 @@
 // Firebase UI Simulation - Real-time counter animation
 function animateCounter(element, target, duration = 2000) {
     if (!element) return;
-    
+
     const start = parseInt(element.textContent.replace(/[^0-9]/g, '')) || 0;
     const increment = (target - start) / (duration / 16);
     let current = start;
-    
+
     const timer = setInterval(() => {
         current += increment;
         if (current >= target) {
@@ -20,16 +20,16 @@ function animateCounter(element, target, duration = 2000) {
 }
 
 // Initialize counters on page load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Animate statistics counters
     const unitsCounter = document.getElementById('units-counter');
     const livesCounter = document.getElementById('lives-counter');
     const hospitalsCounter = document.getElementById('hospitals-counter');
-    
+
     if (unitsCounter) animateCounter(unitsCounter, 15420);
     if (livesCounter) animateCounter(livesCounter, 8932);
     if (hospitalsCounter) animateCounter(hospitalsCounter, 450);
-    
+
     // Real-time donor count simulation
     const donorCount = document.getElementById('donor-count');
     if (donorCount) {
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             donorCount.textContent = Math.max(8, current + change);
         }, 5000);
     }
-    
+
     // Live status indicator pulse
     const liveIndicators = document.querySelectorAll('.live-pulse');
     liveIndicators.forEach(indicator => {
@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function validateForm(formId) {
     const form = document.getElementById(formId);
     if (!form) return false;
-    
+
     const inputs = form.querySelectorAll('input[required], select[required]');
     let isValid = true;
-    
+
     inputs.forEach(input => {
         if (!input.value.trim()) {
             input.classList.add('border-red-500');
@@ -65,7 +65,7 @@ function validateForm(formId) {
             input.classList.remove('border-red-500');
         }
     });
-    
+
     return isValid;
 }
 
@@ -82,18 +82,18 @@ function selectBloodType(bloodType) {
 // Emergency request submission
 function submitEmergencyRequest(event) {
     event.preventDefault();
-    
+
     // Show loading state
     const submitBtn = event.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
     submitBtn.textContent = 'Broadcasting...';
     submitBtn.disabled = true;
-    
+
     // Simulate network request
     setTimeout(() => {
         submitBtn.textContent = '✓ Request Sent';
         submitBtn.classList.add('bg-green-600');
-        
+
         // Redirect to success page after delay
         setTimeout(() => {
             window.location.href = 'donation-success.html';
@@ -105,10 +105,10 @@ function submitEmergencyRequest(event) {
 function toggleAvailability(checkbox) {
     const status = checkbox.checked ? 'Available' : 'Unavailable';
     console.log('Donor status:', status);
-    
+
     // Update local storage
     localStorage.setItem('donorAvailability', checkbox.checked);
-    
+
     // Show notification
     showNotification(`You are now ${status.toLowerCase()} for emergency requests`);
 }
@@ -116,15 +116,14 @@ function toggleAvailability(checkbox) {
 // Show notification (toast)
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
-    notification.className = `fixed top-20 right-4 z-50 px-6 py-4 rounded-lg shadow-lg text-white transform transition-all duration-300 ${
-        type === 'success' ? 'bg-green-600' : 
-        type === 'error' ? 'bg-red-600' : 
-        'bg-blue-600'
-    }`;
+    notification.className = `fixed top-20 right-4 z-50 px-6 py-4 rounded-lg shadow-lg text-white transform transition-all duration-300 ${type === 'success' ? 'bg-green-600' :
+            type === 'error' ? 'bg-red-600' :
+                'bg-blue-600'
+        }`;
     notification.textContent = message;
-    
+
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
         notification.style.opacity = '0';
         notification.style.transform = 'translateX(400px)';
@@ -137,11 +136,22 @@ function toggleDarkMode() {
     const html = document.documentElement;
     const isDark = html.classList.toggle('dark');
     localStorage.setItem('darkMode', isDark);
+    updateDarkModeIcon(isDark);
+}
+
+function updateDarkModeIcon(isDark) {
+    const icon = document.getElementById('dark-mode-icon');
+    if (icon) {
+        icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+    }
 }
 
 // Initialize dark mode from localStorage
 if (localStorage.getItem('darkMode') === 'true') {
     document.documentElement.classList.add('dark');
+    // We can't update the icon here yet because the DOM might not be fully loaded
+    // So we add a listener
+    document.addEventListener('DOMContentLoaded', () => updateDarkModeIcon(true));
 }
 
 // OAuth button handlers (visual feedback only)

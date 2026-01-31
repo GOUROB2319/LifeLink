@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>LifeLink - Donor Dashboard</title>
-    <!-- Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
     <!-- Custom CSS -->
     <link href="../assets/css/style.css" rel="stylesheet" />
     <!-- Tailwind CSS -->
@@ -42,19 +43,16 @@
                     <a href="../index.html"
                         class="flex items-center gap-4 text-primary hover:opacity-80 transition-opacity">
                         <div class="size-8">
-                            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
-                                    fill="currentColor"></path>
-                            </svg>
+                            <img src="../assets/images/Logo.png" alt="LifeLink Logo" class="w-full h-auto" />
                         </div>
                         <h2 class="text-xl font-bold leading-tight tracking-tight">LifeLink</h2>
                     </a>
                     <div class="hidden md:flex items-center gap-6">
-                        <a class="text-sm font-semibold text-primary" href="#">Dashboard</a>
+                        <a class="text-sm font-semibold text-primary" href="donor-dashboard.html">Dashboard</a>
                         <a class="text-sm font-medium hover:text-primary transition-colors"
                             href="medical-directory.html">Find Hospitals</a>
-                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Donation Tips</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors"
+                            href="emergency-request.html">Emergency Request</a>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -68,6 +66,10 @@
                                 name="search" placeholder="Find hospitals..." type="text" />
                         </label>
                     </div>
+                    <button id="dark-mode-toggle" onclick="toggleDarkMode()"
+                        class="p-2 rounded-lg bg-[#f0f2f4] dark:bg-gray-800 text-[#636e88] dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <span id="dark-mode-icon" class="material-symbols-outlined text-xl">dark_mode</span>
+                    </button>
                     <button
                         class="p-2 rounded-lg bg-[#f0f2f4] dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
                         <span class="material-symbols-outlined text-xl">notifications</span>
@@ -272,7 +274,7 @@
                     </div>
                     <div class="flex gap-8">
                         <a class="hover:text-primary" href="settings.html">Privacy Policy</a>
-                        <a class="hover:text-primary" href="#">Donor Guidelines</a>
+                        <a class="hover:text-primary" href="organ-registry.html">Organ Registry</a>
                         <a class="hover:text-primary" href="#">Support</a>
                     </div>
                     <p>© 2024 LifeLink. All rights reserved.</p>

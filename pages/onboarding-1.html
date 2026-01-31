@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>LifeLink - Account Setup</title>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Google Fonts: Inter -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>LifeLink - Account Setup</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <!-- Google Fonts: Inter -->
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -34,143 +38,245 @@
             },
         }
     </script>
-<style>
+    <style>
         body {
             font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
+
 <body class="bg-background-light dark:bg-background-dark min-h-screen font-display">
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-<div class="layout-container flex h-full grow flex-col">
-<!-- Top Navigation Bar -->
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#dcdfe5] dark:border-gray-700 bg-white dark:bg-background-dark px-6 md:px-40 py-3 sticky top-0 z-50">
-<div class="flex items-center gap-4 text-[#111318] dark:text-white">
-<div class="size-6 text-primary">
-<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_6_319)">
-<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
-</g>
-<defs>
-<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
-</defs>
-</svg>
-</div>
-<h2 class="text-[#111318] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">LifeLink</h2>
-</div>
-<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal transition-opacity hover:opacity-90">
-<span>Log in</span>
-</button>
-</header>
-<!-- Main Content -->
-<main class="flex flex-1 justify-center py-10 px-4">
-<div class="layout-content-container flex flex-col max-w-[640px] w-full">
-<!-- Form Card -->
-<div class="bg-white dark:bg-[#1c222d] shadow-sm border border-[#e5e7eb] dark:border-gray-800 rounded-xl overflow-hidden">
-<!-- Progress Stepper (Modified ProgressBar Component) -->
-<div class="flex flex-col gap-3 p-6 border-b border-[#f0f2f4] dark:border-gray-700 bg-[#f9fafb] dark:bg-[#1a1f28]">
-<div class="flex justify-between items-center mb-2">
-<div class="flex items-center gap-2">
-<span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs font-bold">1</span>
-<p class="text-[#111318] dark:text-white text-sm font-semibold">Basic Info</p>
-</div>
-<p class="text-[#636e88] dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Step 1 of 4</p>
-</div>
-<div class="rounded-full bg-[#dcdfe5] dark:bg-gray-700 h-1.5 overflow-hidden">
-<div class="h-full bg-primary transition-all duration-500" style="width: 25%;"></div>
-</div>
-<div class="grid grid-cols-4 gap-2 mt-1">
-<span class="text-[10px] font-bold text-primary text-center">BASIC INFO</span>
-<span class="text-[10px] font-bold text-[#636e88] dark:text-gray-500 text-center">MEDICAL</span>
-<span class="text-[10px] font-bold text-[#636e88] dark:text-gray-500 text-center">PREFERENCES</span>
-<span class="text-[10px] font-bold text-[#636e88] dark:text-gray-500 text-center">SECURITY</span>
-</div>
-</div>
-<!-- Form Header -->
-<div class="px-8 pt-8 text-center">
-<h1 class="text-[#111318] dark:text-white text-2xl md:text-3xl font-bold leading-tight mb-2">Create your LifeLink Account</h1>
-<p class="text-[#636e88] dark:text-gray-400 text-base font-normal">Welcome to LifeLink. Let's start with your basic profile details.</p>
-</div>
-<!-- Form Fields -->
-<div class="p-8 flex flex-col gap-6">
-<!-- Full Name -->
-<div class="flex flex-col gap-2">
-<label class="text-[#111318] dark:text-gray-200 text-sm font-semibold leading-normal">Full Name as per ID</label>
-<div class="relative">
-<input class="form-input flex w-full rounded-lg text-[#111318] dark:text-white dark:bg-[#111621] border border-[#dcdfe5] dark:border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 text-base transition-all" placeholder="e.g. Johnathan Doe" type="text" value=""/>
-</div>
-</div>
-<!-- Email Address -->
-<div class="flex flex-col gap-2">
-<label class="text-[#111318] dark:text-gray-200 text-sm font-semibold leading-normal">Email Address</label>
-<div class="relative">
-<input class="form-input flex w-full rounded-lg text-[#111318] dark:text-white dark:bg-[#111621] border border-[#dcdfe5] dark:border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 text-base transition-all" placeholder="john@example.com" type="email" value=""/>
-</div>
-</div>
-<!-- Phone Number -->
-<div class="flex flex-col gap-2">
-<label class="text-[#111318] dark:text-gray-200 text-sm font-semibold leading-normal">Phone Number</label>
-<div class="relative flex">
-<div class="flex items-center px-3 border border-r-0 border-[#dcdfe5] dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-l-lg text-gray-500 text-sm">
+    <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            <!-- Top Navigation Bar -->
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#dcdfe5] dark:border-gray-700 bg-white dark:bg-background-dark px-6 md:px-40 py-3 sticky top-0 z-50">
+                <div class="flex items-center gap-4 text-[#111318] dark:text-white">
+                    <div class="size-8 text-primary">
+                        <img src="../assets/images/Logo.png" alt="LifeLink Logo" class="w-full h-auto" />
+                    </div>
+                    <h2 class="text-[#111318] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">
+                        LifeLink</h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="dark-mode-toggle" onclick="toggleDarkMode()"
+                        class="p-2 rounded-lg bg-[#f0f2f4] dark:bg-gray-800 text-[#636e88] dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <span id="dark-mode-icon" class="material-symbols-outlined text-xl">dark_mode</span>
+                    </button>
+                    <a href="login.html"
+                        class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal transition-opacity hover:opacity-90">
+                        <span>Log in</span>
+                    </a>
+                </div>
+            </header>
+            <!-- Main Content -->
+            <main class="flex flex-1 justify-center py-10 px-4">
+                <div class="layout-content-container flex flex-col max-w-[640px] w-full">
+                    <!-- Form Card -->
+                    <div
+                        class="bg-white dark:bg-[#1c222d] shadow-sm border border-[#e5e7eb] dark:border-gray-800 rounded-xl overflow-hidden">
+                        <!-- Progress Stepper (Modified ProgressBar Component) -->
+                        <div
+                            class="flex flex-col gap-3 p-6 border-b border-[#f0f2f4] dark:border-gray-700 bg-[#f9fafb] dark:bg-[#1a1f28]">
+                            <div class="flex justify-between items-center mb-2">
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs font-bold">1</span>
+                                    <p class="text-[#111318] dark:text-white text-sm font-semibold">Basic Info</p>
+                                </div>
+                                <p
+                                    class="text-[#636e88] dark:text-gray-400 text-xs font-medium uppercase tracking-wider">
+                                    Step 1 of 4</p>
+                            </div>
+                            <div class="rounded-full bg-[#dcdfe5] dark:bg-gray-700 h-1.5 overflow-hidden">
+                                <div class="h-full bg-primary transition-all duration-500" style="width: 25%;"></div>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mt-1">
+                                <span class="text-[10px] font-bold text-primary text-center">BASIC INFO</span>
+                                <span
+                                    class="text-[10px] font-bold text-[#636e88] dark:text-gray-500 text-center">MEDICAL</span>
+                                <span
+                                    class="text-[10px] font-bold text-[#636e88] dark:text-gray-500 text-center">PREFERENCES</span>
+                                <span
+                                    class="text-[10px] font-bold text-[#636e88] dark:text-gray-500 text-center">SECURITY</span>
+                            </div>
+                        </div>
+                        <!-- Form Header -->
+                        <div class="px-8 pt-8 text-center">
+                            <h1
+                                class="text-[#111318] dark:text-white text-2xl md:text-3xl font-bold leading-tight mb-2">
+                                Create your LifeLink Account</h1>
+                            <p class="text-[#636e88] dark:text-gray-400 text-base font-normal">Welcome to LifeLink.
+                                Let's start with your basic profile details.</p>
+                        </div>
+                        <!-- Form Fields -->
+                        <div class="p-8 flex flex-col gap-6">
+                            <!-- Full Name -->
+                            <div class="flex flex-col gap-2">
+                                <label
+                                    class="text-[#111318] dark:text-gray-200 text-sm font-semibold leading-normal">Full
+                                    Name as per ID</label>
+                                <div class="relative">
+                                    <input id="fullName"
+                                        class="form-input flex w-full rounded-lg text-[#111318] dark:text-white dark:bg-[#111621] border border-[#dcdfe5] dark:border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 text-base transition-all"
+                                        placeholder="e.g. Johnathan Doe" type="text" value="" required />
+                                </div>
+                            </div>
+                            <!-- Email Address -->
+                            <div class="flex flex-col gap-2">
+                                <label
+                                    class="text-[#111318] dark:text-gray-200 text-sm font-semibold leading-normal">Email
+                                    Address</label>
+                                <div class="relative">
+                                    <input id="email"
+                                        class="form-input flex w-full rounded-lg text-[#111318] dark:text-white dark:bg-[#111621] border border-[#dcdfe5] dark:border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 text-base transition-all"
+                                        placeholder="john@example.com" type="email" value="" required />
+                                </div>
+                            </div>
+                            <!-- Phone Number -->
+                            <div class="flex flex-col gap-2">
+                                <label
+                                    class="text-[#111318] dark:text-gray-200 text-sm font-semibold leading-normal">Phone
+                                    Number</label>
+                                <div class="relative flex">
+                                    <div
+                                        class="flex items-center px-3 border border-r-0 border-[#dcdfe5] dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-l-lg text-gray-500 text-sm">
                                         +1
                                     </div>
-<input class="form-input flex w-full rounded-r-lg text-[#111318] dark:text-white dark:bg-[#111621] border border-[#dcdfe5] dark:border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 text-base transition-all" placeholder="(555) 000-0000" type="tel" value=""/>
-</div>
-</div>
-<!-- Password -->
-<div class="flex flex-col gap-2">
-<label class="text-[#111318] dark:text-gray-200 text-sm font-semibold leading-normal">Create Password</label>
-<div class="relative">
-<input class="form-input flex w-full rounded-lg text-[#111318] dark:text-white dark:bg-[#111621] border border-[#dcdfe5] dark:border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 pr-12 text-base transition-all" placeholder="Min. 8 characters" type="password" value=""/>
-<button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-<span class="material-symbols-outlined text-xl">visibility</span>
-</button>
-</div>
-<p class="text-[11px] text-[#636e88] dark:text-gray-400 flex items-center gap-1 mt-1">
-<span class="material-symbols-outlined text-xs">info</span>
+                                    <input id="phone"
+                                        class="form-input flex w-full rounded-r-lg text-[#111318] dark:text-white dark:bg-[#111621] border border-[#dcdfe5] dark:border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 text-base transition-all"
+                                        placeholder="(555) 000-0000" type="tel" value="" required />
+                                </div>
+                            </div>
+                            <!-- Password -->
+                            <div class="flex flex-col gap-2">
+                                <label
+                                    class="text-[#111318] dark:text-gray-200 text-sm font-semibold leading-normal">Create
+                                    Password</label>
+                                <div class="relative">
+                                    <input id="password"
+                                        class="form-input flex w-full rounded-lg text-[#111318] dark:text-white dark:bg-[#111621] border border-[#dcdfe5] dark:border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 pr-12 text-base transition-all"
+                                        placeholder="Min. 8 characters" type="password" value="" required />
+                                    <button
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                                        <span class="material-symbols-outlined text-xl">visibility</span>
+                                    </button>
+                                </div>
+                                <p class="text-[11px] text-[#636e88] dark:text-gray-400 flex items-center gap-1 mt-1">
+                                    <span class="material-symbols-outlined text-xs">info</span>
                                     Must include at least 1 number and 1 special character
                                 </p>
-</div>
-<!-- Terms & Privacy -->
-<div class="flex items-start gap-3 mt-2">
-<input class="mt-1 rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
-<p class="text-xs text-[#636e88] dark:text-gray-400 leading-normal">
-                                    I agree to LifeLink's <a class="text-primary hover:underline" href="#">Terms of Service</a> and <a class="text-primary hover:underline" href="#">Privacy Policy</a>, including the processing of my medical data.
+                            </div>
+                            <!-- Terms & Privacy -->
+                            <div class="flex items-start gap-3 mt-2">
+                                <input id="terms"
+                                    class="mt-1 rounded border-gray-300 text-primary focus:ring-primary h-4 w-4"
+                                    type="checkbox" required />
+                                <p class="text-xs text-[#636e88] dark:text-gray-400 leading-normal">
+                                    I agree to LifeLink's <a class="text-primary hover:underline" href="#">Terms of
+                                        Service</a> and <a class="text-primary hover:underline" href="#">Privacy
+                                        Policy</a>, including the processing of my medical data.
                                 </p>
-</div>
-<!-- Action Button -->
-<div class="mt-4">
-<button class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary py-4 px-6 text-white text-base font-bold transition-all hover:bg-blue-700 shadow-md">
+                            </div>
+                            <!-- Action Button -->
+                            <div class="mt-4">
+                                <button id="nextBtn"
+                                    class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary py-4 px-6 text-white text-base font-bold transition-all hover:bg-blue-700 shadow-md">
                                     Next: Medical Profile
                                     <span class="material-symbols-outlined">arrow_forward</span>
-</button>
-</div>
-<!-- Footer -->
-<div class="text-center mt-2">
-<p class="text-sm text-[#636e88] dark:text-gray-400">
-                                    Already have an account? 
-                                    <a class="text-primary font-semibold hover:underline" href="#">Log in</a>
-</p>
-</div>
-</div>
-</div>
-<!-- Security Badge -->
-<div class="mt-8 flex items-center justify-center gap-6 text-[#636e88] dark:text-gray-500">
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-lg">verified_user</span>
-<span class="text-xs font-medium uppercase">HIPAA Compliant</span>
-</div>
-<div class="flex items-center gap-1">
-<span class="material-symbols-outlined text-lg">lock</span>
-<span class="text-xs font-medium uppercase">256-bit Encryption</span>
-</div>
-</div>
-</div>
-</main>
-<!-- Bottom Spacer -->
-<footer class="py-6 px-40 text-center">
-<p class="text-xs text-[#636e88] dark:text-gray-500">© 2024 LifeLink Healthcare Systems. All rights reserved.</p>
-</footer>
-</div>
-</div>
-</body></html>
+                                </button>
+                            </div>
+                            <!-- Footer -->
+                            <div class="text-center mt-2">
+                                <p class="text-sm text-[#636e88] dark:text-gray-400">
+                                    Already have an account?
+                                    <a class="text-primary font-semibold hover:underline" href="login.html">Log in</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Security Badge -->
+                    <div class="mt-8 flex items-center justify-center gap-6 text-[#636e88] dark:text-gray-500">
+                        <div class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-lg">verified_user</span>
+                            <span class="text-xs font-medium uppercase">HIPAA Compliant</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-lg">lock</span>
+                            <span class="text-xs font-medium uppercase">256-bit Encryption</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!-- Bottom Spacer -->
+            <footer class="py-6 px-40 text-center">
+                <p class="text-xs text-[#636e88] dark:text-gray-500">© 2024 LifeLink Healthcare Systems. All rights
+                    reserved.</p>
+            </footer>
+        </div>
+    </div>
+    <script type="module">
+        import { auth } from '../assets/js/firebase-config.js';
+        import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const nextBtn = document.getElementById('nextBtn');
+        const passwordVisibilityBtn = document.querySelector('button[class*="absolute"]');
+        const passwordInput = document.getElementById('password');
+
+        // Toggle password visibility
+        passwordVisibilityBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            const icon = passwordVisibilityBtn.querySelector('span');
+            icon.textContent = type === 'password' ? 'visibility' : 'visibility_off';
+        });
+
+        nextBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const terms = document.getElementById('terms').checked;
+
+            if (!fullName || !email || !password || !terms) {
+                alert('Please fill in all required fields and accept the terms.');
+                return;
+            }
+
+            nextBtn.disabled = true;
+            nextBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Creating Account...';
+
+            try {
+                // 1. Create User
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // 2. Update Profile with Display Name
+                await updateProfile(user, {
+                    displayName: fullName
+                });
+
+                // 3. Store additional info in LocalStorage for next steps (or you could use Firestore)
+                localStorage.setItem('onboarding_phone', phone);
+
+                console.log('User registered successfully:', user);
+                // For now, redirect to next step (placeholder or next onboarding page if it exists)
+                // Since only onboarding-1.html is provided, I'll direct to success or same for now
+                // Ideally: window.location.href = 'onboarding-2.html';
+                alert('Account created! Proceeding to next step...');
+
+            } catch (error) {
+                console.error('Registration error:', error.message);
+                alert('Error: ' + error.message);
+            } finally {
+                nextBtn.disabled = false;
+                nextBtn.innerHTML = 'Next: Medical Profile <span class="material-symbols-outlined">arrow_forward</span>';
+            }
+        });
+    </script>
+</body>
+
+</html>
