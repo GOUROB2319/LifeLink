@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeLink - Medical Profile Onboarding</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1a57db",
+              "background-light": "#f6f6f8",
+              "background-dark": "#111621",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white transition-colors duration-200">
+<!-- Header / Nav -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#dcdfe5] dark:border-[#2a2f3e] px-4 md:px-10 py-4 bg-white dark:bg-[#111621]">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"></path>
+</svg>
+</div>
+<h2 class="text-[#111318] dark:text-white text-xl font-bold tracking-tight">LifeLink</h2>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-sm font-medium text-[#636e88] dark:text-gray-400 hidden sm:block">Step 2 of 3</span>
+<button class="text-sm font-bold text-[#111318] dark:text-white hover:underline">Save &amp; Exit</button>
+</div>
+</header>
+<main class="flex flex-col items-center justify-start min-h-[calc(100vh-72px)] py-8 px-4">
+<div class="w-full max-w-[720px] space-y-6">
+<!-- Progress Bar Section -->
+<div class="bg-white dark:bg-[#1a202c] rounded-xl shadow-sm border border-[#dcdfe5] dark:border-[#2a2f3e] p-6">
+<div class="flex flex-col gap-3">
+<div class="flex gap-6 justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">health_and_safety</span>
+<p class="text-[#111318] dark:text-white text-base font-semibold">Medical Profile</p>
+</div>
+<p class="text-[#636e88] dark:text-gray-400 text-sm font-medium">66% Complete</p>
+</div>
+<div class="h-2 w-full rounded-full bg-[#dcdfe5] dark:bg-gray-700 overflow-hidden">
+<div class="h-full bg-primary" style="width: 66%;"></div>
+</div>
+<p class="text-[#636e88] dark:text-gray-400 text-sm">Next: Emergency Contacts</p>
+</div>
+</div>
+<!-- Headline Section -->
+<div class="text-center py-2">
+<h1 class="text-[#111318] dark:text-white text-3xl font-bold tracking-tight">Health Information</h1>
+<p class="text-[#636e88] dark:text-gray-400 text-base mt-2">Help us provide the best care by sharing your health basics.</p>
+</div>
+<!-- Main Form Card -->
+<div class="bg-white dark:bg-[#1a202c] rounded-xl shadow-md border border-[#dcdfe5] dark:border-[#2a2f3e] overflow-hidden">
+<form class="p-8 space-y-6">
+<!-- Row 1: DOB and Gender -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-[#111318] dark:text-gray-200" for="dob">Date of Birth</label>
+<input class="w-full rounded-lg border-[#dcdfe5] dark:border-[#2a2f3e] dark:bg-[#111621] dark:text-white focus:border-primary focus:ring-primary h-11 px-4" id="dob" name="dob" type="date"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-[#111318] dark:text-gray-200">Gender</label>
+<div class="flex gap-2">
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="gender" type="radio" value="male"/>
+<div class="flex h-11 items-center justify-center rounded-lg border border-[#dcdfe5] dark:border-[#2a2f3e] peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-all text-sm font-medium text-[#636e88] dark:text-gray-400">
+                                        Male
+                                    </div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="gender" type="radio" value="female"/>
+<div class="flex h-11 items-center justify-center rounded-lg border border-[#dcdfe5] dark:border-[#2a2f3e] peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-all text-sm font-medium text-[#636e88] dark:text-gray-400">
+                                        Female
+                                    </div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="gender" type="radio" value="other"/>
+<div class="flex h-11 items-center justify-center rounded-lg border border-[#dcdfe5] dark:border-[#2a2f3e] peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:text-primary transition-all text-sm font-medium text-[#636e88] dark:text-gray-400">
+                                        Other
+                                    </div>
+</label>
+</div>
+</div>
+</div>
+<!-- Row 2: Blood Type Dropdown -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-[#111318] dark:text-gray-200" for="blood-type">Blood Type</label>
+<select class="w-full rounded-lg border-[#dcdfe5] dark:border-[#2a2f3e] dark:bg-[#111621] dark:text-white focus:border-primary focus:ring-primary h-11 px-4" id="blood-type" name="blood-type">
+<option value="">Select your blood type</option>
+<option value="A+">A+</option>
+<option value="A-">A-</option>
+<option value="B+">B+</option>
+<option value="B-">B-</option>
+<option value="AB+">AB+</option>
+<option value="AB-">AB-</option>
+<option value="O+">O+</option>
+<option value="O-">O-</option>
+<option value="unknown">I don't know</option>
+</select>
+</div>
+<!-- Row 3: Chronic Conditions -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-[#111318] dark:text-gray-200" for="conditions">Chronic Conditions</label>
+<textarea class="w-full rounded-lg border-[#dcdfe5] dark:border-[#2a2f3e] dark:bg-[#111621] dark:text-white focus:border-primary focus:ring-primary p-4" id="conditions" name="conditions" placeholder="e.g., Diabetes, Hypertension, Asthma" rows="3"></textarea>
+</div>
+<!-- Row 4: Allergies -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-[#111318] dark:text-gray-200" for="allergies">Known Allergies</label>
+<textarea class="w-full rounded-lg border-[#dcdfe5] dark:border-[#2a2f3e] dark:bg-[#111621] dark:text-white focus:border-primary focus:ring-primary p-4" id="allergies" name="allergies" placeholder="e.g., Penicillin, Peanuts, Latex" rows="3"></textarea>
+</div>
+<!-- Action Panel (Tooltip) -->
+<div class="flex flex-col items-start justify-between gap-4 rounded-lg border border-primary/20 bg-primary/5 p-5 sm:flex-row sm:items-center">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">info</span>
+<p class="text-[#111318] dark:text-white text-base font-bold leading-tight">Why this matters</p>
+</div>
+<p class="text-[#636e88] dark:text-gray-400 text-sm leading-relaxed mt-1">
+                                This information is vital for LifeLink's emergency matching system, allowing first responders to access life-saving data instantly.
+                            </p>
+</div>
+<a class="text-xs font-bold whitespace-nowrap text-primary hover:underline flex items-center gap-1" href="#">
+                            Data Security
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Footer Buttons -->
+<div class="flex items-center justify-between pt-4 border-t border-[#dcdfe5] dark:border-[#2a2f3e]">
+<button class="flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" type="button">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                            Back
+                        </button>
+<button class="flex items-center justify-center min-w-[160px] h-12 rounded-lg bg-primary hover:bg-primary/90 text-white text-sm font-bold shadow-lg shadow-primary/20 transition-all" type="submit">
+                            Continue
+                        </button>
+</div>
+</form>
+</div>
+<!-- Trust Badge -->
+<div class="flex items-center justify-center gap-4 py-4 opacity-70">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gray-500 text-lg">lock</span>
+<span class="text-xs text-gray-500 font-medium">End-to-end Encrypted</span>
+</div>
+<div class="w-px h-3 bg-gray-300"></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gray-500 text-lg">verified_user</span>
+<span class="text-xs text-gray-500 font-medium">HIPAA Compliant</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Theme Toggle -->
+<div class="fixed bottom-6 right-6">
+<button class="size-12 rounded-full bg-white dark:bg-[#1a202c] shadow-lg flex items-center justify-center border border-[#dcdfe5] dark:border-[#2a2f3e] text-[#111318] dark:text-white" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined">contrast</span>
+</button>
+</div>
+</body></html>

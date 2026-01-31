@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeLink - Privacy Settings</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a57db",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e232f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-[#111318] dark:text-white overflow-x-hidden flex flex-col">
+<!-- Top Navbar -->
+<header class="bg-surface-light dark:bg-surface-dark border-b border-[#f0f2f4] dark:border-gray-800 sticky top-0 z-50">
+<div class="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 h-16 flex items-center justify-between gap-4">
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-3 text-[#111318] dark:text-white group" href="#">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight">LifeLink</span>
+</a>
+<!-- Search -->
+<div class="hidden md:flex h-10 w-64 items-center rounded-lg bg-[#f0f2f4] dark:bg-gray-800 overflow-hidden focus-within:ring-2 focus-within:ring-primary/50 transition-all">
+<div class="pl-3 text-[#636e88] dark:text-gray-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full bg-transparent border-none text-sm px-3 text-[#111318] dark:text-white placeholder:text-[#636e88] focus:ring-0" placeholder="Search"/>
+</div>
+</div>
+<div class="flex items-center gap-4 lg:gap-8">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Find Doctors</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">My Health</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+<button class="relative bg-center bg-no-repeat bg-cover rounded-full size-9 ring-2 ring-white dark:ring-gray-700 shadow-sm" data-alt="User profile picture of a doctor in white coat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBSRR94UcAmbaG1cbEHXixl5gFtTiRpQkgbGrw7lBhbzs7bap2egF9m5jx_bO3n0OLhEUcfi3hf6_ggsKSGt-d06yLuIFf4-DMFtZ59U5mbw3lJOacwIio5WJaA6i8LOdcZKsr8vPgmQ6SinPzGCOkn1NSj5F5ddjXWTqLpTQRrh-7mzU765SrATGI2Vv_Qc9pmHrfJmefjge2DCz776ViTertearZ5MDuKcNLpEzeQ8mE1rSB3Js8fZH_MH_Km2QxN_qwBXoUhe9b3");'></button>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<main class="flex-1 flex max-w-[1440px] mx-auto w-full">
+<!-- Sidebar Navigation -->
+<aside class="hidden md:flex w-72 flex-col gap-6 p-6 border-r border-[#f0f2f4] dark:border-gray-800 bg-surface-light dark:bg-surface-dark h-[calc(100vh-64px)] sticky top-16 overflow-y-auto">
+<!-- User Profile Summary -->
+<div class="flex items-center gap-4 pb-6 border-b border-[#f0f2f4] dark:border-gray-800">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shadow-sm" data-alt="User profile picture of a doctor in white coat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBLEN-je2hK_H8Rpor6o7PxNinqqvdOhOg9tWI3YCOytkwA64H8ivsOEQ293UeIzbjuamibwGAB957nSdqPlOsehtE5ccpvCvGqVhKQeqQERFQZM3uqrsTmpustxtrVEBJMHdl6zj_Bc73785qaf3LywOrGhWw8_r8RRf8jfRERbmC2wo1Em8MRZXU3IadHT6sKfWskUCFj0X0pXJBd9FwFjHIgCz7-4-CjcbCnuU4aD-d9lpYiRcaj45IipTFj4dSHwWxQuQdwss4x");'></div>
+<div class="flex flex-col">
+<h1 class="text-[#111318] dark:text-white text-base font-semibold leading-tight">Dr. Sarah Smith</h1>
+<p class="text-[#636e88] dark:text-gray-400 text-xs font-medium">Cardiologist</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#636e88] dark:text-gray-400 hover:bg-[#f0f2f4] dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px] group-hover:text-[#111318] dark:group-hover:text-white">person</span>
+<span class="text-sm font-medium group-hover:text-[#111318] dark:group-hover:text-white">Profile Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px] font-variation-settings-'FILL'1">lock</span>
+<span class="text-sm font-medium">Privacy &amp; Security</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#636e88] dark:text-gray-400 hover:bg-[#f0f2f4] dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px] group-hover:text-[#111318] dark:group-hover:text-white">notifications</span>
+<span class="text-sm font-medium group-hover:text-[#111318] dark:group-hover:text-white">Notification Preferences</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#636e88] dark:text-gray-400 hover:bg-[#f0f2f4] dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[22px] group-hover:text-[#111318] dark:group-hover:text-white">database</span>
+<span class="text-sm font-medium group-hover:text-[#111318] dark:group-hover:text-white">Data &amp; Permissions</span>
+</a>
+</nav>
+<!-- Bottom Helper -->
+<div class="mt-auto pt-6 border-t border-[#f0f2f4] dark:border-gray-800">
+<a class="flex items-center gap-3 px-3 py-2 text-[#636e88] dark:text-gray-400 hover:text-primary text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+                    Help &amp; Support
+                </a>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex-1 p-6 lg:p-10 flex flex-col gap-8 max-w-4xl">
+<!-- Breadcrumbs -->
+<nav class="flex items-center text-sm font-medium text-[#636e88] dark:text-gray-400">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="mx-2">/</span>
+<a class="hover:text-primary transition-colors" href="#">Settings</a>
+<span class="mx-2">/</span>
+<span class="text-[#111318] dark:text-white">Privacy &amp; Security</span>
+</nav>
+<!-- Page Heading -->
+<div class="flex flex-col gap-2">
+<h2 class="text-3xl font-bold tracking-tight text-[#111318] dark:text-white">Privacy &amp; Security</h2>
+<p class="text-[#636e88] dark:text-gray-400 max-w-2xl">Manage who sees your medical data and how it is used for donor matching and research purposes.</p>
+</div>
+<!-- Content Cards -->
+<div class="flex flex-col gap-6">
+<!-- Visibility Section -->
+<section class="bg-surface-light dark:bg-surface-dark rounded-xl border border-[#f0f2f4] dark:border-gray-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-[#f0f2f4] dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50 flex justify-between items-center">
+<h3 class="font-semibold text-[#111318] dark:text-white">Donor Visibility &amp; Sharing</h3>
+<span class="material-symbols-outlined text-gray-400" title="Security settings">verified_user</span>
+</div>
+<div class="divide-y divide-[#f0f2f4] dark:divide-gray-800">
+<!-- Toggle Item 1 -->
+<div class="p-6 flex items-start gap-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<div class="hidden sm:flex items-center justify-center size-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary shrink-0">
+<span class="material-symbols-outlined">visibility_off</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-4 mb-1">
+<h4 class="text-base font-medium text-[#111318] dark:text-white">Anonymize my donor profile</h4>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<p class="text-sm text-[#636e88] dark:text-gray-400 pr-8">Hide your real name from potential recipient lists and public registries. Only your ID # will be visible.</p>
+</div>
+</div>
+<!-- Toggle Item 2 -->
+<div class="p-6 flex items-start gap-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<div class="hidden sm:flex items-center justify-center size-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary shrink-0">
+<span class="material-symbols-outlined">local_hospital</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-4 mb-1">
+<h4 class="text-base font-medium text-[#111318] dark:text-white">Allow hospitals to view medical history</h4>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<p class="text-sm text-[#636e88] dark:text-gray-400 pr-8">Grants read-only access to your full medical history for linked institutions in case of consultation.</p>
+</div>
+</div>
+<!-- Toggle Item 3 -->
+<div class="p-6 flex items-start gap-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<div class="hidden sm:flex items-center justify-center size-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary shrink-0">
+<span class="material-symbols-outlined">share_location</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-4 mb-1">
+<h4 class="text-base font-medium text-[#111318] dark:text-white">Emergency location sharing</h4>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<p class="text-sm text-[#636e88] dark:text-gray-400 pr-8">Automatically share your precise location with emergency responders when an SOS is triggered.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Data Management Section -->
+<section class="bg-surface-light dark:bg-surface-dark rounded-xl border border-[#f0f2f4] dark:border-gray-800 shadow-sm p-6">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="flex gap-4">
+<div class="hidden sm:flex items-center justify-center size-10 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 shrink-0">
+<span class="material-symbols-outlined">cloud_download</span>
+</div>
+<div>
+<h3 class="font-semibold text-[#111318] dark:text-white">Data Export &amp; Compliance</h3>
+<p class="text-sm text-[#636e88] dark:text-gray-400 mt-1">Download a copy of your personal data including medical history and logs.</p>
+</div>
+</div>
+<button class="group flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary transition-all focus:ring-2 focus:ring-offset-2 focus:ring-primary whitespace-nowrap" type="button">
+<span class="material-symbols-outlined text-lg group-hover:text-primary">download</span>
+                            Download My Data
+                        </button>
+</div>
+</section>
+<!-- Action Footer -->
+<div class="flex justify-end pt-4 gap-4">
+<button class="px-6 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                        Cancel
+                    </button>
+<button class="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-primary hover:bg-blue-700 shadow-sm transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                        Save Changes
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

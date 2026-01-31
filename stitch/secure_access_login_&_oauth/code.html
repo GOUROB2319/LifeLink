@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeLink - Secure Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a57db",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar to keep it clean */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8 antialiased selection:bg-primary/20 selection:text-primary">
+<div class="w-full max-w-[480px] flex flex-col gap-6">
+<!-- Branding / Logo Area -->
+<div class="flex flex-col items-center justify-center gap-3">
+<div class="flex items-center justify-center size-14 rounded-2xl bg-white dark:bg-gray-800 shadow-sm text-primary p-3">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">LifeLink</h2>
+</div>
+<!-- Main Card -->
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+<div class="p-8 pb-6">
+<!-- Welcome Text -->
+<div class="text-center mb-8">
+<h1 class="text-[#111318] dark:text-white text-[28px] font-bold leading-tight mb-2">Welcome back, Doctor</h1>
+<p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">
+                        Please enter your credentials to access patient records.
+                    </p>
+</div>
+<!-- OAuth Buttons -->
+<div class="flex flex-col gap-3">
+<button class="relative flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-6 py-3 text-sm font-bold text-gray-700 transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">
+<span class="absolute left-6 flex h-5 w-5 items-center justify-center">
+<!-- SVG Google Logo fallback since no material symbol exists for brands -->
+<img alt="Google Logo" class="h-5 w-5" data-alt="Google G Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABuCft_raYzwy4_BNhVZPjquUPWuhkXK6kn3WGJECeMnTcVSHJoTzeUSapDDBNU96nb8Hc6cIXIIs9ycf3ohGuEJqOD_eD4jSy0BxL7nhjYaFrXSUpxluzCe6nBcKVBK4cWb1O2Bvy6hTe_tAzQaBqvTWeNMhuGy4qaeHV4wnOlUq3riBsuRTgEb_jQ1pSBwlGxZW47WHp4krWwGqr9_tzgXZTBmUiYO6pv3D-yUtuThOPqwy8Pfnpi1E5uFkSei3pc2CZh8OmIVtw"/>
+</span>
+<span>Sign in with Google</span>
+</button>
+<button class="relative flex w-full items-center justify-center rounded-lg bg-[#111318] px-6 py-3 text-sm font-bold text-white transition-all hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 dark:bg-white dark:text-black dark:hover:bg-gray-100">
+<span class="absolute left-6 flex h-5 w-5 items-center justify-center">
+<!-- SVG Apple Logo fallback -->
+<img alt="Apple Logo" class="h-5 w-5 invert dark:invert-0" data-alt="Apple Logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSr957m2Eq3a01WPEytDOyk23UWIlVt5DFhLz61t1y2H2xYGyqXDTCXbXdXhHDFTx-6MyKDdqS3Nl1QWs8woT0N-SiDnkZG9Qh4Haaev9fRH_au7LSl1lM_npGNcDrj0gsq74lFOJGx_oCJ0XuQZppG_MADcTELvW_vUEcSmINDkbXF9Cs9pA4C66N6myuUPZKpDtX6ox63F0gZ1XKBKeK_w42OOaWRtbzM24Mdt_FCb-pd0I1L53MFRflP7w4eRCAhq1uxwpv9R-m"/>
+</span>
+<span>Sign in with Apple</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="relative my-8">
+<div aria-hidden="true" class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
+</div>
+<div class="relative flex justify-center">
+<span class="bg-white dark:bg-gray-800 px-3 text-xs font-medium uppercase text-gray-500">or sign in with email</span>
+</div>
+</div>
+<!-- Login Form -->
+<form action="#" class="space-y-5" method="POST">
+<div>
+<label class="block text-sm font-medium text-gray-900 dark:text-gray-200 mb-1.5" for="email">Email Address</label>
+<div class="relative">
+<input class="block w-full rounded-lg border-0 py-3 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 dark:bg-gray-900 dark:ring-gray-700 dark:text-white dark:placeholder:text-gray-500" id="email" name="email" placeholder="dr.smith@hospital.com" type="email"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="block text-sm font-medium text-gray-900 dark:text-gray-200" for="password">Password</label>
+<div class="text-sm">
+<a class="font-semibold text-primary hover:text-blue-700 transition-colors" href="#">Forgot password?</a>
+</div>
+</div>
+<div class="relative">
+<input class="block w-full rounded-lg border-0 py-3 pl-4 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 dark:bg-gray-900 dark:ring-gray-700 dark:text-white dark:placeholder:text-gray-500" id="password" name="password" placeholder="••••••••••••" type="password"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3">
+<span class="material-symbols-outlined text-gray-400 cursor-pointer hover:text-gray-600 dark:hover:text-gray-300" style="font-size: 20px;">visibility_off</span>
+</div>
+</div>
+</div>
+<div class="pt-2">
+<button class="flex w-full justify-center rounded-lg bg-primary px-3 py-3 text-base font-bold leading-6 text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors" type="button">
+                            Sign In
+                        </button>
+</div>
+</form>
+</div>
+<!-- Footer -->
+<div class="bg-gray-50 dark:bg-gray-700/30 px-8 py-5 border-t border-gray-100 dark:border-gray-700">
+<p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                    New to LifeLink? 
+                    <a class="font-bold text-primary hover:text-blue-700 transition-colors" href="#">Create an account</a>
+</p>
+<div class="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined" style="font-size: 16px;">lock</span>
+<span class="font-medium">HIPAA Compliant &amp; Secure Portal</span>
+</div>
+</div>
+</div>
+<!-- Bottom Links -->
+<div class="flex justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
+<a class="hover:text-gray-900 dark:hover:text-gray-200 transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-gray-900 dark:hover:text-gray-200 transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-gray-900 dark:hover:text-gray-200 transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeLink - Emergency Response Visualization</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1a57db",
+              "background-light": "#f6f6f8",
+              "background-dark": "#111621",
+              "panel-dark": "#1A202C", 
+              "emergency-red": "#DC2626",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }.custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+          background: #111621; 
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #2d3748; 
+          border-radius: 3px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #4a5568; 
+      }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-[#0b0e14] font-display text-[#111318] dark:text-white transition-colors duration-200 overflow-hidden h-screen flex flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-[#dcdfe5] dark:border-[#2a2f3e] px-6 py-3 bg-white dark:bg-[#111621] z-30 shrink-0 h-[72px]">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 text-primary">
+<svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"></path>
+</svg>
+</div>
+<div class="flex flex-col">
+<h2 class="text-[#111318] dark:text-white text-lg font-bold tracking-tight leading-none">LifeLink</h2>
+<span class="text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Admin Console</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-xs font-medium text-gray-600 dark:text-gray-300">System Operational</span>
+</div>
+<div class="flex items-center gap-3 border-l border-gray-200 dark:border-gray-700 pl-6">
+<button class="relative p-2 text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2.5 h-2.5 bg-emergency-red rounded-full border-2 border-white dark:border-[#111621]"></span>
+</button>
+<div class="h-8 w-8 rounded-full bg-gradient-to-tr from-primary to-blue-400 flex items-center justify-center text-white font-bold text-xs shadow-md">
+                    JD
+                </div>
+</div>
+</div>
+</header>
+<main class="flex-1 relative flex overflow-hidden">
+<div class="flex-1 relative bg-[#0f1115] overflow-hidden group">
+<div class="absolute inset-0 z-0 opacity-30 select-none pointer-events-none">
+<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="100" id="grid" patternUnits="userSpaceOnUse" width="100">
+<path d="M 100 0 L 0 0 0 100" fill="none" stroke="#334155" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+<path d="M0 200 Q 400 250 800 200 T 1600 200" fill="none" stroke="#1e293b" stroke-width="20"></path>
+<path d="M200 0 Q 250 400 200 800" fill="none" stroke="#1e293b" stroke-width="20"></path>
+<path d="M1000 0 L 800 1000" fill="none" stroke="#1e293b" stroke-width="15"></path>
+<path d="M0 600 L 1600 500" fill="none" stroke="#1e293b" stroke-width="12"></path>
+</svg>
+</div>
+<div class="absolute top-[35%] left-[45%] z-10 hover:z-20 group/marker cursor-pointer transform -translate-x-1/2 -translate-y-1/2">
+<div class="relative flex items-center justify-center size-24">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#DC2626] opacity-30 duration-1000"></span>
+<span class="relative inline-flex rounded-full size-4 bg-[#DC2626] shadow-[0_0_15px_#DC2626] border-2 border-white/80"></span>
+<div class="absolute bottom-full mb-3 hidden group-hover/marker:block w-48 bg-[#111621] border border-gray-700 rounded-lg shadow-xl p-3 z-30">
+<div class="flex items-center justify-between mb-1">
+<span class="text-xs font-bold text-white">#REQ-8921</span>
+<span class="text-[10px] bg-red-900/50 text-red-200 px-1.5 py-0.5 rounded border border-red-800">Critical</span>
+</div>
+<p class="text-xs text-gray-400">Blood Type: <span class="text-white font-medium">O-</span></p>
+<p class="text-xs text-gray-400 mt-1">St. Mary's Hospital</p>
+</div>
+</div>
+</div>
+<div class="absolute top-[55%] left-[60%] z-10 hover:z-20 group/marker cursor-pointer transform -translate-x-1/2 -translate-y-1/2">
+<div class="relative flex items-center justify-center size-16">
+<span class="animate-ping absolute inline-flex h-3/4 w-3/4 rounded-full bg-orange-500 opacity-30 duration-1500"></span>
+<span class="relative inline-flex rounded-full size-3 bg-orange-500 shadow-[0_0_10px_orange] border-2 border-white/80"></span>
+</div>
+</div>
+<div class="absolute top-[42%] left-[30%] z-10 hover:z-20 group/marker cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-all duration-[5000ms] ease-linear translate-x-12">
+<div class="relative flex items-center justify-center size-12">
+<div class="absolute -inset-1 bg-primary/20 rounded-full blur-sm"></div>
+<span class="material-symbols-outlined text-primary text-2xl drop-shadow-[0_0_5px_rgba(26,87,219,0.8)]">ambulance</span>
+<div class="absolute top-full mt-1 bg-primary text-white text-[10px] font-bold px-1.5 rounded whitespace-nowrap opacity-0 group-hover/marker:opacity-100 transition-opacity">
+                        En Route (4m)
+                    </div>
+</div>
+</div>
+<div class="absolute top-6 left-6 right-[420px] flex flex-col gap-4 pointer-events-none">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 pointer-events-auto">
+<div class="bg-[#111621]/90 backdrop-blur-md border border-gray-700/50 p-4 rounded-xl shadow-lg flex items-center gap-4">
+<div class="size-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Fulfilled Today</p>
+<p class="text-xl font-bold text-white">42 <span class="text-xs font-normal text-green-500 ml-1">+12%</span></p>
+</div>
+</div>
+<div class="bg-[#111621]/90 backdrop-blur-md border border-gray-700/50 p-4 rounded-xl shadow-lg flex items-center gap-4">
+<div class="size-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<div>
+<p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Avg Response</p>
+<p class="text-xl font-bold text-white">8m 12s <span class="text-xs font-normal text-gray-500 ml-1">(-30s)</span></p>
+</div>
+</div>
+<div class="bg-[#111621]/90 backdrop-blur-md border border-gray-700/50 p-4 rounded-xl shadow-lg flex items-center gap-4">
+<div class="size-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Donors En Route</p>
+<p class="text-xl font-bold text-white">8 <span class="text-xs font-normal text-gray-500 ml-1">Active</span></p>
+</div>
+</div>
+</div>
+<div class="flex gap-3 pointer-events-auto max-w-2xl">
+<div class="relative flex-1">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-gray-400 text-lg">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-[#111621]/90 backdrop-blur-md border border-gray-700/50 rounded-lg text-sm text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary shadow-lg" placeholder="Search region, hospital, or ID..." type="text"/>
+</div>
+<select class="h-10 px-4 bg-[#111621]/90 backdrop-blur-md border border-gray-700/50 rounded-lg text-sm text-white focus:border-primary focus:ring-1 focus:ring-primary shadow-lg">
+<option>All Emergencies</option>
+<option>Blood Requests</option>
+<option>Organ Transport</option>
+</select>
+<button class="h-10 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-lg shadow-blue-900/20 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                        New Alert
+                    </button>
+</div>
+</div>
+<div class="absolute bottom-6 right-[420px] flex flex-col gap-2 pointer-events-auto">
+<button class="size-10 bg-[#111621] border border-gray-700 text-white rounded-lg hover:bg-gray-800 flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="size-10 bg-[#111621] border border-gray-700 text-white rounded-lg hover:bg-gray-800 flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="size-10 bg-[#111621] border border-gray-700 text-white rounded-lg hover:bg-gray-800 flex items-center justify-center shadow-lg mt-2">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+</div>
+<aside class="w-[400px] bg-[#111621] border-l border-[#2a2f3e] flex flex-col z-20 shadow-2xl">
+<div class="p-5 border-b border-[#2a2f3e] flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-white font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-emergency-red">warning</span>
+                        Active Emergencies
+                    </h3>
+<span class="px-2 py-0.5 rounded bg-gray-800 text-xs font-medium text-gray-300">5 Active</span>
+</div>
+<div class="flex p-1 bg-[#0b0e14] rounded-lg">
+<button class="flex-1 py-1.5 text-xs font-semibold text-white bg-gray-700 rounded shadow-sm">Critical</button>
+<button class="flex-1 py-1.5 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded transition-colors">High</button>
+<button class="flex-1 py-1.5 text-xs font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded transition-colors">Moderate</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-3">
+<div class="bg-[#1A202C] border-l-4 border-emergency-red rounded-r-lg p-4 cursor-pointer hover:bg-[#232a38] transition-colors group relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 opacity-50">
+<span class="material-symbols-outlined text-gray-600 text-4xl">bloodtype</span>
+</div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-red-400 bg-red-900/30 px-2 py-0.5 rounded border border-red-900/50">CRITICAL PRIORITY</span>
+<span class="text-[10px] text-gray-400">2m ago</span>
+</div>
+<h4 class="text-white font-bold text-sm mb-1">Type O- Blood Request</h4>
+<p class="text-gray-400 text-xs mb-3">St. Mary's Hospital • ICU-4</p>
+<div class="flex items-center gap-2 text-xs text-gray-300 mb-3 bg-black/20 p-2 rounded">
+<span class="material-symbols-outlined text-sm text-primary">near_me</span>
+                            3 Verified Donors within 5km
+                        </div>
+<div class="flex gap-2">
+<button class="flex-1 bg-emergency-red hover:bg-red-700 text-white text-xs font-bold py-2 rounded transition-colors">Dispatch</button>
+<button class="px-3 bg-gray-700 hover:bg-gray-600 text-white rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-[#1A202C] border-l-4 border-orange-500 rounded-r-lg p-4 cursor-pointer hover:bg-[#232a38] transition-colors group relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 opacity-50">
+<span class="material-symbols-outlined text-gray-600 text-4xl">medical_services</span>
+</div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-orange-400 bg-orange-900/30 px-2 py-0.5 rounded border border-orange-900/50">HIGH PRIORITY</span>
+<span class="text-[10px] text-gray-400">14m ago</span>
+</div>
+<h4 class="text-white font-bold text-sm mb-1">Organ Transport (Kidney)</h4>
+<p class="text-gray-400 text-xs mb-3">General Hospital to City Airport</p>
+<div class="flex items-center gap-2 text-xs text-gray-300 mb-3 bg-black/20 p-2 rounded">
+<span class="material-symbols-outlined text-sm text-yellow-500">warning</span>
+                            Traffic congestion on Route 4
+                        </div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary hover:bg-blue-700 text-white text-xs font-bold py-2 rounded transition-colors">View Route</button>
+</div>
+</div>
+</div>
+<div class="bg-[#1A202C] border-l-4 border-yellow-500 rounded-r-lg p-4 cursor-pointer hover:bg-[#232a38] transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-yellow-400 bg-yellow-900/30 px-2 py-0.5 rounded border border-yellow-900/50">MODERATE</span>
+<span class="text-[10px] text-gray-400">32m ago</span>
+</div>
+<h4 class="text-white font-bold text-sm mb-1">Plasma Request (AB+)</h4>
+<p class="text-gray-400 text-xs mb-3">Westside Clinic</p>
+<div class="flex items-center gap-2 text-xs text-gray-400">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                        Driver Assigned
+                    </div>
+</div>
+<div class="bg-[#1A202C] border-l-4 border-yellow-500 rounded-r-lg p-4 cursor-pointer hover:bg-[#232a38] transition-colors opacity-75">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-yellow-400 bg-yellow-900/30 px-2 py-0.5 rounded border border-yellow-900/50">MODERATE</span>
+<span class="text-[10px] text-gray-400">45m ago</span>
+</div>
+<h4 class="text-white font-bold text-sm mb-1">Platelet Request (A+)</h4>
+<p class="text-gray-400 text-xs mb-3">Children's Medical Center</p>
+<div class="flex items-center gap-2 text-xs text-gray-400">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                       Fulfilled
+                   </div>
+</div>
+</div>
+<div class="p-4 border-t border-[#2a2f3e] bg-[#0f1115]">
+<button class="w-full flex items-center justify-center gap-2 text-sm font-medium text-gray-400 hover:text-white py-2 rounded hover:bg-white/5 transition-colors">
+                    View All Activity Log
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</aside>
+</main>
+
+</body></html>

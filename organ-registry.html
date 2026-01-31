@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeLink | Organ Donation Registry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a57db",
+                        "life-green": "#10B981",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#dcdfe5] dark:border-gray-800 bg-white dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">LifeLink</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-9">
+<a class="text-[#111318] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Education</a>
+<a class="text-[#111318] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Find Hospitals</a>
+<a class="text-primary text-sm font-semibold border-b-2 border-primary" href="#">My Registry</a>
+<a class="text-[#111318] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-[0.015em] hover:bg-blue-700 transition-colors">
+<span>Sign Out</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-gray-200" data-alt="Portrait of a medical professional user profile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBSmkCChMKpu4K1c8enJBjZhYM3KWzwZF2oHdi8UV7cIXZwWT2SJzovuB73dK0KCZMCZbexz-PIetdqTPS6M_1CCJazyqx2eEAju202xqodmL0T8A4M6itNQdFxrXMt7w8eqOLQ8cyC6Mj7_xZdq-NjayeI3krXMFwTjyyCzwEO7p61JAtpaxGYC4HNqgHd6GVOCZ4ebdht59OSSiXCp7aqtZMWpxqqSUzt7K_cUbtEOHpRDMBZf69Y5NyKKRR1SWPZYCFaI59knQM-");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center">
+<div class="max-w-[1024px] w-full px-6 py-10 space-y-8">
+<!-- Hero/Header Section -->
+<div class="@container">
+<div class="rounded-xl overflow-hidden shadow-sm">
+<div class="flex min-h-[320px] flex-col gap-6 bg-cover bg-center bg-no-repeat items-center justify-center p-8 text-center" data-alt="Calm abstract blue medical background with light patterns" style='background-image: linear-gradient(rgba(26, 87, 219, 0.85) 0%, rgba(15, 23, 42, 0.9) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDM6Ko2kpxVPyVzi4jRdcgMxQPpDDPW4oNJQ5DK1fajnnZjjji8ORgtC6LwXL4V-OBV6avS0p7BRuBgXXTHL31x_EUuTzGxcwIyi5BH5LFSv8MZXYlO5XNGRxOa7XnIh56Vt2qIA9XT-fd20tAR1973pUz3V1rsAISCsMpXJAc_L3TSEgK6tRZ5J0A0XsLQRu8r1fA9cKO7fgvXJLjmZVfwxIWgqMc_69dGykU0fVpHBc9zGeBvL7S_t0C3Jl6FMqQQyEuqB-viVGRz");'>
+<div class="flex flex-col gap-3 max-w-2xl">
+<h1 class="text-white text-4xl font-black leading-tight tracking-tight sm:text-5xl">
+                                        Become a Lifesaver
+                                    </h1>
+<p class="text-white/90 text-base sm:text-lg font-medium leading-relaxed">
+                                        One organ donor can save up to 8 lives and heal more than 75 people. Join the LifeLink registry today and leave a lasting legacy of hope.
+                                    </p>
+</div>
+<div class="flex gap-4">
+<div class="bg-white/10 backdrop-blur-md rounded-lg px-6 py-3 border border-white/20">
+<p class="text-white text-xs uppercase tracking-widest font-bold opacity-75">Impact</p>
+<p class="text-white text-2xl font-black">100k+ Waiting</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg px-6 py-3 border border-white/20">
+<p class="text-white text-xs uppercase tracking-widest font-bold opacity-75">Registry</p>
+<p class="text-white text-2xl font-black">Secure &amp; Legal</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Registration Form Container -->
+<div class="bg-white dark:bg-background-dark border border-[#dcdfe5] dark:border-gray-800 rounded-xl shadow-sm overflow-hidden">
+<!-- Progress Bar Component -->
+<div class="flex flex-col gap-3 p-8 border-b border-gray-100 dark:border-gray-800">
+<div class="flex gap-6 justify-between items-center">
+<p class="text-[#111318] dark:text-white text-lg font-bold leading-normal">Registration Progress</p>
+<div class="flex items-center gap-2">
+<span class="text-life-green text-sm font-bold bg-life-green/10 px-2 py-1 rounded">Step 2 of 4</span>
+<p class="text-primary text-sm font-bold leading-normal">50% Complete</p>
+</div>
+</div>
+<div class="rounded-full bg-gray-100 dark:bg-gray-800 h-3 overflow-hidden">
+<div class="h-full rounded-full bg-primary transition-all duration-500" style="width: 50%;"></div>
+</div>
+<div class="flex justify-between text-[#636e88] text-sm font-medium">
+<span>Introduction</span>
+<span class="text-primary">Organ Selection</span>
+<span>Legal Consent</span>
+<span>Documentation</span>
+</div>
+</div>
+<!-- Section Header -->
+<div class="px-8 pt-8">
+<h2 class="text-[#111318] dark:text-white text-2xl font-bold leading-tight tracking-tight">Select Organs for Donation</h2>
+<p class="text-[#636e88] dark:text-gray-400 mt-2">You can choose to donate all organs or select specific ones. These preferences can be updated at any time.</p>
+</div>
+<!-- Organ Selection Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-8">
+<!-- Organ Item -->
+<div class="group flex flex-col gap-4 rounded-xl border-2 border-primary bg-primary/5 p-5 transition-all hover:shadow-md cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary text-3xl">favorite</span>
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 border-primary" type="checkbox"/>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-[#111318] dark:text-white text-lg font-bold">Heart</h2>
+<p class="text-[#636e88] dark:text-gray-400 text-sm">Vital for life-saving heart transplants. Critical urgency.</p>
+</div>
+</div>
+<div class="group flex flex-col gap-4 rounded-xl border-2 border-primary bg-primary/5 p-5 transition-all hover:shadow-md cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary text-3xl">air</span>
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 border-primary" type="checkbox"/>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-[#111318] dark:text-white text-lg font-bold">Lungs</h2>
+<p class="text-[#636e88] dark:text-gray-400 text-sm">Supports patients with severe respiratory failure.</p>
+</div>
+</div>
+<div class="group flex flex-col gap-4 rounded-xl border border-[#dcdfe5] dark:border-gray-700 bg-white dark:bg-gray-900 p-5 transition-all hover:shadow-md cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[#636e88] text-3xl group-hover:text-primary transition-colors">monitoring</span>
+<input class="rounded text-primary focus:ring-primary h-5 w-5 border-gray-300" type="checkbox"/>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-[#111318] dark:text-white text-lg font-bold">Liver</h2>
+<p class="text-[#636e88] dark:text-gray-400 text-sm">High demand for donation; can be split for two recipients.</p>
+</div>
+</div>
+<div class="group flex flex-col gap-4 rounded-xl border border-[#dcdfe5] dark:border-gray-700 bg-white dark:bg-gray-900 p-5 transition-all hover:shadow-md cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[#636e88] text-3xl group-hover:text-primary transition-colors">nephrology</span>
+<input class="rounded text-primary focus:ring-primary h-5 w-5 border-gray-300" type="checkbox"/>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-[#111318] dark:text-white text-lg font-bold">Kidneys</h2>
+<p class="text-[#636e88] dark:text-gray-400 text-sm">The most common transplant needed worldwide.</p>
+</div>
+</div>
+<div class="group flex flex-col gap-4 rounded-xl border border-[#dcdfe5] dark:border-gray-700 bg-white dark:bg-gray-900 p-5 transition-all hover:shadow-md cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[#636e88] text-3xl group-hover:text-primary transition-colors">thermostat</span>
+<input class="rounded text-primary focus:ring-primary h-5 w-5 border-gray-300" type="checkbox"/>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-[#111318] dark:text-white text-lg font-bold">Pancreas</h2>
+<p class="text-[#636e88] dark:text-gray-400 text-sm">Essential for patients with severe Type 1 diabetes.</p>
+</div>
+</div>
+<div class="group flex flex-col gap-4 rounded-xl border border-[#dcdfe5] dark:border-gray-700 bg-white dark:bg-gray-900 p-5 transition-all hover:shadow-md cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[#636e88] text-3xl group-hover:text-primary transition-colors">account_tree</span>
+<input class="rounded text-primary focus:ring-primary h-5 w-5 border-gray-300" type="checkbox"/>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-[#111318] dark:text-white text-lg font-bold">Small Intestine</h2>
+<p class="text-[#636e88] dark:text-gray-400 text-sm">Critical for those with intestinal failure.</p>
+</div>
+</div>
+</div>
+<!-- Document Upload Zone -->
+<div class="px-8 py-6 bg-gray-50 dark:bg-gray-800/50">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">upload_file</span>
+                                ID Verification &amp; Medical Directive
+                            </h3>
+<div class="border-2 border-dashed border-[#dcdfe5] dark:border-gray-700 rounded-xl p-8 flex flex-col items-center justify-center bg-white dark:bg-background-dark text-center cursor-pointer hover:border-primary transition-colors">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-primary">cloud_upload</span>
+</div>
+<p class="text-[#111318] dark:text-white font-bold">Click to upload or drag and drop</p>
+<p class="text-[#636e88] text-sm mt-1">PDF, JPG or PNG (max. 10MB)</p>
+<div class="flex items-center gap-2 mt-4 text-life-green font-semibold text-xs uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">lock</span>
+                                    End-to-end encrypted
+                                </div>
+</div>
+</div>
+<!-- Family Notification & Consent -->
+<div class="p-8 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-4">
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">groups</span>
+                                        Family Notification
+                                    </h3>
+<div class="space-y-3">
+<div class="flex flex-col gap-1">
+<label class="text-sm font-semibold text-[#636e88]">Next of Kin Email</label>
+<input class="rounded-lg border-[#dcdfe5] dark:border-gray-700 dark:bg-gray-900 focus:ring-primary focus:border-primary" placeholder="family@example.com" type="email"/>
+</div>
+<div class="flex items-center gap-3">
+<input class="rounded text-life-green focus:ring-life-green h-4 w-4" id="notify" type="checkbox"/>
+<label class="text-sm text-[#111318] dark:text-gray-300" for="notify">Automatically notify my family of my registry status</label>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h3 class="text-lg font-bold flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">gavel</span>
+                                        Legal Consent
+                                    </h3>
+<div class="p-4 bg-primary/5 rounded-lg border border-primary/20 text-sm text-[#636e88] dark:text-gray-400">
+                                        By checking the boxes below, you legally affirm your decision to be an organ donor. This is a binding legal document under the Uniform Anatomical Gift Act.
+                                    </div>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<input class="mt-1 rounded text-primary focus:ring-primary h-4 w-4" id="consent1" type="checkbox"/>
+<label class="text-sm text-[#111318] dark:text-gray-300" for="consent1">I confirm that I am at least 18 years of age and of sound mind.</label>
+</div>
+<div class="flex items-start gap-3">
+<input class="mt-1 rounded text-primary focus:ring-primary h-4 w-4" id="consent2" type="checkbox"/>
+<label class="text-sm text-[#111318] dark:text-gray-300" for="consent2">I authorize the recovery of the selected organs for transplantation or research.</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="px-8 py-6 bg-gray-50 dark:bg-gray-800/30 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+<button class="text-[#636e88] font-bold text-sm hover:text-[#111318] transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">save</span>
+                                Save &amp; Exit
+                            </button>
+<div class="flex gap-4 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-8 py-3 rounded-lg border border-[#dcdfe5] dark:border-gray-700 font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                    Back
+                                </button>
+<button class="flex-1 sm:flex-none px-8 py-3 rounded-lg bg-life-green text-white font-bold text-sm hover:bg-emerald-600 transition-colors shadow-lg shadow-life-green/20">
+                                    Review &amp; Submit
+                                </button>
+</div>
+</div>
+</div>
+<!-- Trust Badges -->
+<div class="flex flex-wrap justify-center gap-8 py-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-300">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="text-sm font-bold">HIPAA Compliant</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">encrypted</span>
+<span class="text-sm font-bold">256-bit SSL Secure</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-sm font-bold">Official Registry</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800 py-8 px-10 text-center">
+<p class="text-[#636e88] text-sm">© 2024 LifeLink Healthcare Registry. All rights reserved.</p>
+<div class="mt-2 flex justify-center gap-4 text-xs font-medium text-primary">
+<a class="hover:underline" href="#">Privacy Policy</a>
+<span class="text-gray-300">|</span>
+<a class="hover:underline" href="#">Terms of Service</a>
+<span class="text-gray-300">|</span>
+<a class="hover:underline" href="#">Donor Bill of Rights</a>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

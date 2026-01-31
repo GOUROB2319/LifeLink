@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>LifeLink - Professional Healthcare Platform</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a57db",
+                        "emergency": "#dc2626",
+                        "background-light": "#ffffff",
+                        "background-alt": "#f8fafc",
+                        "background-dark": "#111621",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "card": "12px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(0.95); opacity: 1; }
+        }
+        .pulse-emergency {
+            animation: pulse-ring 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 w-full border-b border-slate-100 bg-white/95 backdrop-blur dark:bg-background-dark/95 dark:border-slate-800">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="text-primary">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight">LifeLink</span>
+                </div>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-semibold hover:text-primary transition-colors" href="#services">Services</a>
+                    <a class="text-sm font-semibold hover:text-primary transition-colors" href="#how-it-works">How it Works</a>
+                    <a class="text-sm font-semibold hover:text-primary transition-colors" href="#impact">Impact</a>
+                    <a class="text-sm font-semibold hover:text-primary transition-colors" href="organ-registry.html">Organ Donation</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="login.html" class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors">Login</a>
+                    <a href="onboarding-1.html" class="bg-primary text-white text-sm font-bold px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-all shadow-sm">
+                        Join LifeLink
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 bg-white dark:bg-background-dark">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 items-center">
+                    <div>
+                        <span class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-primary uppercase bg-primary/10 rounded-full">
+                            Reliable Healthcare Network
+                        </span>
+                        <h1 class="text-5xl md:text-6xl font-black text-slate-900 dark:text-white leading-[1.1] mb-6 tracking-tight">
+                            Connecting Lives in Every <span class="text-emergency">Heartbeat</span>
+                        </h1>
+                        <p class="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed max-w-xl">
+                            LifeLink is the professional bridge connecting donors, patients, and hospitals. Our mission is to streamline blood donations and medical assistance during critical moments.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="emergency-request.html" class="pulse-emergency bg-emergency text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-red-700 transition-all shadow-lg shadow-red-500/20">
+                                <span class="material-symbols-outlined">e911_emergency</span>
+                                Emergency Blood Request
+                            </a>
+                            <a href="medical-directory.html" class="bg-primary text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">
+                                <span class="material-symbols-outlined">medical_services</span>
+                                Find a Doctor
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-primary/5 rounded-[2rem] -rotate-2"></div>
+                        <img alt="Professional doctor in white coat holding digital tablet" class="relative rounded-[2rem] shadow-2xl w-full object-cover aspect-[4/3]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_ONkAgmO3LJ8odRm-HW-J3G_oH5JhPeRwEbrpYpNX8N6ysGt5FWYbhVXBlYkY1Hcne1HENUGMQ70dEV6ozc2VVyHFUL-o2zRRRJ3_Ufkq7soFu8u54YPk2ycabG56udsaX1L8TTgU5KjYBhA91AAKxVO5c8B6PblqSixRcUbjSgEwi-r8OIC2ntV_fb8xeCEISSqmRtRG6eDJa6zGqThMYUm29bzzjX_UOIDTRmcefip1KMZE_jfo2Rhbnwxq4RShJrkwMNqIU9dw"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner Section (Trust Bar) -->
+        <section id="services" class="py-12 border-y border-slate-100 bg-background-alt dark:bg-slate-900/50 dark:border-slate-800">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <p class="text-center text-sm font-bold text-slate-400 uppercase tracking-widest mb-8">Trusted by Global Healthcare Leaders</p>
+                <div class="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale contrast-125">
+                    <img alt="Mayo Clinic Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4Xxl3kcFp5Cq6zhxTp4ldJuQnepXymKeiubys21IV0p2BSnAHs0Pj95jnDqpF3qee1jpLq6Qp5wJ6WwtzFw_f8K58vNhm41qMOoVvwFv6vBmGxqURklxV3p0BfjBlj10hdiXuQDbPz5FYgJcxgXVLwFXnza3H8uCZjndPX_JreYWrFvlhlqokrUxyJPxit_d_W9bXeljtvBe0YWg0wl6jXDt4xjY2sE_hIf1oqK95FSEl1k3Eruz7uAyN6jTsFlMDP7CkFR3bNRsZ"/>
+                    <img alt="UNICEF Logo" class="h-6 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJQulayVsEPnPBYMwqA-lzLWWE3s3rUnCz5z-30lTQiv0rUUB_bzLCkLioc5j1ZsaRuZIlGzsN7uzaeT72pzmQauZ4jfYV1lcVQ1_ZzaoOjVxIDMWNG_6htM9MM1rW9PHcJB4W4V0No8iAxnSOYgxyH6BtUfTZ0Nya3MG_NvgL5RK5gDT1aNNsZs2LBks0S4QnkJgHMl3NMTDKHVAt4EOwF2HgLold3aLyZx9MToeugIZRdsaYglyqAda0UaEVrn3VijR13ks3wHrG"/>
+                    <img alt="Red Cross Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiwjsjlyQXUvmsTm8IgNAi-KtGRwymSBJzmaUGG1kJOhuCZDDN9Rt2j0cJddtH-exVALL3NM0pePYqvsqwKHzVRidkGdaAHLSrLH9gZTQDFGSH-66yxUNTe0u1tMq_prUgl2BJX-NitVOd4rg-WQU2_NCyvuax_D3-ZxeWN2Ch6PF0Fqnpx6dtRhN7OWAEVvn55mK6fd86REjpNVajypDukEnOUsfFyNFmLKNr-v6a0zHSyuLptDr1twMiK5METfimrkQTAfhtH4iZ"/>
+                    <img alt="WHO Logo" class="h-10 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHwk0zdauSrdkZsoL3U5mHv1P6uZ6pS9urFTVNRw5LtWx-C20GChX5nQJzOKXb7d6sDfppZJJ1EH-fokR5saWchIFIGPCsQmu-kxZIXg71Reg9vxcP9vqk8n1rkQtMubgdSPH1yyEkqgILQASo6yWF0RozTvJOWRvkDGuq58xEux-Cf3Gw2cfh5eBYkSSaQpzQ22wA3K43GiivffZAw_Q-BXaTt_Swk2awt8MqMF35tk_SOFClFiTfoAz6vnULNwF0hTT0ugzxprgu"/>
+                    <img alt="Pfizer Logo" class="h-6 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTn1XSgzltXO3j7YJ0FfpiVj9bkkRX-LX5kzmYuNPZQMJB-vZaZuyWylaJ3S5VLG9gqW1eGyhHXyd118u3Fycfoaejs7si7RzjODr_uHTCTWlwWMcy_EXM7RNqp_d9jgb3bx0fV2GRPYxq1F-m-ckB4u_f0tfnuee3Uq0xySZfs5WcFjhXLzaQ9wzLGbcU9QGnPAxg5xJj0Z2HXJwCSehK2oCVe90hKJ7Ibe_q8OFPkTrYfojUHkqMyRh0UWPouocIPv-bnTQaTwxG"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Flow Section -->
+        <section id="how-it-works" class="py-24 bg-white dark:bg-background-dark">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-4">How It Works</h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="relative p-8 rounded-card border border-slate-100 bg-background-alt dark:border-slate-800 dark:bg-slate-900 transition-hover hover:border-primary/30">
+                        <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-3xl">person_add</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">1. Register</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Create your profile as a donor, hospital, or patient to access our network.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="relative p-8 rounded-card border border-slate-100 bg-background-alt dark:border-slate-800 dark:bg-slate-900 transition-hover hover:border-primary/30">
+                        <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-3xl">emergency_share</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">2. Request</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Submit a request for blood or medical consultation through our portal.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative p-8 rounded-card border border-slate-100 bg-background-alt dark:border-slate-800 dark:bg-slate-900 transition-hover hover:border-primary/30">
+                        <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-3xl">hub</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">3. Match</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Our AI-driven system finds the nearest compatible donor or specialist.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="relative p-8 rounded-card border border-slate-100 bg-background-alt dark:border-slate-800 dark:bg-slate-900 transition-hover hover:border-primary/30">
+                        <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">4. Save</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">The connection is made, lives are saved, and records are updated securely.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Dashboard -->
+        <section id="impact" class="py-20 bg-primary text-white">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div>
+                        <div class="text-5xl font-black mb-2" id="units-counter">15,420+</div>
+                        <p class="text-primary-foreground/80 font-semibold tracking-wide uppercase text-sm">Units Donated</p>
+                    </div>
+                    <div>
+                        <div class="text-5xl font-black mb-2" id="lives-counter">8,932+</div>
+                        <p class="text-primary-foreground/80 font-semibold tracking-wide uppercase text-sm">Lives Saved</p>
+                    </div>
+                    <div>
+                        <div class="text-5xl font-black mb-2" id="hospitals-counter">450+</div>
+                        <p class="text-primary-foreground/80 font-semibold tracking-wide uppercase text-sm">Partner Hospitals</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-24 bg-background-alt dark:bg-slate-900/30">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-4">Patient & Donor Stories</h2>
+                    <p class="text-slate-500 max-w-2xl mx-auto">Real experiences from our community members who have been part of the LifeLink mission.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-card shadow-sm border border-slate-100 dark:border-slate-700">
+                        <div class="flex items-center gap-4 mb-6">
+                            <img alt="Sarah Johnson" class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTpbPph7z4qcw3WnA4hVVhJMFreqrcPFEQENpYN_5gGOL8i-CgWa2fyk4BtwwvjKgcFOnnUpbzicw-6vHYpWZOXSDEhvsAaYQaen4XE8p8PdzN6Ia6K4yMjBWABHqTP9NF6GDTELly9K41JaOkNoDhQsVLJETs5ohmN_b3i8Ra4dkxou8pyKFamR8k4nalIZGKP8guNrxr79sqMnQVq_0i3Zy76HTQfc6EviaDiFxIGUBntJ1YKK2s68K0CuCFaqSm_oDFIxVw_9yO"/>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white">Sarah Johnson</p>
+                                <p class="text-xs text-slate-500">Regular Blood Donor</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 italic">"LifeLink made it incredibly easy to find a donation center when my schedule was tight. Knowing exactly where I'm needed most feels great."</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-card shadow-sm border border-slate-100 dark:border-slate-700">
+                        <div class="flex items-center gap-4 mb-6">
+                            <img alt="Dr. Michael Chen" class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBo92QOX2vW1XeyxbhTxjoiRpT5yGVHHBA5QdicGtvaEBTMPiADS8pWIyf1Es8XwmSqNR5igCkRIuD3kEh8bdzmtb99XGNfkAHAvRDPAJHCQzyS79dEg3w087ncyrEACi3SIf-jXQS02WjnMmySvkdIybJQHepSejntxFUjNEuz0WlHi_WOFL29fjHPb2iC9B_MBRg5vdRLU7KTpW3lM30r9Kbun_03i-f98ogNIJi-f2Q8_mv2_4sB8_AaWkZwvskREY-JGHpCxUv"/>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white">Dr. Michael Chen</p>
+                                <p class="text-xs text-slate-500">Hematologist, City Hospital</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 italic">"As a professional, the efficiency of the LifeLink matching algorithm is unparalleled. It has literally saved minutes that meant life or death."</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-card shadow-sm border border-slate-100 dark:border-slate-700">
+                        <div class="flex items-center gap-4 mb-6">
+                            <img alt="Elena Rodriguez" class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiSz3Au_4quPrAPUafQmDBdTlInvtBN4R4x7asM9gKbsm69UAl3aNTTD1cCUyYVI3zFcbCCnHUv6TSozc8R2zSgV_SAXZ6sJB-cJF-Yq7LcEqpq6DeP2Xs2gPtac2hlDpjy5dChBBBYqRfM0Pw3f2UcU3fVA6LLgNLmkW3Pi_tvw-lgDrgaos991XMdJ0V8f-ODiukZLKnBCldlQ8mla_08PjjF3TqN9yUjUbwMpi6lLIiWRdHqREcA9QaLKUHybQb1NiUuT2X7sN5"/>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white">Elena Rodriguez</p>
+                                <p class="text-xs text-slate-500">Patient Recipient</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 italic">"During my emergency surgery, the LifeLink network found a rare blood type match within 40 minutes. I am forever grateful."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6 text-white">
+                        <svg class="w-6 h-6 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+                        </svg>
+                        <span class="text-xl font-extrabold">LifeLink</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6">
+                        The professional bridge between medical resources and human needs. Available 24/7 for emergency support.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+                            <span class="material-symbols-outlined text-sm">share</span>
+                        </a>
+                        <a class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+                            <span class="material-symbols-outlined text-sm">notifications</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Platform</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="donor-dashboard.html">Find Donors</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="hospital-profile.html">Hospital Partners</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="medical-directory.html">Doctor Directory</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="emergency-request.html">Request Center</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Resources</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="settings.html">Privacy Policy</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Donation FAQs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">call</span>
+                            Emergency: +1 (800) LIFE-SOS
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">mail</span>
+                            support@lifelink.org
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">location_on</span>
+                            Medical District, NYC
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-slate-800 text-center text-xs">
+                <p>© 2024 LifeLink Healthcare Systems. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding Step 3: Donor Preferences - LifeLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#10b77f",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom Checkbox Tick Styling */
+        .custom-checkbox {
+            --checkbox-tick-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27white%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e');
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-[#111816] dark:text-white font-display">
+<!-- Main Container -->
+<div class="flex flex-col items-center justify-start min-h-screen py-10 px-4">
+<div class="w-full max-w-[640px] flex flex-col gap-6">
+<!-- Progress Bar Section -->
+<div class="bg-white dark:bg-[#1a2e28] rounded-xl p-6 shadow-sm border border-[#e5e7eb] dark:border-[#2a3a35]">
+<div class="flex flex-col gap-3">
+<div class="flex gap-6 justify-between">
+<p class="text-[#111816] dark:text-white text-base font-medium leading-normal">Onboarding Progress</p>
+<p class="text-[#111816] dark:text-white text-sm font-normal leading-normal">Step 3 of 4</p>
+</div>
+<div class="rounded bg-[#dbe6e2] dark:bg-[#2a3a35]">
+<div class="h-2 rounded bg-primary" style="width: 75%;"></div>
+</div>
+<p class="text-[#61897c] dark:text-[#a0c4b8] text-sm font-normal leading-normal">Almost there! Just a few more details.</p>
+</div>
+</div>
+<!-- Header Section -->
+<div class="flex flex-col gap-2 px-2">
+<h1 class="text-[#111816] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Donor Preferences</h1>
+<p class="text-[#61897c] dark:text-[#a0c4b8] text-base font-normal leading-normal">Help us understand how you'd like to contribute to the LifeLink community.</p>
+</div>
+<!-- Content Card -->
+<div class="bg-white dark:bg-[#1a2e28] rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2a3a35] overflow-hidden">
+<!-- Donation Types Header -->
+<h2 class="text-[#111816] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-6 pb-2 pt-6">Donation Types</h2>
+<!-- List Items (Toggles) -->
+<div class="flex flex-col border-b border-[#f0f4f3] dark:border-[#2a3a35]">
+<!-- Blood Donation Toggle -->
+<div class="flex items-center gap-4 px-6 min-h-[80px] py-4 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined">bloodtype</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111816] dark:text-white text-base font-semibold leading-normal">Willing to donate blood</p>
+<p class="text-[#61897c] dark:text-[#a0c4b8] text-sm font-normal leading-normal">Share your life-saving blood with those in need</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#dbe6e2] dark:bg-[#2a3a35] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Detailed Checkboxes for Blood (Nested) -->
+<div class="px-10 pb-4 flex flex-col gap-1 border-b border-[#f0f4f3] dark:border-[#2a3a35] bg-[#fcfdfd] dark:bg-[#1d322b]">
+<label class="flex items-center gap-x-3 py-3 flex-row cursor-pointer">
+<input checked="" class="h-5 w-5 rounded border-[#dbe6e2] border-2 bg-transparent text-primary checked:bg-primary checked:border-primary custom-checkbox focus:ring-0 focus:ring-offset-0 focus:border-[#dbe6e2] focus:outline-none" type="checkbox"/>
+<p class="text-[#111816] dark:text-white text-base font-normal leading-normal">Whole Blood</p>
+</label>
+<label class="flex items-center gap-x-3 py-3 flex-row cursor-pointer">
+<input class="h-5 w-5 rounded border-[#dbe6e2] border-2 bg-transparent text-primary checked:bg-primary checked:border-primary custom-checkbox focus:ring-0 focus:ring-offset-0 focus:border-[#dbe6e2] focus:outline-none" type="checkbox"/>
+<p class="text-[#111816] dark:text-white text-base font-normal leading-normal">Plasma</p>
+</label>
+<label class="flex items-center gap-x-3 py-3 flex-row cursor-pointer">
+<input class="h-5 w-5 rounded border-[#dbe6e2] border-2 bg-transparent text-primary checked:bg-primary checked:border-primary custom-checkbox focus:ring-0 focus:ring-offset-0 focus:border-[#dbe6e2] focus:outline-none" type="checkbox"/>
+<p class="text-[#111816] dark:text-white text-base font-normal leading-normal">Platelets</p>
+</label>
+</div>
+<!-- Organ Donation Toggle -->
+<div class="flex items-center gap-4 px-6 min-h-[80px] py-4 justify-between border-b border-[#f0f4f3] dark:border-[#2a3a35]">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111816] dark:text-white text-base font-semibold leading-normal">Willing to donate organs</p>
+<p class="text-[#61897c] dark:text-[#a0c4b8] text-sm font-normal leading-normal">Become an organ donor after your lifetime</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#dbe6e2] dark:bg-[#2a3a35] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Availability Section Header -->
+<h2 class="text-[#111816] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-6 pb-2 pt-6">Availability</h2>
+<!-- Emergency Availability Toggle -->
+<div class="flex items-center gap-4 px-6 min-h-[80px] py-4 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined">emergency</span>
+</div>
+<div class="flex flex-col justify-center">
+<div class="flex items-center gap-2">
+<p class="text-[#111816] dark:text-white text-base font-semibold leading-normal">Emergency availability</p>
+<span class="material-symbols-outlined text-[#61897c] text-lg cursor-help">info</span>
+</div>
+<p class="text-[#61897c] dark:text-[#a0c4b8] text-sm font-normal leading-normal">Be notified for urgent, local donation needs</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#dbe6e2] dark:bg-[#2a3a35] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+<!-- Location Access Section -->
+<div class="p-6 bg-[#f0faf7] dark:bg-[#162a24]">
+<div class="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+<div class="flex flex-col gap-1 max-w-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<h3 class="text-[#111816] dark:text-white text-lg font-bold">Real-time Matching</h3>
+</div>
+<p class="text-[#61897c] dark:text-[#a0c4b8] text-sm font-normal leading-normal">Enable location access to find donation centers and urgent requests near you instantly.</p>
+</div>
+<button class="whitespace-nowrap bg-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-opacity-90 transition-colors">
+                            Enable Location
+                        </button>
+</div>
+</div>
+<!-- Navigation Buttons -->
+<div class="flex items-center justify-between p-6 bg-white dark:bg-[#1a2e28] border-t border-[#f0f4f3] dark:border-[#2a3a35]">
+<button class="text-[#61897c] dark:text-[#a0c4b8] font-semibold flex items-center gap-2 px-4 py-2 hover:bg-background-light dark:hover:bg-background-dark rounded-lg transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+                        Back
+                    </button>
+<button class="bg-primary text-white font-bold py-3 px-10 rounded-lg hover:bg-opacity-90 shadow-md transition-all">
+                        Continue
+                    </button>
+</div>
+</div>
+<!-- Footer Help Text -->
+<div class="text-center px-4">
+<p class="text-[#61897c] dark:text-[#a0c4b8] text-sm">
+                    You can change these preferences at any time in your account settings. 
+                    <a class="text-primary font-medium underline" href="#">Learn more about our privacy policy.</a>
+</p>
+</div>
+</div>
+</div>
+<!-- Visual Element Background (Subtle Gradient) -->
+<div class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50"></div>
+</body></html>
