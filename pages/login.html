@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
+    <link href="../assets/css/style.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -41,7 +42,8 @@
         <div class="w-full max-w-[480px] px-4">
             <!-- Back to Home -->
             <div class="mb-6">
-                <a href="index.html"
+                <!-- UPDATED LINK -->
+                <a href="../index.html"
                     class="inline-flex items-center gap-2 text-sm text-[#636e88] hover:text-primary transition-colors">
                     <span class="material-symbols-outlined text-lg">arrow_back</span>
                     Back to Home
@@ -188,9 +190,11 @@
         </div>
     </div>
 
-    <script src="js/app.js"></script>
+    <!-- UPDATED JS PATH -->
+    <script src="../assets/js/app.js"></script>
     <script type="module">
-        import { auth, googleProvider, signInWithPopup, signInWithEmailAndPassword } from './js/firebase-config.js';
+        // UPDATED IMPORT PATH
+        import { auth, googleProvider, signInWithPopup, signInWithEmailAndPassword } from '../assets/js/firebase-config.js';
 
         // Make functions available globally for the onclick handlers
         window.handleGoogleSignIn = async function () {
