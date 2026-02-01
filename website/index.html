@@ -1,0 +1,359 @@
+﻿<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>LifeLink - Professional Healthcare Platform</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Custom Tailwind Config -->
+    <script src="assets/js/config.js"></script>
+    <!-- Custom Components -->
+    <script src="assets/js/components.js"></script>
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+</head>
+
+<body
+    class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+
+    <!-- Navigation Bar -->
+    <app-navbar></app-navbar>
+
+    <main class="relative z-10 pt-28">
+
+        <!-- Hero Section -->
+        <section class="relative pb-20 lg:pb-32 overflow-hidden">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+                <!-- Aurora Blobs (Simpler, like reference) -->
+                <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div
+                        class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px] animate-pulse">
+                    </div>
+                    <div class="absolute top-[20%] -right-[5%] w-[30%] h-[30%] bg-blue-500/15 rounded-full blur-[100px] animate-pulse"
+                        style="animation-delay: 2s;"></div>
+                </div>
+
+                <div class="relative z-10 text-center max-w-4xl mx-auto mb-16">
+                    <div
+                        class="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-bold mb-8 border border-primary/20 animate-fade-in">
+                        <span class="material-symbols-outlined text-lg">medical_services</span>
+                        <span data-i18n="hero.badge">Reliable Healthcare Network</span>
+                    </div>
+
+                    <h1
+                        class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight text-slate-900 dark:text-white animate-slide-up">
+                        <span data-i18n="hero.title">Connecting Lives in Every <span
+                                class="text-gradient">Heartbeat</span></span>
+                    </h1>
+
+                    <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-10 leading-relaxed animate-slide-up"
+                        style="animation-delay: 100ms;" data-i18n="hero.subtitle">
+                        LifeLink is the professional bridge connecting donors, patients, and hospitals. Our mission is
+                        to streamline blood donations and medical assistance.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up"
+                        style="animation-delay: 200ms;">
+                        <a href="dashboard/emergency.html"
+                            class="bg-emergency hover:bg-red-600 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-3 shadow-2xl shadow-red-500/30 transition-all hover:scale-105">
+                            <span class="material-symbols-outlined animate-pulse">e911_emergency</span>
+                            <span data-i18n="hero.cta.emergency">Emergency Request</span>
+                        </a>
+
+                        <a href="dashboard/directory.html"
+                            class="bg-white hover:bg-slate-50 text-slate-800 px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-3 shadow-xl transition-all border border-slate-200 hover:border-primary/50">
+                            <span class="material-symbols-outlined text-primary">search</span>
+                            <span data-i18n="hero.cta.find_doctor">Find a Doctor</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Stats Section (Solid Dark Background) -->
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-10 relative z-20 mb-20 animate-slide-up"
+            style="animation-delay: 300ms;">
+            <div
+                class="bg-slate-800 text-white rounded-[2rem] p-10 shadow-2xl shadow-slate-900/20 border border-slate-700/50 flex flex-col md:flex-row items-center justify-around divide-y md:divide-y-0 md:divide-x divide-slate-700/50 gap-8 md:gap-0">
+                <div class="text-center px-6">
+                    <p
+                        class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-2">
+                        15k+</p>
+                    <p class="text-slate-400 font-medium tracking-wide text-sm uppercase">Units Donated</p>
+                </div>
+                <div class="text-center px-6 pt-8 md:pt-0">
+                    <p
+                        class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400 mb-2">
+                        8.9k+</p>
+                    <p class="text-slate-400 font-medium tracking-wide text-sm uppercase">Lives Saved</p>
+                </div>
+                <div class="text-center px-6 pt-8 md:pt-0">
+                    <p
+                        class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 mb-2">
+                        450+</p>
+                    <p class="text-slate-400 font-medium tracking-wide text-sm uppercase">Partner Hospitals</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Trust Bar -->
+        <section class="py-10 border-y border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/50">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-8" data-i18n="trust.label">
+                    Trusted by Global Healthcare Leaders</p>
+                <div
+                    class="flex flex-wrap justify-center items-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                    <!-- Using placeholders for cleaner look in code, assuming images exist or using text if external -->
+                    <!-- Added consistent height/brightness -->
+                    <img alt="Mayo Clinic"
+                        class="h-8 w-auto brightness-0 dark:brightness-200 hover:brightness-100 dark:hover:brightness-100 transition-all"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Mayo_Clinic_logo.svg/2560px-Mayo_Clinic_logo.svg.png" />
+                    <img alt="WHO"
+                        class="h-10 w-auto brightness-0 dark:brightness-200 hover:brightness-100 dark:hover:brightness-100 transition-all"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/WHO_logo.svg/1200px-WHO_logo.svg.png" />
+                    <img alt="Red Cross"
+                        class="h-8 w-auto brightness-0 dark:brightness-200 hover:brightness-100 dark:hover:brightness-100 transition-all"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Red_Cross_icon.svg/1200px-Red_Cross_icon.svg.png" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section id="how-it-works" class="py-24 relative overflow-hidden">
+            <!-- Decorative bg elements -->
+            <div
+                class="absolute top-1/2 left-0 w-full h-[500px] bg-gradient-to-b from-transparent via-slate-50/50 dark:via-blue-900/5 to-transparent -skew-y-3 pointer-events-none">
+            </div>
+
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-20 animate-on-scroll">
+                    <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-6" data-i18n="process.title">How It
+                        Works</h2>
+                    <div class="h-1.5 w-24 bg-primary-gradient mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="group p-8 rounded-3xl bg-white dark:bg-surface-dark border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-2 animate-on-scroll"
+                        data-delay="0">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-primary flex items-center justify-center mb-6 group-hover:bg-primary-gradient group-hover:text-white transition-all duration-300 shadow-inner">
+                            <span class="material-symbols-outlined text-3xl">person_add</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white"
+                            data-i18n="process.step1.title">1. Register</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed"
+                            data-i18n="process.step1.desc">Create your profile as a donor, hospital, or patient.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="group p-8 rounded-3xl bg-white dark:bg-surface-dark border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-red-500/10 transition-all duration-300 hover:-translate-y-2 animate-on-scroll"
+                        data-delay="100">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-red-50 dark:bg-red-900/30 text-emergency flex items-center justify-center mb-6 group-hover:bg-emergency-gradient group-hover:text-white transition-all duration-300 shadow-inner">
+                            <span class="material-symbols-outlined text-3xl">emergency_share</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white"
+                            data-i18n="process.step2.title">2. Request</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed"
+                            data-i18n="process.step2.desc">Submit a request for blood or consultation.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="group p-8 rounded-3xl bg-white dark:bg-surface-dark border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 hover:-translate-y-2 animate-on-scroll"
+                        data-delay="200">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-purple-50 dark:bg-purple-900/30 text-accent flex items-center justify-center mb-6 group-hover:bg-gradient-to-br group-hover:from-accent group-hover:to-purple-500 group-hover:text-white transition-all duration-300 shadow-inner">
+                            <span class="material-symbols-outlined text-3xl">hub</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white"
+                            data-i18n="process.step3.title">3. Match</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed"
+                            data-i18n="process.step3.desc">AI-driven system finds the nearest compatible donor.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="group p-8 rounded-3xl bg-white dark:bg-surface-dark border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300 hover:-translate-y-2 animate-on-scroll"
+                        data-delay="300">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-green-50 dark:bg-green-900/30 text-green-500 flex items-center justify-center mb-6 group-hover:bg-gradient-to-br group-hover:from-green-500 group-hover:to-emerald-600 group-hover:text-white transition-all duration-300 shadow-inner">
+                            <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white"
+                            data-i18n="process.step4.title">4. Save</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed"
+                            data-i18n="process.step4.desc">Lives are saved and records updated securely.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-24 bg-slate-50 dark:bg-slate-900/30">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 animate-on-scroll">
+                    <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-4" data-i18n="testimonials.title">
+                        Patient & Donor Stories</h2>
+                    <p class="text-slate-500 max-w-2xl mx-auto" data-i18n="testimonials.subtitle">Real experiences from
+                        our community members.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white dark:bg-surface-dark p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300 animate-on-scroll"
+                        data-delay="0">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 p-[2px]">
+                                <img alt="User"
+                                    class="w-full h-full rounded-full object-cover border-2 border-white dark:border-slate-800"
+                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop" />
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white">Sarah Johnson</p>
+                                <p class="text-xs text-primary font-bold uppercase tracking-wider">Regular Donor</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 italic leading-relaxed">"LifeLink made it
+                            incredibly easy to find a donation center. Its modern interface and quick response time are
+                            unmatched."</p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white dark:bg-surface-dark p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300 animate-on-scroll"
+                        data-delay="100">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 p-[2px]">
+                                <img alt="Doctor"
+                                    class="w-full h-full rounded-full object-cover border-2 border-white dark:border-slate-800"
+                                    src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=200&auto=format&fit=crop" />
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white">Dr. Michael Chen</p>
+                                <p class="text-xs text-primary font-bold uppercase tracking-wider">Hematologist</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 italic leading-relaxed">"The algorithm efficiency
+                            is unparalleled. We've saved critical minutes during emergency procedures."</p>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white dark:bg-surface-dark p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300 animate-on-scroll"
+                        data-delay="200">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 p-[2px]">
+                                <img alt="User"
+                                    class="w-full h-full rounded-full object-cover border-2 border-white dark:border-slate-800"
+                                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" />
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white">Elena Rodriguez</p>
+                                <p class="text-xs text-primary font-bold uppercase tracking-wider">Recipient</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 italic leading-relaxed">"Found a rare blood type
+                            match within 40 minutes. I am forever grateful to this platform."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-2xl">favorite</span>
+                        </div>
+                        <span class="text-xl font-bold text-white">LifeLink <span
+                                class="text-secondary">BD</span></span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        The professional bridge between medical resources and human needs. Available 24/7.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">দ্রুত লিংক</h4>
+                    <ul class="space-y-2">
+                        <li><a href="dashboard/donor.html" class="hover:text-primary transition-colors">Find Donors</a>
+                        </li>
+                        <li><a href="dashboard/hospital.html" class="hover:text-primary transition-colors">Hospital
+                                Partners</a></li>
+                        <li><a href="dashboard/emergency.html"
+                                class="hover:text-primary transition-colors">Emergency</a>
+                        <li><a href="dashboard/directory.html" class="hover:text-primary transition-colors">Find a
+                                Doctor</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">সাপোর্ট</h4>
+                    <ul class="space-y-2">
+                        <li><a href="info/services.html" class="hover:text-primary transition-colors">Help Center</a>
+                        </li>
+                        <li><a href="info/privacy.html" class="hover:text-primary transition-colors">শর্তাবলী ও
+                                গোপনীয়তা</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">সাহায্য কেন্দ্র</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">যোগাযোগ করুন</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-lg">mail</span>
+                            support@lifelink.org
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-lg">phone</span>
+                            +880 1234-567890
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                            ঢাকা, বাংলাদেশ
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-slate-400">&copy; 2024 LifeLink BD. সকল অধিকার সংরক্ষিত।</p>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="text-slate-400 hover:text-primary transition-colors">Facebook</a>
+                    <a href="#" class="text-slate-400 hover:text-primary transition-colors">Twitter</a>
+                    <a href="#" class="text-slate-400 hover:text-primary transition-colors">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/localization.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
