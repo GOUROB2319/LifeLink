@@ -1,4 +1,4 @@
-import { apiConfig } from './config.js';
+import apiConfig from './api-config.js';
 
 /**
  * Send a prompt to Gemini AI and get a response

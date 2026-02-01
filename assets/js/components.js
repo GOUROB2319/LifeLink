@@ -14,21 +14,7 @@ class Navbar extends HTMLElement {
         // Let's us simple relative logic based on assumed folder structure.
 
         const getPath = (path) => {
-            const depth = window.location.pathname.split('/').filter(p => p).length;
-            // Adjustment if served from a folder named 'LifeLink' or similar
-            // If the URL contains 'LifeLink', we might need to adjust or just use relative dots.
-            // Let's use a simpler approach: calculate how many '../' we need to reach root.
-
-            let relPath = '';
-            // If we are in /auth/ or /dashboard/, we are 1 level deep (depth depends on base URL)
-            // A safer way is to check the current file path relative to the projects root.
-
-            const loc = window.location.pathname;
-            if (loc.includes('/auth/') || loc.includes('/dashboard/') || loc.includes('/onboarding/') || loc.includes('/info/')) {
-                relPath = '../';
-            }
-
-            return relPath + path.replace(/^\//, '');
+            return path;
         };
 
         this.innerHTML = `
@@ -36,18 +22,19 @@ class Navbar extends HTMLElement {
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-20 items-center justify-between">
                 <!-- Logo -->
-                <div class="flex items-center gap-3 cursor-pointer group" onclick="window.location.href='${getPath('/index.html')}'">
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="window.location.href='/index.html'">
                     <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                         <span class="material-symbols-outlined text-2xl">favorite</span>
                     </div>
                     <span class="text-xl font-bold tracking-tight text-slate-800 dark:text-white">LifeLink <span class="text-secondary">BD</span></span>
                 </div>
 
+                <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-1">
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'services' ? 'bg-primary/10 text-primary' : ''}" href="${getPath('/info/services.html')}" data-i18n="nav.services">Services</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'how-it-works' ? 'bg-primary/10 text-primary' : ''}" href="${getPath('/index.html#how-it-works')}" data-i18n="nav.howItWorks">How it Works</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'impact' ? 'bg-primary/10 text-primary' : ''}" href="${getPath('/index.html#impact')}" data-i18n="nav.impact">Impact</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'about' ? 'bg-primary/10 text-primary' : ''}" href="${getPath('/info/about.html')}" data-i18n="nav.about">About Us</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'services' ? 'bg-primary/10 text-primary' : ''}" href="/info/services.html" data-i18n="nav.services">Services</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'how-it-works' ? 'bg-primary/10 text-primary' : ''}" href="/index.html#how-it-works" data-i18n="nav.howItWorks">How it Works</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'impact' ? 'bg-primary/10 text-primary' : ''}" href="/index.html#impact" data-i18n="nav.impact">Impact</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'about' ? 'bg-primary/10 text-primary' : ''}" href="/info/about.html" data-i18n="nav.about">About Us</a>
                 </nav>
 
                 <!-- Actions -->
@@ -67,9 +54,9 @@ class Navbar extends HTMLElement {
                     <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
 
                     ${!isAuth ? `
-                    <a href="${getPath('/auth/login.html')}" class="hidden sm:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
+                    <a href="/auth/login.html" class="hidden sm:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
                     
-                    <a href="${getPath('/auth/register.html')}" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group">
+                    <a href="/auth/register.html" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group">
                         <span class="relative z-10 flex items-center gap-2">
                             <span data-i18n="nav.join">Join LifeLink</span>
                             <span class="material-symbols-outlined text-lg">arrow_forward</span>
@@ -91,11 +78,11 @@ class Navbar extends HTMLElement {
                                 <p id="user-display-name" class="text-sm font-bold text-slate-900 dark:text-white truncate">User Name</p>
                             </div>
                             
-                            <a href="${getPath('/dashboard/donor.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                            <a href="/dashboard/donor.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
                                 <span class="material-symbols-outlined text-[20px]">dashboard</span>
                                 <span>Dashboard</span>
                             </a>
-                            <a href="${getPath('/dashboard/settings.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                            <a href="/dashboard/settings.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
                                 <span class="material-symbols-outlined text-[20px]">settings</span>
                                 <span>Settings</span>
                             </a>
@@ -119,15 +106,15 @@ class Navbar extends HTMLElement {
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-xl transition-all duration-300 origin-top transform scale-y-0 opacity-0">
             <div class="px-4 py-6 space-y-4">
-                <a href="${getPath('/info/services.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.services">Services</a>
-                <a href="${getPath('/index.html#how-it-works')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.howItWorks">How it Works</a>
-                <a href="${getPath('/index.html#impact')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.impact">Impact</a>
-                <a href="${getPath('/info/about.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.about">About Us</a>
+                <a href="/info/services.html" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.services">Services</a>
+                <a href="/index.html#how-it-works" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.howItWorks">How it Works</a>
+                <a href="/index.html#impact" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.impact">Impact</a>
+                <a href="/info/about.html" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.about">About Us</a>
                 
                 ${!isAuth ? `
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col gap-3">
-                    <a href="${getPath('/auth/login.html')}" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-300" data-i18n="nav.login">Login</a>
-                    <a href="${getPath('/auth/register.html')}" class="block w-full text-center py-3 rounded-xl bg-brand-gradient text-white font-bold shadow-lg shadow-primary/20" data-i18n="nav.join">Join LifeLink</a>
+                    <a href="/auth/login.html" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-300" data-i18n="nav.login">Login</a>
+                    <a href="/onboarding/step1.html" class="block w-full text-center py-3 rounded-xl bg-brand-gradient text-white font-bold shadow-lg shadow-primary/20" data-i18n="nav.join">Join LifeLink</a>
                 </div>
                 ` : ``}
             </div>
@@ -225,10 +212,10 @@ class Footer extends HTMLElement {
                 <div>
                     <h4 class="text-white font-bold mb-4" data-i18n="footer.quick_links">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="${getPath('/dashboard/donor.html')}" class="hover:text-primary transition-colors" data-i18n="footer.find_donors">Find Donors</a></li>
-                        <li><a href="${getPath('/dashboard/hospital.html')}" class="hover:text-primary transition-colors" data-i18n="footer.hospital_partners">Hospital Partners</a></li>
-                        <li><a href="${getPath('/dashboard/emergency.html')}" class="hover:text-primary transition-colors" data-i18n="footer.emergency">Emergency</a></li>
-                        <li><a href="${getPath('/dashboard/directory.html')}" class="hover:text-primary transition-colors" data-i18n="footer.find_doctor">Find a Doctor</a></li>
+                        <li><a href="/dashboard/donor.html" class="hover:text-primary transition-colors" data-i18n="footer.find_donors">Find Donors</a></li>
+                        <li><a href="/dashboard/hospital.html" class="hover:text-primary transition-colors" data-i18n="footer.hospital_partners">Hospital Partners</a></li>
+                        <li><a href="/dashboard/emergency.html" class="hover:text-primary transition-colors" data-i18n="footer.emergency">Emergency</a></li>
+                        <li><a href="/dashboard/directory.html" class="hover:text-primary transition-colors" data-i18n="footer.find_doctor">Find a Doctor</a></li>
                     </ul>
                 </div>
 
@@ -236,8 +223,8 @@ class Footer extends HTMLElement {
                 <div>
                     <h4 class="text-white font-bold mb-4" data-i18n="footer.support">Support</h4>
                     <ul class="space-y-2">
-                        <li><a href="${getPath('/info/services.html')}" class="hover:text-primary transition-colors" data-i18n="footer.help_center">Help Center</a></li>
-                        <li><a href="${getPath('/info/privacy.html')}" class="hover:text-primary transition-colors" data-i18n="footer.terms_privacy">Terms & Privacy</a></li>
+                        <li><a href="/info/services.html" class="hover:text-primary transition-colors" data-i18n="footer.help_center">Help Center</a></li>
+                        <li><a href="/info/privacy.html" class="hover:text-primary transition-colors" data-i18n="footer.terms_privacy">Terms & Privacy</a></li>
                         <li><a href="#" class="hover:text-primary transition-colors" data-i18n="footer.faq">FAQ</a></li>
                     </ul>
                 </div>
