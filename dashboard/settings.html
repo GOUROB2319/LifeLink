@@ -10,8 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../assets/js/config.js"></script>
@@ -33,37 +32,37 @@
                 <div
                     class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Profile Information</h2>
-                    <form class="space-y-6">
+                    <form id="profileForm" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Full
                                     Name</label>
-                                <input type="text" value="John Doe"
+                                <input type="text" id="fullName"
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                             </div>
                             <div>
                                 <label
                                     class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email</label>
-                                <input type="email" value="john@example.com"
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                <input type="email" id="email" disabled
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-500 cursor-not-allowed">
                             </div>
                             <div>
                                 <label
                                     class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Phone</label>
-                                <input type="tel" value="+880 1234-567890"
+                                <input type="tel" id="phone"
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Blood
                                     Group</label>
-                                <select
+                                <select id="bloodGroup"
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                                    <option value="AB+">AB+</option>
-                                    <option value="AB-">AB-</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
                                     <option value="B+">B+</option>
                                     <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
                                     <option value="O+">O+</option>
                                     <option value="O-">O-</option>
                                 </select>
@@ -160,9 +159,57 @@
             </div>
         </div>
     </main>
-    <script src="../assets/js/localization.js"></script>
-    <script src="../assets/js/animations.js"></script>
-    <script src="../assets/js/main.js"></script>
-</body>
+    <script type="module">
+        import { auth, db, initAuthObserver } from '../assets/js/auth-service.js';
+        import { saveUserProfile, getFullUserProfile } from '../assets/js/db-service.js';
+
+        const profileForm = document.getElementById('profileForm');
+
+        initAuthObserver(async (user) => {
+            if (user) {
+                const profile = await getFullUserProfile(db, user.uid);
+                if (profile) {
+                    // Populate fields
+                    document.getElementById('fullName').value = profile.displayName || '';
+                    document.getElementById('email').value = profile.email || '';
+                    document.getElementById('phone').value = profile.phone || '';
+                    if (profile.bloodGroup) {
+                        document.getElementById('bloodGroup').value = profile.bloodGroup;
+                    }
+
+                    // Show/Hide role specific fields if any (can expand later)
+                }
+            } else {
+                window.location.href = '../auth/login.html';
+            }
+        });
+
+        profileForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+
+            const updatedData = {
+                displayName: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                bloodGroup: document.getElementById('bloodGroup').value,
+                updatedAt: new Date()
+            };
+
+            const result = await saveUserProfile(db, auth.currentUser, null, updatedData);
+
+            if (result.success) {
+                alert('Profile updated successfully!');
+            } else {
+                alert('Error updating profile: ' + result.error);
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        });
+    </script>
 
 </html>

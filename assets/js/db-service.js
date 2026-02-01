@@ -1,11 +1,7 @@
-import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { doc, setDoc, getDoc, updateDoc, serverTimestamp, collection, query, where, getDocs, orderBy, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 /**
  * Save or Update User Profile in Firestore
- * @param {Object} db - Firestore instance
- * @param {Object} user - Firebase User Object
- * @param {String} role - User Role (patient, doctor, hospital)
- * @param {Object} additionalData - Any extra data to save
  */
 export const saveUserProfile = async (db, user, role, additionalData = {}) => {
     try {
@@ -13,25 +9,22 @@ export const saveUserProfile = async (db, user, role, additionalData = {}) => {
         const userSnap = await getDoc(userRef);
 
         if (!userSnap.exists()) {
-            // Create new profile
             await setDoc(userRef, {
                 uid: user.uid,
                 email: user.email,
                 displayName: user.displayName || '',
                 photoURL: user.photoURL || '',
                 role: role || 'patient',
+                availability: true,
                 createdAt: serverTimestamp(),
                 lastLogin: serverTimestamp(),
                 ...additionalData
             });
-            console.log("User profile created:", user.uid);
         } else {
-            // Update existing profile (last login)
             await updateDoc(userRef, {
                 lastLogin: serverTimestamp(),
                 ...additionalData
             });
-            console.log("User profile updated:", user.uid);
         }
         return { success: true };
     } catch (error) {
@@ -41,36 +34,60 @@ export const saveUserProfile = async (db, user, role, additionalData = {}) => {
 };
 
 export const getUserRole = async (db, uid) => {
-    try {
-        const userRef = doc(db, "users", uid);
-        const snap = await getDoc(userRef);
-        return snap.exists() ? snap.data().role : null;
-    } catch (error) {
-        console.error("Error fetching user role:", error);
-        return null;
-    }
+    const userRef = doc(db, "users", uid);
+    const snap = await getDoc(userRef);
+    return snap.exists() ? snap.data().role : null;
 };
 
-/**
- * Check if a user document exists in Firestore
- * @param {Object} db - Firestore instance
- * @param {string} uid - User ID
- * @returns {Promise<boolean>}
- */
 export const checkUserExists = async (db, uid) => {
     const userRef = doc(db, "users", uid);
     const snap = await getDoc(userRef);
     return snap.exists();
 };
 
-/**
- * Get full user profile data
- * @param {Object} db - Firestore instance
- * @param {string} uid - User ID
- * @returns {Promise<Object|null>}
- */
 export const getFullUserProfile = async (db, uid) => {
     const userRef = doc(db, "users", uid);
     const snap = await getDoc(userRef);
     return snap.exists() ? snap.data() : null;
 };
+
+/**
+ * Get all available donors for a specific blood group
+ */
+export const getDonorsByBloodGroup = async (db, bloodGroup) => {
+    const donorsRef = collection(db, "users");
+    const q = query(
+        donorsRef,
+        where("role", "==", "donor"),
+        where("bloodGroup", "==", bloodGroup),
+        where("availability", "==", true)
+    );
+    const snap = await getDocs(q);
+    return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+/**
+ * Emergency Request Submission
+ */
+export const submitEmergencyRequest = async (db, data) => {
+    try {
+        const docRef = await addDoc(collection(db, "requests"), {
+            ...data,
+            type: 'emergency',
+            status: 'active',
+            createdAt: serverTimestamp()
+        });
+        return { success: true, id: docRef.id };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
+};
+
+export const getAllRequests = async (db) => {
+    const requestsRef = collection(db, "requests");
+    const q = query(requestsRef, orderBy("createdAt", "desc"));
+    const snap = await getDocs(q);
+    return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+export { onSnapshot, collection, query, where, orderBy };

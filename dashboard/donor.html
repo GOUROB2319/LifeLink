@@ -10,8 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../assets/js/config.js"></script>
@@ -143,18 +142,16 @@
             <div
                 class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
                 <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary">calendar_month</span>
-                    Upcoming Appointments
+                    <span class="material-symbols-outlined text-emergency">emergency</span>
+                    Lives at Stake (Real-time)
                 </h3>
-                <div class="text-center py-12">
-                    <span
-                        class="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-600 mb-4 block">event_busy</span>
-                    <p class="text-slate-500 dark:text-slate-400 mb-4">No upcoming appointments</p>
-                    <a href="emergency.html"
-                        class="inline-flex items-center gap-2 bg-brand-gradient text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300">
-                        <span class="material-symbols-outlined">emergency_share</span>
-                        <span>Check Emergency Requests</span>
-                    </a>
+                <div id="realtime-alerts" class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                    <div class="text-center py-12">
+                        <div
+                            class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4">
+                        </div>
+                        <p class="text-slate-500">Checking for urgent requests...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,15 +159,86 @@
     <script src="../assets/js/localization.js"></script>
     <script src="../assets/js/animations.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script>
-        document.getElementById('availabilityToggle').addEventListener('change', function () {
-            const text = document.getElementById('availabilityText');
-            if (this.checked) {
-                text.textContent = 'You are currently available for donation';
+    <script type="module">
+        import { auth, db, initAuthObserver } from '../assets/js/auth-service.js';
+        import { getFullUserProfile, saveUserProfile, collection, query, where, onSnapshot, orderBy } from '../assets/js/db-service.js';
+
+        const availToggle = document.getElementById('availabilityToggle');
+        const availText = document.getElementById('availabilityText');
+        const alertContainer = document.getElementById('realtime-alerts');
+
+        initAuthObserver(async (user) => {
+            if (user) {
+                const profile = await getFullUserProfile(db, user.uid);
+                if (profile) {
+                    // Set UI based on profile
+                    availToggle.checked = profile.availability !== false;
+                    updateAvailText(availToggle.checked);
+
+                    // Start listening for matched emergencies
+                    if (profile.bloodGroup) {
+                        listenForMatchingRequests(profile.bloodGroup);
+                    }
+                }
             } else {
-                text.textContent = 'You are currently unavailable for donation';
+                window.location.href = '../auth/login.html';
             }
         });
+
+        function updateAvailText(isAvail) {
+            availText.textContent = isAvail ? 'You are currently available for donation' : 'You are currently unavailable for donation';
+            availText.className = isAvail ? 'text-sm text-emerald-600 font-medium' : 'text-sm text-slate-500';
+        }
+
+        availToggle.addEventListener('change', async function () {
+            updateAvailText(this.checked);
+            await saveUserProfile(db, auth.currentUser, null, { availability: this.checked });
+        });
+
+        function listenForMatchingRequests(bloodGroup) {
+            const q = query(
+                collection(db, "requests"),
+                where("bloodGroup", "==", bloodGroup),
+                where("status", "==", "active"),
+                orderBy("createdAt", "desc")
+            );
+
+            onSnapshot(q, (snapshot) => {
+                // Clear container but keep header if needed
+                alertContainer.innerHTML = '';
+
+                if (snapshot.empty) {
+                    alertContainer.innerHTML = `
+                        <div class="text-center py-8">
+                            <span class="material-symbols-outlined text-slate-300 text-4xl mb-2">notifications_off</span>
+                            <p class="text-sm text-slate-400">No active requests for ${bloodGroup} right now.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const card = document.createElement('div');
+                    card.className = "p-4 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/20 animate-pulse-subtle";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-1 rounded bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider">Urgent ${data.urgency || ''}</span>
+                            <span class="text-xs text-slate-500">Just now</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-1">${data.hospital || 'Hospital'}</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">${data.district || ''}, ${data.division || ''}</p>
+                        <div class="flex gap-2">
+                            <a href="tel:${data.phone}" class="flex-1 py-2 rounded-lg bg-emerald-500 text-white text-xs font-bold text-center flex items-center justify-center gap-1">
+                                <span class="material-symbols-outlined text-sm">call</span> Call
+                            </a>
+                            <button class="flex-1 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold transition-all hover:bg-slate-50">Details</button>
+                        </div>
+                    `;
+                    alertContainer.appendChild(card);
+                });
+            });
+        }
     </script>
 </body>
 

@@ -220,68 +220,69 @@
     <script src="../assets/js/animations.js"></script>
     <script src="../assets/js/main.js"></script>
 
-    import { auth, db, initAuthObserver, loginWithGoogle, handleAuthRedirect } from '../assets/js/auth-service.js';
-    import { saveUserProfile, getFullUserProfile } from '../assets/js/db-service.js';
+    <script type="module">
+        import { auth, db, initAuthObserver, loginWithGoogle, handleAuthRedirect } from '../assets/js/auth-service.js';
+        import { saveUserProfile, getFullUserProfile } from '../assets/js/db-service.js';
 
-    const roleForm = document.getElementById('roleForm');
-    const authSection = document.getElementById('auth-required'); // We'll add this div
+        const roleForm = document.getElementById('roleForm');
+        const authSection = document.getElementById('auth-required');
 
-    initAuthObserver(async (user) => {
-    if (user) {
-    // Check if profile is already complete
-    const profile = await getFullUserProfile(db, user.uid);
-    if (profile && profile.onboardingComplete) {
-    await handleAuthRedirect(user);
-    return;
-    }
+        initAuthObserver(async (user) => {
+            if (user) {
+                // Check if profile is already complete
+                const profile = await getFullUserProfile(db, user.uid);
+                if (profile && profile.onboardingComplete) {
+                    await handleAuthRedirect(user);
+                    return;
+                }
 
-    // User is logged in, show role selection
-    roleForm.classList.remove('hidden');
-    if (authSection) authSection.classList.add('hidden');
-    } else {
-    // User not logged in, show auth buttons
-    roleForm.classList.add('hidden');
-    if (authSection) authSection.classList.remove('hidden');
-    }
-    });
+                // User is logged in, show role selection
+                roleForm.classList.remove('hidden');
+                if (authSection) authSection.classList.add('hidden');
+            } else {
+                // User not logged in, show auth buttons
+                roleForm.classList.add('hidden');
+                if (authSection) authSection.classList.remove('hidden');
+            }
+        });
 
-    // Form submission handler
-    roleForm.addEventListener('submit', async function (e) {
-    e.preventDefault();
+        // Form submission handler
+        roleForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-    const selectedRole = document.querySelector('input[name="role"]:checked');
-    if (!selectedRole) {
-    alert('Please select a role to continue');
-    return;
-    }
+            const selectedRole = document.querySelector('input[name="role"]:checked');
+            if (!selectedRole) {
+                alert('Please select a role to continue');
+                return;
+            }
 
-    const role = selectedRole.value;
-    localStorage.setItem('onboarding_role', role);
+            const role = selectedRole.value;
+            localStorage.setItem('onboarding_role', role);
 
-    // Update user role in Firestore if logged in
-    if (auth.currentUser) {
-    await saveUserProfile(db, auth.currentUser, role);
-    }
+            // Update user role in Firestore if logged in
+            if (auth.currentUser) {
+                await saveUserProfile(db, auth.currentUser, role);
+            }
 
-    // Navigate to appropriate step 2 page
-    const rolePages = {
-    'donor': 'step2_1.html',
-    'hospital': 'step2_2.html',
-    'patient': 'step2_3.html'
-    };
+            // Navigate to appropriate step 2 page
+            const rolePages = {
+                'donor': 'step2_1.html',
+                'hospital': 'step2_2.html',
+                'patient': 'step2_3.html'
+            };
 
-    window.location.href = rolePages[role];
-    });
+            window.location.href = rolePages[role];
+        });
 
-    // Google Login for Onboarding
-    window.startGoogleSignup = async () => {
-    const result = await loginWithGoogle();
-    if (result.success) {
-    // Observer will handle UI update
-    } else {
-    alert(result.error);
-    }
-    };
+        // Google Login for Onboarding
+        window.startGoogleSignup = async () => {
+            const result = await loginWithGoogle();
+            if (result.success) {
+                // Observer will handle UI update
+            } else {
+                alert(result.error);
+            }
+        };
     </script>
 </body>
 
