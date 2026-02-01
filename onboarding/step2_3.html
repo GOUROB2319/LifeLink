@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Profile - Step 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/components.js"></script>
+  <link href="../assets/css/styles.css" rel="stylesheet" />
+</head>
+
+<body
+  class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+  <app-navbar></app-navbar>
+  <main class="relative z-10 pt-28 pb-20 min-h-screen flex items-center">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full">
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-sm font-semibold text-primary">Step 2 of 4</span>
+          <span class="text-sm text-slate-500">Patient Profile</span>
+        </div>
+        <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+          <div class="h-full bg-brand-gradient w-2/4 transition-all duration-500"></div>
+        </div>
+      </div>
+      <div
+        class="bg-white dark:bg-surface-dark rounded-[2rem] shadow-2xl border border-slate-200 dark:border-slate-700 p-8 md:p-12">
+        <div class="mb-10">
+          <div
+            class="w-16 h-16 bg-red-100 dark:bg-red-900/30 text-emergency rounded-2xl flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-4xl">personal_injury</span>
+          </div>
+          <h1 class="text-3xl font-black text-slate-900 dark:text-white mb-3">Patient Information</h1>
+          <p class="text-slate-600 dark:text-slate-400 text-lg">Tell us about the patient in need</p>
+        </div>
+        <form id="patientForm" class="space-y-6">
+          <div class="space-y-6">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-emergency">person</span>
+              Patient Details
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="md:col-span-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Full Name *</label>
+                <input type="text" name="fullName" required
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Age *</label>
+                <input type="number" name="age" required
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Blood Group *</label>
+                <select name="bloodGroup" required
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                  <option value="">Select</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Condition/Diagnosis
+                  *</label>
+                <textarea name="condition" required rows="3"
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                  placeholder="Brief description of medical condition"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-emergency">contact_emergency</span>
+              Emergency Contact
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Contact Name
+                  *</label>
+                <input type="text" name="contactName" required
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Relationship *
+                </label>
+                <select name="relationship" required
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                  <option value="">Select</option>
+                  <option value="spouse">Spouse</option>
+                  <option value="parent">Parent</option>
+                  <option value="child">Child</option>
+                  <option value="sibling">Sibling</option>
+                  <option value="friend">Friend</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Phone *</label>
+                <input type="tel" name="contactPhone" required
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email</label>
+                <input type="email" name="contactEmail"
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+              </div>
+            </div>
+          </div>
+          <div class "space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-emergency">location_on</span>
+              Current Location
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Hospital/Clinic
+                  *</label>
+                <input type="text" name="hospital" required
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Division *</label>
+                <select name="division" required
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                  <option value="">Select</option>
+                  <option value="dhaka">Dhaka</option>
+                  <option value="chittagong">Chittagong</option>
+                  <option value="rajshahi">Rajshahi</option>
+                  <option value="khulna">Khulna</option>
+                  <option value="barisal">Barisal</option>
+                  <option value="sylhet">Sylhet</option>
+                  <option value="rangpur">Rangpur</option>
+                  <option value="mymensingh">Mymensingh</option>
+                </select>
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Address *</label>
+                <textarea name="address" required rows="2"
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4 pt-8">
+            <a href="step1.html"
+              class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+              <span class="material-symbols-outlined inline-block mr-2">arrow_back</span>Back
+            </a>
+            <button type="submit"
+              class="flex-1 bg-brand-gradient text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+              <span>Continue</span>
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script src="../assets/js/localization.js"></script>
+  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    document.getElementById('patientForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      localStorage.setItem('onboarding_patient_data', JSON.stringify(Object.fromEntries(formData)));
+      window.location.href = 'step3.html';
+    });
+  </script>
+</body>
+
+</html>

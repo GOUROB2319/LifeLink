@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Credential Verification Detail - LifeLink Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a57db",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "approve-green": "#10B981",
+                        "reject-red": "#DC2626",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-size: 24px; vertical-align: middle; }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+    <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
+<script src="/assets/js/components.js"></script>
+</head>
+<body class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 bg-white dark:bg-[#1a1f2e] border-r border-[#f0f2f4] dark:border-gray-800 flex flex-col justify-between py-6 px-4">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3 px-2">
+<div class="bg-primary rounded-lg p-1.5 text-white">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<div>
+<h1 class="text-[#111318] dark:text-white text-lg font-bold leading-none">LifeLink</h1>
+<p class="text-[#636e88] dark:text-gray-400 text-xs font-medium">Admin Portal</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<div class="flex items-center gap-3 px-3 py-2.5 text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">fact_check</span>
+<p class="text-sm font-bold">Verification Queue</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined">medical_services</span>
+<p class="text-sm font-medium">Practitioners</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors">
+<span class="material-symbols-outlined">analytics</span>
+<p class="text-sm font-medium">Analytics</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors mt-4">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</div>
+</nav>
+</div>
+<div class="px-2">
+<div class="flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Admin profile photo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBeXTij3fGGRt7dxIv3F-PnwryVCfPid5filwDrUQXgE9FccnEwAQhZaMczCxQESphsyMZfZ8h6pBsrrk1Rl13BcOk2ca2MyiOZRekbuR02N1loio89f7WI9rmAjg6z4IcBUy-OIDjh2Nf11Qjx1FbVF-Mb2r9uYVH4xAjRC9SdfBtpigoj4LCYBKdk9mQ7YW5mtPu42XIs3bqqOQ3MDzpO2-EEMn3rVU7FGBzOdI7_c9av_qe4MRrskeQJlJKuAHU22lMWP4LkG0ab");'></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold text-[#111318] dark:text-white">Marcus Vance</p>
+<p class="text-[10px] text-[#636e88] dark:text-gray-400 uppercase tracking-wider">Credentialing Lead</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<!-- Top Navigation -->
+<app-navbar></app-navbar>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-auto flex bg-[#f8f9fb] dark:bg-background-dark">
+<!-- Left Panel: Profile Info -->
+<div class="w-[380px] border-r border-[#e5e7eb] dark:border-gray-800 p-6 flex flex-col gap-6 bg-white dark:bg-[#1a1f2e] overflow-y-auto">
+<div class="flex flex-col items-center text-center pb-6 border-b border-gray-100 dark:border-gray-800">
+<div class="relative">
+<div class="size-28 rounded-full border-4 border-white dark:border-gray-700 shadow-sm bg-center bg-no-repeat bg-cover mb-4" data-alt="Doctor profile portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCaXE3nYglNmxJjkht4xkgvYfOvkmcs6JP6K-Bnyw34B4wQRylJ056E2mpHO0krpZ7zfjFhLLr0C1_97nhwOU9XZv2n3nAr0hqKqDnGxMbIjBCHb7-gGWEUCqjtOdJ5za9un28ioQXwHBxcfoa9AGWIfBwnGWxoCHSNRqPH52bGlRU44lEB-PQe8Um05WHyqn1MKM9dL_2LUKOeDyDUdPdtzXuv15qlFPvKy9pfDiqnPlOcDDAMx1q1Q9ZN34sUrtOWF_of2KCViWTL");'></div>
+<div class="absolute bottom-5 right-1 bg-green-500 border-2 border-white size-5 rounded-full"></div>
+</div>
+<h2 class="text-xl font-extrabold text-[#111318] dark:text-white">Dr. Sarah Jenkins</h2>
+<p class="text-primary font-semibold text-sm">Cardiology Specialist</p>
+</div>
+<div class="space-y-6">
+<div class="space-y-4">
+<h3 class="text-[11px] font-bold text-[#636e88] dark:text-gray-500 uppercase tracking-[0.1em]">Professional Identification</h3>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl space-y-3">
+<div class="flex flex-col">
+<span class="text-[10px] text-[#636e88] dark:text-gray-400 font-bold uppercase">Medical License Number</span>
+<span class="text-sm font-semibold text-[#111318] dark:text-gray-200">LIC-7844-902-MD</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-[#636e88] dark:text-gray-400 font-bold uppercase">NPI Number</span>
+<span class="text-sm font-semibold text-[#111318] dark:text-gray-200">1092837465</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-[#636e88] dark:text-gray-400 font-bold uppercase">Experience</span>
+<span class="text-sm font-semibold text-[#111318] dark:text-gray-200">12 Years</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h3 class="text-[11px] font-bold text-[#636e88] dark:text-gray-500 uppercase tracking-[0.1em]">Education &amp; Background</h3>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl space-y-4">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-[#636e88] text-xl">school</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-[#111318] dark:text-gray-200">Johns Hopkins University</span>
+<span class="text-xs text-[#636e88] dark:text-gray-400">Doctor of Medicine (MD) • 2008 - 2012</span>
+</div>
+</div>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-[#636e88] text-xl">apartment</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-[#111318] dark:text-gray-200">Mayo Clinic, Rochester</span>
+<span class="text-xs text-[#636e88] dark:text-gray-400">Residency, Cardiology • 2012 - 2015</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-blue-50 dark:bg-primary/10 p-4 rounded-xl border border-blue-100 dark:border-primary/20">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-symbols-outlined text-sm">info</span>
+<span class="text-[11px] font-bold uppercase tracking-wider">Application Note</span>
+</div>
+<p class="text-xs text-[#111318] dark:text-gray-300 leading-relaxed italic">
+                                "Updating state license to include New York jurisdiction. Previous license from California remains active."
+                            </p>
+</div>
+</div>
+</div>
+<!-- Right Panel: Document Viewer -->
+<div class="flex-1 flex flex-col p-8 overflow-hidden">
+<div class="flex items-center justify-between mb-6">
+<div class="flex bg-gray-200 dark:bg-gray-800 p-1 rounded-lg">
+<button class="px-6 py-1.5 text-sm font-bold bg-white dark:bg-gray-700 text-primary dark:text-white rounded-md shadow-sm">Medical License</button>
+<button class="px-6 py-1.5 text-sm font-medium text-[#636e88] dark:text-gray-400 hover:text-primary transition-colors">Identity Proof</button>
+</div>
+<div class="flex items-center gap-2 bg-white dark:bg-[#1a1f2e] border border-gray-200 dark:border-gray-800 px-3 py-1.5 rounded-lg shadow-sm">
+<button class="p-1 text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<span class="text-xs font-bold w-10 text-center">100%</span>
+<button class="p-1 text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<div class="w-px h-4 bg-gray-200 dark:bg-gray-800 mx-1"></div>
+<button class="p-1 text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+<span class="material-symbols-outlined">rotate_right</span>
+</button>
+<button class="p-1 text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="flex-1 bg-white dark:bg-[#1a1f2e] border border-gray-200 dark:border-gray-800 rounded-xl overflow-auto shadow-sm flex items-center justify-center relative p-10">
+<!-- Simulated Document -->
+<div class="w-[600px] h-[800px] bg-white border border-gray-300 shadow-xl p-12 relative flex flex-col" style="aspect-ratio: 1/1.41;">
+<div class="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+<div class="flex justify-between items-start mb-16">
+<div class="space-y-1">
+<h4 class="text-2xl font-black text-gray-800 uppercase tracking-tighter">STATE MEDICAL BOARD</h4>
+<p class="text-sm font-bold text-gray-500">DIVISION OF OCCUPATIONAL LICENSING</p>
+</div>
+<div class="size-16 bg-gray-100 flex items-center justify-center rounded-full border-2 border-gray-200">
+<span class="material-symbols-outlined text-gray-400">verified</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center text-center space-y-10">
+<p class="text-sm uppercase tracking-[0.3em] font-medium text-gray-400">This is to certify that</p>
+<p class="text-4xl font-serif text-gray-900 border-b-2 border-gray-200 px-8 pb-4 italic">Sarah Jenkins, MD</p>
+<p class="max-w-md text-sm text-gray-600 leading-relaxed uppercase font-medium">
+                                    Has complied with all requirements for licensure to practice Medicine and Surgery within the jurisdiction and is hereby granted this certificate of authority.
+                                </p>
+</div>
+<div class="mt-auto pt-10 border-t border-gray-100 grid grid-cols-2 gap-8">
+<div>
+<p class="text-[10px] uppercase font-bold text-gray-400 mb-1">License No.</p>
+<p class="text-lg font-mono font-bold text-gray-800">7844-902-MD</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-gray-400 mb-1">Issue Date</p>
+<p class="text-lg font-bold text-gray-800">August 12, 2015</p>
+</div>
+<div class="col-span-2 text-center mt-8">
+<div class="h-10 w-48 border-b-2 border-gray-300 mx-auto"></div>
+<p class="text-[10px] uppercase font-bold text-gray-400 mt-2">Board Secretary Signature</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="mt-8 flex justify-end items-center gap-4 py-6 border-t border-gray-200 dark:border-gray-800">
+<p class="mr-auto text-sm text-[#636e88] dark:text-gray-400 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">history</span>
+                            Reviewing for 12m 45s
+                        </p>
+<button class="flex items-center gap-2 px-6 py-3 bg-reject-red text-white font-bold rounded-lg hover:bg-red-700 transition-colors shadow-lg shadow-red-500/20">
+<span class="material-symbols-outlined text-xl">close</span>
+                            Reject
+                        </button>
+<button class="flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">
+<span class="material-symbols-outlined text-xl">help</span>
+                            Request More Info
+                        </button>
+<button class="flex items-center gap-2 px-10 py-3 bg-approve-green text-white font-bold rounded-lg hover:bg-green-700 transition-colors shadow-lg shadow-green-500/20">
+<span class="material-symbols-outlined text-xl">check_circle</span>
+                            Approve
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
+

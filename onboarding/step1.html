@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join LifeLink - Step 1</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script src="../assets/js/config.js"></script>
+
+    <!-- Custom Components -->
+    <script src="../assets/js/components.js"></script>
+
+    <!-- Custom CSS -->
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+</head>
+
+<body
+    class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+
+    <!-- Navigation Bar -->
+    <app-navbar></app-navbar>
+
+    <main class="relative z-10 pt-28 pb-20 min-h-screen flex items-center">
+        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full">
+
+            <!-- Progress Bar -->
+            <div class="mb-12">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm font-semibold text-primary">Step 1 of 4</span>
+                    <span class="text-sm text-slate-500">Choose Your Role</span>
+                </div>
+                <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-brand-gradient w-1/4 transition-all duration-500"></div>
+                </div>
+            </div>
+
+            <!-- Main Card -->
+            <div
+                class="bg-white dark:bg-surface-dark rounded-[2rem] shadow-2xl border border-slate-200 dark:border-slate-700 p-8 md:p-12">
+
+                <!-- Header -->
+                <div class="text-center mb-10">
+                    <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-5xl text-primary">person_add</span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-3">
+                        Join LifeLink
+                    </h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg">
+                        Select your role to get started
+                    </p>
+                </div>
+
+                <!-- Role Selection -->
+                <form id="roleForm" class="space-y-4">
+
+                    <!-- Donor Option -->
+                    <label class="block cursor-pointer group">
+                        <input type="radio" name="role" value="donor" class="peer sr-only" required>
+                        <div
+                            class="p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-lg">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-14 h-14 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 text-primary flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Blood Donor</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                                        Register as a blood donor and help save lives in your community. Get matched
+                                        with recipients in need.
+                                    </p>
+                                </div>
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span
+                                        class="material-symbols-outlined text-sm text-white hidden peer-checked:block">check</span>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Hospital Option -->
+                    <label class="block cursor-pointer group">
+                        <input type="radio" name="role" value="hospital" class="peer sr-only">
+                        <div
+                            class="p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-lg">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-14 h-14 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-3xl">local_hospital</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Hospital / Medical
+                                        Facility</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                                        Register your hospital or medical facility to request blood donations and manage
+                                        patient needs.
+                                    </p>
+                                </div>
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span
+                                        class="material-symbols-outlined text-sm text-white hidden peer-checked:block">check</span>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Patient Option -->
+                    <label class="block cursor-pointer group">
+                        <input type="radio" name="role" value="patient" class="peer sr-only">
+                        <div
+                            class="p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-lg">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-14 h-14 rounded-xl bg-red-100 dark:bg-red-900/30 text-emergency flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-3xl">personal_injury</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Patient /
+                                        Recipient</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                                        Request blood on behalf of yourself or a family member in need of urgent medical
+                                        assistance.
+                                    </p>
+                                </div>
+                                <div
+                                    class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span
+                                        class="material-symbols-outlined text-sm text-white hidden peer-checked:block">check</span>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-8">
+                        <a href="../index.html"
+                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                            Back to Home
+                        </a>
+                        <button type="submit"
+                            class="flex-1 bg-brand-gradient text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                            <span>Continue</span>
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Already have account -->
+                <div class="text-center mt-8 pt-8 border-t border-slate-200 dark:border-slate-700">
+                    <p class="text-slate-600 dark:text-slate-400">
+                        Already have an account?
+                        <a href="../auth/login.html" class="text-primary font-semibold hover:underline">Sign in</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/localization.js"></script>
+    <script src="../assets/js/animations.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+    <script>
+        // Form submission handler
+        document.getElementById('roleForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const selectedRole = document.querySelector('input[name="role"]:checked');
+            if (!selectedRole) {
+                alert('Please select a role to continue');
+                return;
+            }
+
+            // Store role in session/local storage
+            localStorage.setItem('onboarding_role', selectedRole.value);
+
+            // Navigate to appropriate step 2 page
+            const rolePages = {
+                'donor': 'step2_1.html',
+                'hospital': 'step2_2.html',
+                'patient': 'step2_3.html'
+            };
+
+            window.location.href = rolePages[selectedRole.value];
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>St. Mary's General Hospital - LifeLink</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a57db",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "emergency": "#DC2626",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "0.75rem", // Mapped 12px roughly to xl for this specific request context or explicit class
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom class for exact 12px radius as requested */
+        .rounded-card {
+            border-radius: 12px;
+        }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+    <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
+<script src="/assets/js/components.js"></script>
+</head>
+<body class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+<div class="flex min-h-screen flex-col">
+<!-- Top Navigation -->
+<app-navbar></app-navbar>
+<!-- Main Content -->
+<main class="flex-1 px-4 py-8 lg:px-8">
+<div class="mx-auto max-w-[1200px]">
+<!-- Breadcrumbs -->
+<nav class="mb-6 flex items-center text-sm text-[#636e88]">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="mx-2">/</span>
+<a class="hover:text-primary" href="#">Directory</a>
+<span class="mx-2">/</span>
+<span class="font-medium text-[#111318] dark:text-white">St. Mary's General Hospital</span>
+</nav>
+<!-- Hero Header -->
+<div class="rounded-card mb-6 overflow-hidden bg-white shadow-sm dark:bg-gray-800">
+<div class="h-48 w-full bg-cover bg-center md:h-64" data-alt="Modern hospital building exterior with glass facade" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAeEUtiOVSJ5ww_p6DuMPddQum7PHUCtm1zcbaFZzgockgSwtIONf5NVP7LtFc6EaGEyHgBVS5njA-NuUnDmiTl3hWOcMTPzVubg_YdFrdYYWkUaIXBjPNVgsTdIII_cT2-hloV10Uqn0nzcsvDe75waLs4FyCmOqqhVEbTR_1TE3zVwfGVs9P1n1S2BofDQ7w2Glw-p4vh8Cu9Tvd4lTjAKkNzJsOH2LPxoQaB2vimVjhnxj78bOs7SazsPfQ8NwS95nISNl09pN2L");'>
+<div class="h-full w-full bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<div class="flex flex-col gap-6 px-6 py-6 md:flex-row md:items-start md:justify-between">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<h1 class="text-3xl font-black tracking-tight text-[#111318] dark:text-white md:text-4xl">St. Mary's General Hospital</h1>
+<span class="flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-xs font-bold text-primary dark:bg-blue-900/30 dark:text-blue-300">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+                                    Verified
+                                </span>
+</div>
+<div class="flex flex-wrap items-center gap-4 text-sm text-[#636e88] dark:text-gray-400">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-400 text-[18px] fill-1">star</span>
+<span class="font-bold text-[#111318] dark:text-white">4.8</span>
+<span>(500+ reviews)</span>
+</div>
+<span class="hidden md:inline">•</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                                    123 Healthcare Blvd, Medical District
+                                </div>
+<span class="hidden md:inline">•</span>
+<div class="flex items-center gap-1 text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+                                    Open 24 Hours
+                                </div>
+</div>
+</div>
+<div class="flex flex-wrap gap-3 md:min-w-[400px] md:justify-end">
+<button class="rounded-card flex flex-1 items-center justify-center gap-2 bg-primary px-6 py-3 text-base font-bold text-white transition hover:bg-blue-700 md:flex-none">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+                                Schedule Appointment
+                            </button>
+<button class="rounded-card flex flex-1 items-center justify-center gap-2 border border-emergency bg-white px-6 py-3 text-base font-bold text-emergency transition hover:bg-red-50 dark:bg-transparent dark:hover:bg-red-900/20 md:flex-none">
+<span class="material-symbols-outlined text-[20px] fill-1">emergency</span>
+                                Contact Emergency Wing
+                            </button>
+</div>
+</div>
+</div>
+<!-- Main Grid Layout -->
+<div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+<!-- Left Column (Content) -->
+<div class="flex flex-col gap-6 lg:col-span-8">
+<!-- Blood Availability Dashboard -->
+<section class="rounded-card bg-white p-6 shadow-sm dark:bg-gray-800">
+<div class="mb-5 flex items-center justify-between">
+<h3 class="flex items-center gap-2 text-lg font-bold text-[#111318] dark:text-white">
+<span class="material-symbols-outlined text-red-500">bloodtype</span>
+                                    Available Blood Units
+                                </h3>
+<span class="text-xs text-[#636e88] dark:text-gray-400">Updated: 15 mins ago</span>
+</div>
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+<!-- Card 1 -->
+<div class="rounded-card border border-gray-100 bg-gray-50 p-4 text-center dark:border-gray-700 dark:bg-gray-900">
+<div class="mb-1 text-2xl font-black text-[#111318] dark:text-white">A+</div>
+<div class="text-sm font-medium text-green-600">12 Units</div>
+<div class="mt-1 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+<div class="h-1.5 rounded-full bg-green-500" style="width: 80%"></div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="rounded-card border border-red-100 bg-red-50 p-4 text-center dark:border-red-900/30 dark:bg-red-900/10">
+<div class="mb-1 text-2xl font-black text-emergency">O-</div>
+<div class="text-sm font-bold text-emergency">2 Units</div>
+<div class="mt-1 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+<div class="h-1.5 rounded-full bg-emergency" style="width: 20%"></div>
+</div>
+<span class="mt-1 block text-[10px] font-bold uppercase tracking-wider text-emergency">Critical</span>
+</div>
+<!-- Card 3 -->
+<div class="rounded-card border border-gray-100 bg-gray-50 p-4 text-center dark:border-gray-700 dark:bg-gray-900">
+<div class="mb-1 text-2xl font-black text-[#111318] dark:text-white">AB+</div>
+<div class="text-sm font-medium text-green-600">8 Units</div>
+<div class="mt-1 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+<div class="h-1.5 rounded-full bg-green-500" style="width: 60%"></div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="rounded-card border border-gray-100 bg-gray-50 p-4 text-center dark:border-gray-700 dark:bg-gray-900">
+<div class="mb-1 text-2xl font-black text-[#111318] dark:text-white">B+</div>
+<div class="text-sm font-medium text-yellow-600">4 Units</div>
+<div class="mt-1 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+<div class="h-1.5 rounded-full bg-yellow-500" style="width: 40%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Specialties -->
+<section class="rounded-card bg-white p-6 shadow-sm dark:bg-gray-800">
+<h3 class="mb-4 text-lg font-bold text-[#111318] dark:text-white">Medical Specialties</h3>
+<div class="flex flex-wrap gap-3">
+<span class="rounded-card inline-flex items-center gap-2 bg-blue-50 px-4 py-2 text-sm font-semibold text-primary dark:bg-blue-900/20 dark:text-blue-300">
+<span class="material-symbols-outlined text-[18px]">cardiology</span> Cardiology
+                                </span>
+<span class="rounded-card inline-flex items-center gap-2 bg-blue-50 px-4 py-2 text-sm font-semibold text-primary dark:bg-blue-900/20 dark:text-blue-300">
+<span class="material-symbols-outlined text-[18px]">neurology</span> Neurology
+                                </span>
+<span class="rounded-card inline-flex items-center gap-2 bg-blue-50 px-4 py-2 text-sm font-semibold text-primary dark:bg-blue-900/20 dark:text-blue-300">
+<span class="material-symbols-outlined text-[18px]">child_care</span> Pediatrics
+                                </span>
+<span class="rounded-card inline-flex items-center gap-2 bg-blue-50 px-4 py-2 text-sm font-semibold text-primary dark:bg-blue-900/20 dark:text-blue-300">
+<span class="material-symbols-outlined text-[18px]">medical_services</span> General Surgery
+                                </span>
+<span class="rounded-card inline-flex items-center gap-2 bg-blue-50 px-4 py-2 text-sm font-semibold text-primary dark:bg-blue-900/20 dark:text-blue-300">
+<span class="material-symbols-outlined text-[18px]">radiology</span> Oncology
+                                </span>
+<span class="rounded-card inline-flex items-center gap-2 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 dark:bg-red-900/20 dark:text-red-300">
+<span class="material-symbols-outlined text-[18px]">emergency</span> Level 1 Trauma Center
+                                </span>
+</div>
+</section>
+<!-- Doctor Directory -->
+<section class="rounded-card bg-white p-6 shadow-sm dark:bg-gray-800">
+<div class="mb-4 flex items-center justify-between">
+<h3 class="text-lg font-bold text-[#111318] dark:text-white">Doctor Directory</h3>
+<a class="text-sm font-semibold text-primary hover:underline" href="#">View all</a>
+</div>
+<div class="grid gap-4 md:grid-cols-2">
+<!-- Doctor Card 1 -->
+<div class="rounded-card flex items-start gap-4 border border-[#f0f2f4] p-4 transition hover:border-blue-100 hover:bg-blue-50/30 dark:border-gray-700 dark:hover:border-blue-900 dark:hover:bg-blue-900/10">
+<div class="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-gray-200">
+<img alt="Dr. Sarah Jennings profile picture" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCso3TNnQrbJzUbMOcAzJBwCc_G7wL8GBEnZfKn-aA_fXdShwUFQ7ZmZt6UjHi4IRkUtTIs9chfo76MZVHIsH6Rua8eETQ8tBt-WGIcwweuvALLC6u-iIXpgja8wTgC5l5MQEFXUq8YdqG5VURsYORkuoLHn1DhlWd5YVwSRVWA0xQqaQF0lJi9QRkI8B7j5p4qdv7-V5q20efyeJyqvoDHj0NuUVNRyk9JwwKl7cVbjPVSIagIVfmAnvRg0IaOzQ74S9IoWdj5xq8E"/>
+</div>
+<div class="flex-1">
+<h4 class="text-base font-bold text-[#111318] dark:text-white">Dr. Sarah Jennings</h4>
+<p class="text-sm text-[#636e88] dark:text-gray-400">Chief of Surgery</p>
+<div class="mt-2 flex items-center gap-2 text-xs font-medium text-green-600 dark:text-green-400">
+<span class="h-2 w-2 rounded-full bg-green-500"></span> Available Today
+                                        </div>
+</div>
+<button class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-primary hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-300">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+<!-- Doctor Card 2 -->
+<div class="rounded-card flex items-start gap-4 border border-[#f0f2f4] p-4 transition hover:border-blue-100 hover:bg-blue-50/30 dark:border-gray-700 dark:hover:border-blue-900 dark:hover:bg-blue-900/10">
+<div class="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-gray-200">
+<img alt="Dr. Mark Doe profile picture" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnzJnbZV96UXb3dPLDFYzdIbC_cFd0Fz6_8dmdKfKfJEjGyFKET81P_MoOyZlBznDgqHvrMTuCN0TKL3nxD1xVMZZMf-At8QgFWLsDe0jAOmD3v9_r2m53wQr0Y6uf6SKw7BOFMhBRCXAoEDCV4xmmBj0R2hx0ACigEIWWjk40Gt1et4q7E8JEnY9rLBZMYycN8BAkRaBTRzIVIOs3EOVhMah4JYxtrqlfN3F3IgsgIMkLkBeUn6F3rJLS2ikM4yfg3SUvMq_KyoyN"/>
+</div>
+<div class="flex-1">
+<h4 class="text-base font-bold text-[#111318] dark:text-white">Dr. Mark Doe</h4>
+<p class="text-sm text-[#636e88] dark:text-gray-400">Pediatrician</p>
+<div class="mt-2 flex items-center gap-2 text-xs font-medium text-[#636e88] dark:text-gray-500">
+<span class="h-2 w-2 rounded-full bg-gray-300 dark:bg-gray-600"></span> Next available: Tomorrow
+                                        </div>
+</div>
+<button class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-primary hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-300">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (Map & Info) -->
+<div class="flex flex-col gap-6 lg:col-span-4">
+<!-- Map Widget -->
+<div class="rounded-card overflow-hidden bg-white shadow-sm dark:bg-gray-800">
+<div class="relative h-64 w-full bg-gray-200">
+<!-- Map Image Placeholder -->
+<div class="h-full w-full bg-cover bg-center" data-alt="Map showing hospital location with surrounding streets" data-location="City Map View" style='background-image: url("https://placeholder.pics/svg/300");'></div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/10">
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-4xl text-red-600 drop-shadow-md">location_on</span>
+</div>
+</div>
+<div class="absolute bottom-4 left-4 right-4">
+<button class="rounded-card w-full bg-white py-3 text-sm font-bold text-[#111318] shadow-lg hover:bg-gray-50 dark:bg-gray-900 dark:text-white">
+                                        Get Directions
+                                    </button>
+</div>
+</div>
+<div class="p-6">
+<div class="mb-4 flex items-start gap-3">
+<span class="material-symbols-outlined mt-1 text-[#636e88]">near_me</span>
+<div>
+<p class="text-sm font-semibold text-[#111318] dark:text-white">15 min drive</p>
+<p class="text-xs text-[#636e88] dark:text-gray-400">from your current location</p>
+</div>
+</div>
+<div class="space-y-3 border-t border-gray-100 pt-4 dark:border-gray-700">
+<div class="flex justify-between">
+<span class="text-sm text-[#636e88] dark:text-gray-400">Distance</span>
+<span class="text-sm font-medium text-[#111318] dark:text-white">4.2 miles</span>
+</div>
+<div class="flex justify-between">
+<span class="text-sm text-[#636e88] dark:text-gray-400">Phone</span>
+<span class="text-sm font-medium text-primary hover:underline cursor-pointer">(555) 123-4567</span>
+</div>
+<div class="flex justify-between">
+<span class="text-sm text-[#636e88] dark:text-gray-400">Email</span>
+<span class="text-sm font-medium text-primary hover:underline cursor-pointer">contact@stmarys.com</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Insurance Card -->
+<div class="rounded-card bg-white p-6 shadow-sm dark:bg-gray-800">
+<h3 class="mb-4 text-base font-bold text-[#111318] dark:text-white">Insurance Accepted</h3>
+<div class="flex flex-wrap gap-2">
+<span class="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-600 dark:border-gray-700 dark:text-gray-300">BlueCross</span>
+<span class="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-600 dark:border-gray-700 dark:text-gray-300">Aetna</span>
+<span class="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-600 dark:border-gray-700 dark:text-gray-300">Cigna</span>
+<span class="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-600 dark:border-gray-700 dark:text-gray-300">UnitedHealth</span>
+<span class="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-600 dark:border-gray-700 dark:text-gray-300">Medicare</span>
+<span class="text-xs text-primary underline cursor-pointer self-center ml-1">+ 8 more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
+

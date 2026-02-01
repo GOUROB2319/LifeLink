@@ -1,8 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+// Firebase Configuration
+// Keys provided by user
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBRarASFR16AFuXa961OzS5P1UmCbvIhWc",
     authDomain: "lifelink-295e7.firebaseapp.com",
@@ -13,10 +11,4 @@ const firebaseConfig = {
     measurementId: "G-D9BBNKPF2F"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
-
-export { auth, googleProvider, signInWithPopup, signInWithEmailAndPassword };
+export default firebaseConfig;
