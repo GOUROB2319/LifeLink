@@ -10,8 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../assets/js/config.js"></script>
@@ -22,12 +21,13 @@
 <body
     class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
     <app-navbar></app-navbar>
-    <main class="relative z-10 pt-28 pb-20 min-h-screen flex items-center">
+    <main class="relative z-10 pt-32 pb-20 min-h-screen flex items-center">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full">
             <div class="mb-12">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-semibold text-primary">Step 2 of 4</span>
-                    <span class="text-sm text-slate-500">Hospital Profile</span>
+                    <span class="text-sm font-semibold text-primary" data-i18n="onboarding.step1.of">Step 1 of 4</span>
+                    <span class="text-sm text-slate-500" data-i18n="onboarding.step2.hospital.title">Hospital
+                        Profile</span>
                 </div>
                 <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                     <div class="h-full bg-brand-gradient w-2/4 transition-all duration-500"></div>
@@ -40,42 +40,50 @@
                         class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
                         <span class="material-symbols-outlined text-4xl">local_hospital</span>
                     </div>
-                    <h1 class="text-3xl font-black text-slate-900 dark:text-white mb-3">Hospital Information</h1>
-                    <p class="text-slate-600 dark:text-slate-400 text-lg">Register your medical facility</p>
+                    <h1 class="text-3xl font-black text-slate-900 dark:text-white mb-3"
+                        data-i18n="onboarding.step2.hospital.header">Hospital Information</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg"
+                        data-i18n="onboarding.step2.hospital.subtitle">Register your medical facility</p>
                 </div>
                 <form id="hospitalForm" class="space-y-6">
                     <div class="space-y-6">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                             <span class="material-symbols-outlined text-blue-600">apartment</span>
-                            Facility Details
+                            <span data-i18n="onboarding.section.facility">Facility Details</span>
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="md:col-span-2">
-                                <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Hospital
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.hospital_name">Hospital
                                     Name *</label>
                                 <input type="text" name="hospitalName" required
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                                    placeholder="Full legal name">
+                                    placeholder="Full legal name"
+                                    data-placeholder-i18n="onboarding.placeholder.hospital_name">
                             </div>
                             <div>
-                                <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Registration
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.reg_number">Registration
                                     Number *</label>
                                 <input type="text" name="regNumber" required
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                                    placeholder="Government registration">
+                                    placeholder="Government registration"
+                                    data-placeholder-i18n="onboarding.placeholder.reg_number">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Type
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.hospital_type">Type
                                     *</label>
                                 <select name="type" required
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                                    <option value="">Select type</option>
-                                    <option value="government">Government Hospital</option>
-                                    <option value="private">Private Hospital</option>
-                                    <option value="clinic">Clinic</option>
-                                    <option value="diagnostic">Diagnostic Center</option>
+                                    <option value="" data-i18n="onboarding.option.select_type">Select type</option>
+                                    <option value="government" data-i18n="onboarding.option.gov_hospital">Government
+                                        Hospital</option>
+                                    <option value="private" data-i18n="onboarding.option.priv_hospital">Private Hospital
+                                    </option>
+                                    <option value="clinic" data-i18n="onboarding.option.clinic">Clinic</option>
+                                    <option value="diagnostic" data-i18n="onboarding.option.diagnostic">Diagnostic
+                                        Center</option>
                                 </select>
                             </div>
                         </div>
@@ -83,45 +91,50 @@
                     <div class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                             <span class="material-symbols-outlined text-blue-600">contact_phone</span>
-                            Contact Information
+                            <span data-i18n="onboarding.section.contact">Contact Information</span>
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.email">Email
                                     *</label>
                                 <input type="email" name="email" required
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                                    placeholder="hospital@example.com">
+                                    placeholder="hospital@example.com"
+                                    data-placeholder-i18n="onboarding.placeholder.email">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Phone
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.phone">Phone
                                     *</label>
                                 <input type="tel" name="phone" required
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                                    placeholder="+880 123-4567890">
+                                    placeholder="+880 123-4567890" data-placeholder-i18n="onboarding.placeholder.phone">
                             </div>
                             <div class="md:col-span-2">
-                                <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Website</label>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.website">Website</label>
                                 <input type="url" name="website"
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                                    placeholder="https://hospital.com">
+                                    placeholder="https://hospital.com"
+                                    data-placeholder-i18n="onboarding.placeholder.website">
                             </div>
                         </div>
                     </div>
                     <div class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                             <span class="material-symbols-outlined text-blue-600">location_on</span>
-                            Location
+                            <span data-i18n="onboarding.section.location">Location</span>
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Division
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.division">Division
                                     *</label>
                                 <select name="division" required
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                                    <option value="">Select division</option>
+                                    <option value="" data-i18n="onboarding.option.select_division">Select division
+                                    </option>
                                     <option value="dhaka">Dhaka</option>
                                     <option value="chittagong">Chittagong</option>
                                     <option value="rajshahi">Rajshahi</option>
@@ -133,50 +146,57 @@
                                 </select>
                             </div>
                             <div>
-                                <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">District
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.district">District
                                     *</label>
                                 <input type="text" name="district" required
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                    data-placeholder-i18n="onboarding.placeholder.district">
                             </div>
                             <div class="md:col-span-2">
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Full
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.address">Full
                                     Address *</label>
                                 <textarea name="address" required rows="3"
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"></textarea>
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                    data-placeholder-i18n="onboarding.placeholder.address"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                             <span class="material-symbols-outlined text-blue-600">admin_panel_settings</span>
-                            Administrator
+                            <span data-i18n="onboarding.section.admin">Administrator</span>
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Admin
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.admin_name">Admin
                                     Name *</label>
                                 <input type="text" name="adminName" required
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                    data-placeholder-i18n="onboarding.placeholder.fullname">
                             </div>
                             <div>
-                                <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Position
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                                    data-i18n="onboarding.label.admin_position">Position
                                     *</label>
                                 <input type="text" name="adminPosition" required
                                     class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                                    placeholder="e.g. Director, Manager">
+                                    placeholder="e.g. Director, Manager"
+                                    data-placeholder-i18n="onboarding.placeholder.admin_position">
                             </div>
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4 pt-8">
                         <a href="step1.html"
-                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+                            data-i18n="onboarding.btn.back_step">
                             <span class="material-symbols-outlined inline-block mr-2">arrow_back</span>Back
                         </a>
                         <button type="submit"
                             class="flex-1 bg-brand-gradient text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-                            <span>Continue</span>
+                            <span data-i18n="onboarding.btn.continue">Continue</span>
                             <span class="material-symbols-outlined">arrow_forward</span>
                         </button>
                     </div>

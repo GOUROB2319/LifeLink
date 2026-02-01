@@ -10,8 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../assets/js/config.js"></script>
@@ -22,12 +21,13 @@
 <body
     class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
     <app-navbar></app-navbar>
-    <main class="relative z-10 pt-28 pb-20 min-h-screen flex items-center">
+    <main class="relative z-10 pt-32 pb-20 min-h-screen flex items-center">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full">
             <div class="mb-12">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-semibold text-primary">Step 3 of 4</span>
-                    <span class="text-sm text-slate-500">Verification & Agreement</span>
+                    <span class="text-sm font-semibold text-primary" data-i18n="onboarding.step1.of">Step 1 of 4</span>
+                    <span class="text-sm text-slate-500" data-i18n="onboarding.step3.title">Verification &
+                        Agreement</span>
                 </div>
                 <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                     <div class="h-full bg-brand-gradient w-3/4 transition-all duration-500"></div>
@@ -39,16 +39,19 @@
                     <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
                         <span class="material-symbols-outlined text-4xl text-primary">verified_user</span>
                     </div>
-                    <h1 class="text-3xl font-black text-slate-900 dark:text-white mb-3">Verification</h1>
-                    <p class="text-slate-600 dark:text-slate-400 text-lg">Complete your registration</p>
+                    <h1 class="text-3xl font-black text-slate-900 dark:text-white mb-3"
+                        data-i18n="onboarding.step3.header">Verification</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg" data-i18n="onboarding.step3.subtitle">Complete
+                        your registration</p>
                 </div>
                 <form id="verificationForm" class="space-y-8">
                     <div class="space-y-4">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">upload_file</span>
-                            Document Upload
+                            <span data-i18n="onboarding.section.upload">Document Upload</span>
                         </h3>
-                        <p class="text-sm text-slate-600 dark:text-slate-400">Please upload a government-issued ID for
+                        <p class="text-sm text-slate-600 dark:text-slate-400" data-i18n="onboarding.info.upload">Please
+                            upload a government-issued ID for
                             verification</p>
                         <div
                             class="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl px-6 py-12 text-center hover:border-primary transition-colors">
@@ -57,9 +60,11 @@
                             <label for="docUpload" class="cursor-pointer block">
                                 <span
                                     class="material-symbols-outlined text-5xl text-slate-400 mb-4 block">cloud_upload</span>
-                                <p class="text-slate-700 dark:text-slate-300 font-semibold mb-2">Click to upload or drag
+                                <p class="text-slate-700 dark:text-slate-300 font-semibold mb-2"
+                                    data-i18n="onboarding.label.upload_box">Click to upload or drag
                                     and drop</p>
-                                <p class="text-xs text-slate-500">PNG, JPG or PDF (max. 5MB)</p>
+                                <p class="text-xs text-slate-500" data-i18n="onboarding.info.upload_types">PNG, JPG or
+                                    PDF (max. 5MB)</p>
                             </label>
                         </div>
                         <div id="uploadedFile" class="hidden p-4 bg-primary/5 rounded-xl flex items-center gap-3">
@@ -75,7 +80,7 @@
                     <div class="space-y-4 pt-6 border-t border-slate-200 dark:border-slate-700">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">gavel</span>
-                            Terms & Conditions
+                            <span data-i18n="onboarding.section.terms">Terms & Conditions</span>
                         </h3>
                         <div
                             class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 max-h-64 overflow-y-auto custom-scrollbar">
@@ -96,16 +101,15 @@
                             <input type="checkbox" name="terms" required
                                 class="mt-1 w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary">
                             <span class="text-sm text-slate-700 dark:text-slate-300">
-                                I have read and agree to the <a href="../info/terms.html"
-                                    class="text-primary font-semibold hover:underline" target="_blank">Terms of
-                                    Service</a> *
+                                <span data-i18n="onboarding.label.terms_agree">I have read and agree to the Terms of
+                                    Service</span> *
                             </span>
                         </label>
                     </div>
                     <div class="space-y-4 pt-6 border-t border-slate-200 dark:border-slate-700">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">shield</span>
-                            Privacy Policy
+                            <span data-i18n="onboarding.section.privacy">Privacy Policy</span>
                         </h3>
                         <div
                             class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 max-h-64 overflow-y-auto custom-scrollbar">
@@ -127,19 +131,20 @@
                             <input type="checkbox" name="privacy" required
                                 class="mt-1 w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary">
                             <span class="text-sm text-slate-700 dark:text-slate-300">
-                                I have read and agree to the <a href="../info/privacy.html"
-                                    class="text-primary font-semibold hover:underline" target="_blank">Privacy
-                                    Policy</a> *
+                                <span data-i18n="onboarding.label.privacy_agree">I have read and agree to the Privacy
+                                    Policy</span> *
                             </span>
                         </label>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4 pt-8">
                         <button type="button" onclick="history.back()"
-                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+                            data-i18n="onboarding.btn.back_step">
                             <span class="material-symbols-outlined inline-block mr-2">arrow_back</span>Back
                         </button>
                         <button type="submit"
-                            class="flex-1 bg-brand-gradient text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                            class="flex-1 bg-brand-gradient text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                            data-i18n="onboarding.btn.complete">
                             <span>Complete Registration</span>
                             <span class="material-symbols-outlined">check_circle</span>
                         </button>

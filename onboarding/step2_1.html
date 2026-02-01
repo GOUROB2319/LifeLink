@@ -14,8 +14,7 @@
     rel="stylesheet">
 
   <!-- Material Symbols -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
     rel="stylesheet">
 
   <!-- Tailwind CSS -->
@@ -37,14 +36,14 @@
   <!-- Navigation Bar -->
   <app-navbar></app-navbar>
 
-  <main class="relative z-10 pt-28 pb-20 min-h-screen flex items-center">
+  <main class="relative z-10 pt-32 pb-20 min-h-screen flex items-center">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full">
 
       <!-- Progress Bar -->
       <div class="mb-12">
         <div class="flex items-center justify-between mb-4">
-          <span class="text-sm font-semibold text-primary">Step 2 of 4</span>
-          <span class="text-sm text-slate-500">Donor Profile</span>
+          <span class="text-sm font-semibold text-primary" data-i18n="onboarding.step1.of">Step 1 of 4</span>
+          <span class="text-sm text-slate-500" data-i18n="onboarding.step2.donor.title">Donor Profile</span>
         </div>
         <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
           <div class="h-full bg-brand-gradient w-2/4 transition-all duration-500"></div>
@@ -61,10 +60,10 @@
             class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/30 text-primary rounded-2xl flex items-center justify-center mb-6">
             <span class="material-symbols-outlined text-4xl">volunteer_activism</span>
           </div>
-          <h1 class="text-3xl font-black text-slate-900 dark:text-white mb-3">
+          <h1 class="text-3xl font-black text-slate-900 dark:text-white mb-3" data-i18n="onboarding.step2.donor.header">
             Donor Information
           </h1>
-          <p class="text-slate-600 dark:text-slate-400 text-lg">
+          <p class="text-slate-600 dark:text-slate-400 text-lg" data-i18n="onboarding.step2.donor.subtitle">
             Tell us about yourself to help save lives
           </p>
         </div>
@@ -76,23 +75,25 @@
           <div class="space-y-6">
             <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span class="material-symbols-outlined text-primary">person</span>
-              Personal Details
+              <span data-i18n="onboarding.section.personal">Personal Details</span>
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <!-- Full Name -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.fullname">
                   Full Name *
                 </label>
                 <input type="text" name="fullName" required
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="Enter your full name">
+                  placeholder="Enter your full name" data-placeholder-i18n="onboarding.placeholder.fullname">
               </div>
 
               <!-- Date of Birth -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.dob">
                   Date of Birth *
                 </label>
                 <input type="date" name="dob" required
@@ -101,26 +102,28 @@
 
               <!-- Gender -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.gender">
                   Gender *
                 </label>
                 <select name="gender" required
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                  <option value="">Select gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
+                  <option value="" data-i18n="onboarding.option.select_gender">Select gender</option>
+                  <option value="male" data-i18n="onboarding.option.male">Male</option>
+                  <option value="female" data-i18n="onboarding.option.female">Female</option>
+                  <option value="other" data-i18n="onboarding.option.other">Other</option>
                 </select>
               </div>
 
               <!-- Blood Group -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.blood_group">
                   Blood Group *
                 </label>
                 <select name="bloodGroup" required
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                  <option value="">Select blood group</option>
+                  <option value="" data-i18n="onboarding.option.select_blood">Select blood group</option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -138,28 +141,30 @@
           <div class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
             <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span class="material-symbols-outlined text-primary">contact_phone</span>
-              Contact Information
+              <span data-i18n="onboarding.section.contact">Contact Information</span>
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <!-- Email -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.email">
                   Email Address *
                 </label>
                 <input type="email" name="email" required
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="your@email.com">
+                  placeholder="your@email.com" data-placeholder-i18n="onboarding.placeholder.email">
               </div>
 
               <!-- Phone -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.phone">
                   Phone Number *
                 </label>
                 <input type="tel" name="phone" required
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="+880 1234-567890">
+                  placeholder="+880 1234-567890" data-placeholder-i18n="onboarding.placeholder.phone">
               </div>
             </div>
           </div>
@@ -168,18 +173,19 @@
           <div class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
             <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span class="material-symbols-outlined text-primary">location_on</span>
-              Location
+              <span data-i18n="onboarding.section.location">Location</span>
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <!-- Division -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.division">
                   Division *
                 </label>
                 <select name="division" required
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                  <option value="">Select division</option>
+                  <option value="" data-i18n="onboarding.option.select_division">Select division</option>
                   <option value="dhaka">Dhaka</option>
                   <option value="chittagong">Chittagong</option>
                   <option value="rajshahi">Rajshahi</option>
@@ -193,22 +199,25 @@
 
               <!-- District -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.district">
                   District *
                 </label>
                 <input type="text" name="district" required
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="Enter your district">
+                  placeholder="Enter your district" data-placeholder-i18n="onboarding.placeholder.district">
               </div>
 
               <!-- Full Address -->
               <div class="md:col-span-2">
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.address">
                   Full Address
                 </label>
                 <textarea name="address" rows="3"
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="House/Flat, Road, Area, Thana"></textarea>
+                  placeholder="House/Flat, Road, Area, Thana"
+                  data-placeholder-i18n="onboarding.placeholder.address"></textarea>
               </div>
             </div>
           </div>
@@ -217,58 +226,67 @@
           <div class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
             <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span class="material-symbols-outlined text-primary">clinical_notes</span>
-              Medical Eligibility
+              <span data-i18n="onboarding.section.medical">Medical Eligibility</span>
             </h3>
 
             <div class="space-y-4">
               <!-- Weight -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.weight">
                   Weight (kg) *
                 </label>
                 <input type="number" name="weight" required min="45"
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="Minimum 45 kg required">
-                <p class="text-xs text-slate-500 mt-1">Donors must weigh at least 45 kg</p>
+                  placeholder="Minimum 45 kg required" data-placeholder-i18n="onboarding.placeholder.weight">
+                <p class="text-xs text-slate-500 mt-1" data-i18n="onboarding.info.weight">Donors must weigh at least 45
+                  kg</p>
               </div>
 
               <!-- Medical Conditions -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3"
+                  data-i18n="onboarding.label.conditions_q">
                   Do you have any of the following conditions? *
                 </label>
                 <div class="space-y-3">
                   <label class="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" name="conditions" value="none"
                       class="mt-1 w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary">
-                    <span class="text-sm text-slate-700 dark:text-slate-300">None of the below</span>
+                    <span class="text-sm text-slate-700 dark:text-slate-300" data-i18n="onboarding.condition.none">None
+                      of the below</span>
                   </label>
                   <label class="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" name="conditions" value="hiv"
                       class="mt-1 w-5 h-5 rounded border-slate-300 text-emergency focus:ring-emergency">
-                    <span class="text-sm text-slate-700 dark:text-slate-300">HIV/AIDS, Hepatitis B/C</span>
+                    <span class="text-sm text-slate-700 dark:text-slate-300"
+                      data-i18n="onboarding.condition.hiv">HIV/AIDS, Hepatitis B/C</span>
                   </label>
                   <label class="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" name="conditions" value="diabetes"
                       class="mt-1 w-5 h-5 rounded border-slate-300 text-emergency focus:ring-emergency">
-                    <span class="text-sm text-slate-700 dark:text-slate-300">Diabetes, Heart disease</span>
+                    <span class="text-sm text-slate-700 dark:text-slate-300"
+                      data-i18n="onboarding.condition.diabetes">Diabetes, Heart disease</span>
                   </label>
                   <label class="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" name="conditions" value="cancer"
                       class="mt-1 w-5 h-5 rounded border-slate-300 text-emergency focus:ring-emergency">
-                    <span class="text-sm text-slate-700 dark:text-slate-300">Cancer or undergoing chemotherapy</span>
+                    <span class="text-sm text-slate-700 dark:text-slate-300"
+                      data-i18n="onboarding.condition.cancer">Cancer or undergoing chemotherapy</span>
                   </label>
                 </div>
               </div>
 
               <!-- Last Donation -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                  data-i18n="onboarding.label.last_donation">
                   Last Blood Donation Date
                 </label>
                 <input type="date" name="lastDonation"
                   class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                <p class="text-xs text-slate-500 mt-1">Leave blank if first-time donor</p>
+                <p class="text-xs text-slate-500 mt-1" data-i18n="onboarding.info.last_donation">Leave blank if
+                  first-time donor</p>
               </div>
             </div>
           </div>
@@ -276,13 +294,14 @@
           <!-- Action Buttons -->
           <div class="flex flex-col sm:flex-row gap-4 pt-8">
             <a href="step1.html"
-              class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+              class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+              data-i18n="onboarding.btn.back_step">
               <span class="material-symbols-outlined inline-block mr-2">arrow_back</span>
               Back
             </a>
             <button type="submit"
               class="flex-1 bg-brand-gradient text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-              <span>Continue to Verification</span>
+              <span data-i18n="onboarding.btn.continue_verify">Continue to Verification</span>
               <span class="material-symbols-outlined">arrow_forward</span>
             </button>
           </div>

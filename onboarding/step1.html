@@ -14,8 +14,7 @@
         rel="stylesheet">
 
     <!-- Material Symbols -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
         rel="stylesheet">
 
     <!-- Tailwind CSS -->
@@ -38,14 +37,14 @@
     <!-- Navigation Bar -->
     <app-navbar></app-navbar>
 
-    <main class="relative z-10 pt-28 pb-20 min-h-screen flex items-center">
+    <main class="relative z-10 pt-32 pb-20 min-h-screen flex items-center">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full">
 
             <!-- Progress Bar -->
             <div class="mb-12">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-semibold text-primary">Step 1 of 4</span>
-                    <span class="text-sm text-slate-500">Choose Your Role</span>
+                    <span class="text-sm font-semibold text-primary" data-i18n="onboarding.step1.of">Step 1 of 4</span>
+                    <span class="text-sm text-slate-500" data-i18n="onboarding.step1.role">Choose Your Role</span>
                 </div>
                 <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                     <div class="h-full bg-brand-gradient w-1/4 transition-all duration-500"></div>
@@ -61,10 +60,11 @@
                     <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                         <span class="material-symbols-outlined text-5xl text-primary">person_add</span>
                     </div>
-                    <h1 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-3">
+                    <h1 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-3"
+                        data-i18n="onboarding.step1.title">
                         Join LifeLink
                     </h1>
-                    <p class="text-slate-600 dark:text-slate-400 text-lg">
+                    <p class="text-slate-600 dark:text-slate-400 text-lg" data-i18n="onboarding.step1.subtitle">
                         Select your role to get started
                     </p>
                 </div>
@@ -83,8 +83,10 @@
                                     <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
                                 </div>
                                 <div class="flex-1">
-                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Blood Donor</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2"
+                                        data-i18n="onboarding.role.donor.title">Blood Donor</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400"
+                                        data-i18n="onboarding.role.donor.desc">
                                         Register as a blood donor and help save lives in your community. Get matched
                                         with recipients in need.
                                     </p>
@@ -109,9 +111,11 @@
                                     <span class="material-symbols-outlined text-3xl">local_hospital</span>
                                 </div>
                                 <div class="flex-1">
-                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Hospital / Medical
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2"
+                                        data-i18n="onboarding.role.hospital.title">Hospital / Medical
                                         Facility</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                                    <p class="text-sm text-slate-600 dark:text-slate-400"
+                                        data-i18n="onboarding.role.hospital.desc">
                                         Register your hospital or medical facility to request blood donations and manage
                                         patient needs.
                                     </p>
@@ -136,9 +140,11 @@
                                     <span class="material-symbols-outlined text-3xl">personal_injury</span>
                                 </div>
                                 <div class="flex-1">
-                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Patient /
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2"
+                                        data-i18n="onboarding.role.patient.title">Patient /
                                         Recipient</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                                    <p class="text-sm text-slate-600 dark:text-slate-400"
+                                        data-i18n="onboarding.role.patient.desc">
                                         Request blood on behalf of yourself or a family member in need of urgent medical
                                         assistance.
                                     </p>
@@ -155,12 +161,13 @@
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 pt-8">
                         <a href="../index.html"
-                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+                            data-i18n="onboarding.btn.back">
                             Back to Home
                         </a>
                         <button type="submit"
                             class="flex-1 bg-brand-gradient text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-                            <span>Continue</span>
+                            <span data-i18n="onboarding.btn.continue">Continue</span>
                             <span class="material-symbols-outlined">arrow_forward</span>
                         </button>
                     </div>
@@ -169,8 +176,9 @@
                 <!-- Already have account -->
                 <div class="text-center mt-8 pt-8 border-t border-slate-200 dark:border-slate-700">
                     <p class="text-slate-600 dark:text-slate-400">
-                        Already have an account?
-                        <a href="../auth/login.html" class="text-primary font-semibold hover:underline">Sign in</a>
+                        <span data-i18n="onboarding.already_have_account">Already have an account?</span>
+                        <a href="../auth/login.html" class="text-primary font-semibold hover:underline"
+                            data-i18n="onboarding.sign_in">Sign in</a>
                     </p>
                 </div>
             </div>
