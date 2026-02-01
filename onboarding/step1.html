@@ -69,6 +69,35 @@
                     </p>
                 </div>
 
+                <!-- Authentication Required (Hidden initially) -->
+                <div id="auth-required" class="hidden space-y-6 text-center">
+                    <p class="text-slate-600 dark:text-slate-400 mb-8" data-i18n="onboarding.auth_required">
+                        Please sign in or create an account to start your journey with LifeLink.
+                    </p>
+                    <div class="space-y-4 max-w-sm mx-auto">
+                        <button onclick="startGoogleSignup()"
+                            class="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-all group">
+                            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg"
+                                class="w-5 h-5" alt="Google">
+                            <span class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-primary">Continue
+                                with Google</span>
+                        </button>
+
+                        <div class="relative py-4">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm"><span
+                                    class="px-2 bg-white dark:bg-surface-dark text-slate-500">Or use email</span></div>
+                        </div>
+
+                        <a href="../auth/login.html"
+                            class="block w-full px-6 py-4 rounded-xl bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
+                            Sign in with Email
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Role Selection -->
                 <form id="roleForm" class="space-y-4">
 
@@ -191,29 +220,68 @@
     <script src="../assets/js/animations.js"></script>
     <script src="../assets/js/main.js"></script>
 
-    <script>
-        // Form submission handler
-        document.getElementById('roleForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+    import { auth, db, initAuthObserver, loginWithGoogle, handleAuthRedirect } from '../assets/js/auth-service.js';
+    import { saveUserProfile, getFullUserProfile } from '../assets/js/db-service.js';
 
-            const selectedRole = document.querySelector('input[name="role"]:checked');
-            if (!selectedRole) {
-                alert('Please select a role to continue');
-                return;
-            }
+    const roleForm = document.getElementById('roleForm');
+    const authSection = document.getElementById('auth-required'); // We'll add this div
 
-            // Store role in session/local storage
-            localStorage.setItem('onboarding_role', selectedRole.value);
+    initAuthObserver(async (user) => {
+    if (user) {
+    // Check if profile is already complete
+    const profile = await getFullUserProfile(db, user.uid);
+    if (profile && profile.onboardingComplete) {
+    await handleAuthRedirect(user);
+    return;
+    }
 
-            // Navigate to appropriate step 2 page
-            const rolePages = {
-                'donor': 'step2_1.html',
-                'hospital': 'step2_2.html',
-                'patient': 'step2_3.html'
-            };
+    // User is logged in, show role selection
+    roleForm.classList.remove('hidden');
+    if (authSection) authSection.classList.add('hidden');
+    } else {
+    // User not logged in, show auth buttons
+    roleForm.classList.add('hidden');
+    if (authSection) authSection.classList.remove('hidden');
+    }
+    });
 
-            window.location.href = rolePages[selectedRole.value];
-        });
+    // Form submission handler
+    roleForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const selectedRole = document.querySelector('input[name="role"]:checked');
+    if (!selectedRole) {
+    alert('Please select a role to continue');
+    return;
+    }
+
+    const role = selectedRole.value;
+    localStorage.setItem('onboarding_role', role);
+
+    // Update user role in Firestore if logged in
+    if (auth.currentUser) {
+    await saveUserProfile(db, auth.currentUser, role);
+    }
+
+    // Navigate to appropriate step 2 page
+    const rolePages = {
+    'donor': 'step2_1.html',
+    'hospital': 'step2_2.html',
+    'patient': 'step2_3.html'
+    };
+
+    window.location.href = rolePages[role];
+    });
+
+    // Google Login for Onboarding
+    window.startGoogleSignup = async () => {
+    const result = await loginWithGoogle();
+    if (result.success) {
+    // Observer will handle UI update
+    } else {
+    alert(result.error);
+    }
+    };
     </script>
 </body>
 

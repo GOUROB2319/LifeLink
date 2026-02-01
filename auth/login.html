@@ -226,18 +226,19 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Processing...';
 
-            const result = await loginUser(email, password, currentRole);
+            const result = await loginUser(email, password);
 
             if (result.success) {
-                // Determine redirect based on role
-                let redirect = '../dashboard/donor.html';
-                if (currentRole === 'doctor') redirect = '../dashboard/directory.html'; // Assuming separate dashboard
-                if (currentRole === 'hospital') redirect = '../dashboard/hospital.html';
-
-                window.location.href = redirect;
+                // handleAuthRedirect is called inside loginUser
             } else {
                 errorDiv.classList.remove('hidden');
-                errorMsg.textContent = result.error || 'Login failed. Please check your credentials.';
+
+                // If user not found, suggest registration
+                if (result.error.includes('auth/user-not-found') || result.error.includes('auth/invalid-credential')) {
+                    errorMsg.innerHTML = 'No account found with these credentials. <a href="../onboarding/step1.html" class="underline font-bold">Create one now?</a>';
+                } else {
+                    errorMsg.textContent = result.error || 'Login failed. Please check your credentials.';
+                }
 
                 // Reset Button
                 submitBtn.disabled = false;
@@ -247,10 +248,8 @@
 
         // Google Login
         document.getElementById('googleBtn').addEventListener('click', async () => {
-            const result = await loginWithGoogle(currentRole);
-            if (result.success) {
-                window.location.href = '../dashboard/donor.html';
-            } else {
+            const result = await loginWithGoogle();
+            if (!result.success) {
                 errorDiv.classList.remove('hidden');
                 errorMsg.textContent = result.error;
             }

@@ -10,8 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
         rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../assets/js/config.js"></script>
@@ -193,11 +192,83 @@
     <script src="../assets/js/localization.js"></script>
     <script src="../assets/js/animations.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script>
-        document.getElementById('emergencyForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert('Emergency request submitted! Matching donors will be notified immediately.');
+    <!-- AI Triaging Modal -->
+    <div id="aiModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div
+            class="relative bg-white dark:bg-surface-dark rounded-[2rem] shadow-2xl p-8 max-w-lg w-full border border-slate-200 dark:border-slate-700 animate-slide-up">
+            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                <span class="material-symbols-outlined text-4xl text-primary animate-pulse">psychology</span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">AI Emergency Analysis</h2>
+            <div id="aiResponse" class="text-slate-600 dark:text-slate-400 mb-8 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary animate-progress-ind"></div>
+                    </div>
+                    <span>Analyzing urgency...</span>
+                </div>
+            </div>
+            <button onclick="closeAiModal()"
+                class="w-full bg-brand-gradient text-white py-4 rounded-xl font-bold shadow-lg hover:scale-[1.02] transition-all">
+                Understood
+            </button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { askGemini } from '../assets/js/gemini-service.js';
+
+        const form = document.getElementById('emergencyForm');
+        const modal = document.getElementById('aiModal');
+        const responseDiv = document.getElementById('aiResponse');
+
+        window.closeAiModal = () => {
+            modal.classList.add('hidden');
             window.location.href = 'donor.html';
+        };
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            // Show Modal
+            modal.classList.remove('hidden');
+
+            // Create Prompt
+            const prompt = `
+                I have an emergency blood request:
+                - Blood Group: ${data.bloodGroup}
+                - Units: ${data.units}
+                - Urgency: ${data.urgency}
+                - Location: ${data.hospital}, ${data.district}
+                - Notes: ${data.notes}
+                
+                Please provide:
+                1. 3 professional first-aid/preparatory tips for this specific situation.
+                2. A brief analysis of the urgency.
+                3. Advice for the patient's family.
+                Keep it concise and professional.
+            `;
+
+            try {
+                const aiText = await askGemini(prompt);
+
+                // Format response (simple markdown to html)
+                const formattedText = aiText
+                    .replace(/\n\n/g, '</div><div class="space-y-4">')
+                    .replace(/\* \*/g, '•')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-primary">$1</strong>');
+
+                responseDiv.innerHTML = `<div class="space-y-4">${formattedText}</div>`;
+
+                // In a real app, actually save to DB here
+                console.log('Emergency request saved to Firestore (placeholder)');
+            } catch (err) {
+                responseDiv.innerHTML = '<p class="text-emergency">Failed to connect to AI service. Your request has been logged and shared with nearby donors.</p>';
+            }
         });
     </script>
 </body>

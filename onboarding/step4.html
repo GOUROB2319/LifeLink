@@ -99,12 +99,56 @@
     <script src="../assets/js/localization.js"></script>
     <script src="../assets/js/animations.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script>
-        localStorage.removeItem('onboarding_role');
-        localStorage.removeItem('onboarding_donor_data');
-        localStorage.removeItem('onboarding_hospital_data');
-        localStorage.removeItem('onboarding_patient_data');
-        localStorage.removeItem('onboarding_verified');
+    <script type="module">
+        import { auth, db, initAuthObserver } from '../assets/js/auth-service.js';
+        import { saveUserProfile } from '../assets/js/db-service.js';
+
+        initAuthObserver(async (user) => {
+            if (user) {
+                // Collect all data from localStorage
+                const role = localStorage.getItem('onboarding_role');
+                const donorData = JSON.parse(localStorage.getItem('onboarding_donor_data') || '{}');
+                const hospitalData = JSON.parse(localStorage.getItem('onboarding_hospital_data') || '{}');
+                const patientData = JSON.parse(localStorage.getItem('onboarding_patient_data') || '{}');
+                const docName = localStorage.getItem('onboarding_doc_name');
+                const verified = localStorage.getItem('onboarding_verified') === 'true';
+
+                // Combine based on role
+                let finalData = {};
+                if (role === 'donor') finalData = donorData;
+                else if (role === 'hospital') finalData = hospitalData;
+                else if (role === 'patient') finalData = patientData;
+
+                // Sync to Firestore
+                try {
+                    await saveUserProfile(db, user, role, {
+                        ...finalData,
+                        verificationDoc: docName || 'none',
+                        isVerified: verified,
+                        onboardingComplete: true,
+                        updatedAt: new Date()
+                    });
+                    console.log('Onboarding data synced professionaly.');
+
+                    // Update Dashboard Link dynamically
+                    const dashLink = document.querySelector('a[href*="dashboard/"]');
+                    if (dashLink) dashLink.href = `../dashboard/${role}.html`;
+
+                    // Clear localStorage after successful save
+                    localStorage.removeItem('onboarding_role');
+                    localStorage.removeItem('onboarding_donor_data');
+                    localStorage.removeItem('onboarding_hospital_data');
+                    localStorage.removeItem('onboarding_patient_data');
+                    localStorage.removeItem('onboarding_doc_name');
+                    localStorage.removeItem('onboarding_verified');
+                } catch (e) {
+                    console.error('Failed to sync data:', e);
+                }
+            } else {
+                // If not logged in, redirect to step 1
+                window.location.href = 'step1.html';
+            }
+        });
     </script>
 </body>
 

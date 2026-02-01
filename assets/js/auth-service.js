@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import firebaseConfig from "./firebase-config.js";
-import { saveUserProfile, getUserRole } from "./db-service.js";
+import { saveUserProfile, getUserRole, checkUserExists, getFullUserProfile } from "./db-service.js";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -10,45 +10,57 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
+/**
+ * Handle routing based on user profile state
+ * @param {Object} user - Firebase user
+ */
+const handleAuthRedirect = async (user) => {
+    if (!user) return;
+
+    const profile = await getFullUserProfile(db, user.uid);
+
+    // Logic: If profile exists and is complete -> Dashboard
+    // If profile exists but incomplete (missing role or address) -> Onboarding
+    // If profile doesn't exist -> Onboarding
+
+    if (profile && profile.role && (profile.address || profile.hospitalName || profile.medicalCondition)) {
+        // Complete profile -> Go to appropriate dashboard
+        const role = profile.role || 'patient';
+        window.location.href = `../dashboard/${role}.html`;
+    } else {
+        // New or incomplete user -> Go to onboarding
+        window.location.href = '../onboarding/step1.html';
+    }
+};
+
 // Auth State Observer
 const initAuthObserver = (callback) => {
     onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            // Ideally fetch role here to pass to callback if needed
-            const role = await getUserRole(db, user.uid);
-            user.role = role;
-        }
-        callback(user);
+        if (callback) callback(user);
     });
 };
 
 // Login Logic
-const loginUser = async (email, password, role) => {
+const loginUser = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Save/Update User in DB
-        await saveUserProfile(db, user, role);
-
-        return { success: true, user, role };
+        await handleAuthRedirect(user);
+        return { success: true, user };
     } catch (error) {
         return { success: false, error: error.message };
     }
 };
 
 // Google Login
-const loginWithGoogle = async (role) => {
+const loginWithGoogle = async () => {
     try {
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
 
-        // Save/Update User in DB
-        // If role is not provided (e.g. distinct Login button), strictly 'patient' default or existing?
-        // db-service handles 'exists' check.
-        await saveUserProfile(db, user, role);
-
-        return { success: true, user, role };
+        await handleAuthRedirect(user);
+        return { success: true, user };
     } catch (error) {
         return { success: false, error: error.message };
     }
@@ -57,10 +69,11 @@ const loginWithGoogle = async (role) => {
 const logoutUser = async () => {
     try {
         await signOut(auth);
+        window.location.href = '../index.html';
         return { success: true };
     } catch (error) {
         return { success: false, error: error.message };
     }
 };
 
-export { auth, db, initAuthObserver, loginUser, loginWithGoogle, logoutUser };
+export { auth, db, initAuthObserver, loginUser, loginWithGoogle, logoutUser, handleAuthRedirect };

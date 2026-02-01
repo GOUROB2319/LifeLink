@@ -50,3 +50,27 @@ export const getUserRole = async (db, uid) => {
         return null;
     }
 };
+
+/**
+ * Check if a user document exists in Firestore
+ * @param {Object} db - Firestore instance
+ * @param {string} uid - User ID
+ * @returns {Promise<boolean>}
+ */
+export const checkUserExists = async (db, uid) => {
+    const userRef = doc(db, "users", uid);
+    const snap = await getDoc(userRef);
+    return snap.exists();
+};
+
+/**
+ * Get full user profile data
+ * @param {Object} db - Firestore instance
+ * @param {string} uid - User ID
+ * @returns {Promise<Object|null>}
+ */
+export const getFullUserProfile = async (db, uid) => {
+    const userRef = doc(db, "users", uid);
+    const snap = await getDoc(userRef);
+    return snap.exists() ? snap.data() : null;
+};

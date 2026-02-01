@@ -166,6 +166,10 @@
 
         document.getElementById('verificationForm').addEventListener('submit', function (e) {
             e.preventDefault();
+            const fileInput = document.getElementById('docUpload');
+            if (fileInput.files.length > 0) {
+                localStorage.setItem('onboarding_doc_name', fileInput.files[0].name);
+            }
             localStorage.setItem('onboarding_verified', 'true');
             window.location.href = 'step4.html';
         });

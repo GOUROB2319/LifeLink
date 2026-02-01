@@ -64,8 +64,10 @@ const translations = {
         "login.google": "Google",
         "login.new_user": "New to LifeLink?",
         "login.create_account": "Create Account",
+        "login.no_account": "No account found with these credentials. Create one now?",
 
         // Onboarding Step 1
+        "onboarding.auth_required": "Please sign in or create an account to start your journey with LifeLink.",
         "onboarding.step1.of": "Step 1 of 4",
         "onboarding.step1.role": "Choose Your Role",
         "onboarding.step1.title": "Join LifeLink",
@@ -259,8 +261,10 @@ const translations = {
         "login.google": "গুগল",
         "login.new_user": "লাইফলিংকে নতুন?",
         "login.create_account": "অ্যাকাউন্ট তৈরি করুন",
+        "login.no_account": "এই তথ্যে কোনো অ্যাকাউন্ট পাওয়া যায়নি। এখনই তৈরি করবেন?",
 
         // Onboarding Step 1 - BN
+        "onboarding.auth_required": "লাইফলিংকে আপনার যাত্রা শুরু করতে অনুগ্রহ করে সাইন-ইন বা একটি অ্যাকাউন্ট তৈরি করুন।",
         "onboarding.step1.of": "ধাপ ১ (মোট ৪টি)",
         "onboarding.step1.role": "আপনার রোল নির্বাচন করুন",
         "onboarding.step1.title": "লাইফলিংকে যোগ দিন",
