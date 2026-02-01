@@ -45,11 +45,6 @@ class Navbar extends HTMLElement {
                         <span id="lang-toggle-text" class="text-xs font-bold text-slate-600 dark:text-slate-300 group-hover:text-primary">EN</span>
                     </button>
 
-                    <!-- Theme Toggle -->
-                    <button id="theme-toggle-nav" class="p-2.5 rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all hover:text-secondary dark:hover:text-secondary">
-                        <span class="material-symbols-outlined dark:hidden">dark_mode</span>
-                        <span class="material-symbols-outlined hidden dark:block">light_mode</span>
-                    </button>
 
                     <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
 
@@ -126,15 +121,6 @@ class Navbar extends HTMLElement {
     }
 
     initLogic() {
-        // Theme Toggle
-        const themeBtn = this.querySelector('#theme-toggle-nav');
-        if (themeBtn) {
-            themeBtn.addEventListener('click', () => {
-                document.documentElement.classList.toggle('dark');
-                const isDark = document.documentElement.classList.contains('dark');
-                localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
-            });
-        }
 
         // Mobile Menu
         const mobileBtn = this.querySelector('#mobile-menu-btn');
