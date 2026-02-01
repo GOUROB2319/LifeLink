@@ -16,6 +16,7 @@
     <script src="../assets/js/config.js"></script>
     <script src="../assets/js/components.js"></script>
     <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
 </head>
 
 <body
@@ -239,9 +240,11 @@
             } else {
                 errorDiv.classList.remove('hidden');
 
-                // If user not found, suggest registration
-                if (result.error.includes('auth/user-not-found') || result.error.includes('auth/invalid-credential')) {
-                    errorMsg.innerHTML = 'No account found with these credentials. <a href="register.html" class="underline font-bold">Create one now?</a>';
+                // Improved Error Messaging
+                if (result.code === 'auth/user-not-found') {
+                    errorMsg.innerHTML = 'No account found with this email. <a href="register.html" class="underline font-bold">Create one now?</a>';
+                } else if (result.code === 'auth/wrong-password' || result.code === 'auth/invalid-credential') {
+                    errorMsg.innerHTML = 'Invalid email or password. Please try again or <a href="#" class="underline font-bold">reset password</a>.';
                 } else {
                     errorMsg.textContent = result.error || 'Login failed. Please check your credentials.';
                 }

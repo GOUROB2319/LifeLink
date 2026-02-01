@@ -45,7 +45,7 @@ const loginUser = async (email, password) => {
         await handleAuthRedirect(user);
         return { success: true, user };
     } catch (error) {
-        return { success: false, error: error.message };
+        return { success: false, error: error.message, code: error.code };
     }
 };
 
@@ -71,7 +71,7 @@ const loginWithGoogle = async () => {
         await handleAuthRedirect(user);
         return { success: true, user };
     } catch (error) {
-        return { success: false, error: error.message };
+        return { success: false, error: error.message, code: error.code };
     }
 };
 
