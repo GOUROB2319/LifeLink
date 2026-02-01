@@ -20,12 +20,16 @@ const handleAuthRedirect = async (user) => {
     const profile = await getFullUserProfile(db, user.uid);
 
     // If profile has explicit onboardingComplete flag, go to dashboard
+    const loc = window.location.pathname;
+    const isSubfolder = loc.includes('/auth/') || loc.includes('/onboarding/') || loc.includes('/dashboard/') || loc.includes('/info/');
+    const prefix = isSubfolder ? '../' : '';
+
     if (profile && profile.onboardingComplete) {
         const role = profile.role || 'patient';
-        window.location.href = `../dashboard/${role}.html`;
+        window.location.href = `${prefix}dashboard/${role}.html`;
     } else {
         // New or incomplete user -> Go to onboarding step 1
-        window.location.href = '../onboarding/step1.html';
+        window.location.href = `${prefix}onboarding/step1.html`;
     }
 };
 
@@ -78,7 +82,10 @@ const loginWithGoogle = async () => {
 const logoutUser = async () => {
     try {
         await signOut(auth);
-        window.location.href = '../index.html';
+        const loc = window.location.pathname;
+        const isSubfolder = loc.includes('/auth/') || loc.includes('/onboarding/') || loc.includes('/dashboard/') || loc.includes('/info/');
+        const prefix = isSubfolder ? '../' : '';
+        window.location.href = `${prefix}index.html`;
         return { success: true };
     } catch (error) {
         return { success: false, error: error.message };

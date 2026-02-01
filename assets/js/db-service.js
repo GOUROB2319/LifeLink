@@ -23,6 +23,7 @@ export const saveUserProfile = async (db, user, role, additionalData = {}) => {
         } else {
             await updateDoc(userRef, {
                 lastLogin: serverTimestamp(),
+                role: role || userSnap.data().role, // Ensure role is updated if provided
                 ...additionalData
             });
         }
