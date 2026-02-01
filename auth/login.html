@@ -184,7 +184,14 @@
     <script src="../assets/js/localization.js"></script>
 
     <script type="module">
-        import { loginUser, loginWithGoogle } from '../assets/js/auth-service.js';
+        import { loginUser, loginWithGoogle, initAuthObserver, handleAuthRedirect } from '../assets/js/auth-service.js';
+
+        // Auto-redirect if already logged in
+        initAuthObserver(async (user) => {
+            if (user) {
+                await handleAuthRedirect(user);
+            }
+        });
 
         // Role Tab Logic
         const tabs = document.querySelectorAll('.role-tab');

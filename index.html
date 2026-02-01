@@ -279,6 +279,17 @@
     <script src="assets/js/localization.js"></script>
     <script src="assets/js/animations.js"></script>
     <script src="assets/js/main.js"></script>
+    <script type="module">
+        import { initAuthObserver } from './assets/js/auth-service.js';
+
+        initAuthObserver((user) => {
+            const navbar = document.querySelector('app-navbar');
+            if (user && navbar && navbar.updateAuth) {
+                navbar.setAttribute('auth', 'true');
+                navbar.updateAuth(user);
+            }
+        });
+    </script>
 </body>
 
 </html>

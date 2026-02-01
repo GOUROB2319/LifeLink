@@ -168,7 +168,9 @@
         const alertContainer = document.getElementById('realtime-alerts');
 
         initAuthObserver(async (user) => {
+            const navbar = document.querySelector('app-navbar');
             if (user) {
+                if (navbar && navbar.updateAuth) navbar.updateAuth(user);
                 const profile = await getFullUserProfile(db, user.uid);
                 if (profile) {
                     // Set UI based on profile

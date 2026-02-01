@@ -19,16 +19,12 @@ const handleAuthRedirect = async (user) => {
 
     const profile = await getFullUserProfile(db, user.uid);
 
-    // Logic: If profile exists and is complete -> Dashboard
-    // If profile exists but incomplete (missing role or address) -> Onboarding
-    // If profile doesn't exist -> Onboarding
-
-    if (profile && profile.role && (profile.address || profile.hospitalName || profile.medicalCondition)) {
-        // Complete profile -> Go to appropriate dashboard
+    // If profile has explicit onboardingComplete flag, go to dashboard
+    if (profile && profile.onboardingComplete) {
         const role = profile.role || 'patient';
         window.location.href = `../dashboard/${role}.html`;
     } else {
-        // New or incomplete user -> Go to onboarding
+        // New or incomplete user -> Go to onboarding step 1
         window.location.href = '../onboarding/step1.html';
     }
 };
@@ -77,3 +73,10 @@ const logoutUser = async () => {
 };
 
 export { auth, db, initAuthObserver, loginUser, loginWithGoogle, logoutUser, handleAuthRedirect };
+
+// Global event listener for logout from components
+if (typeof window !== 'undefined') {
+    window.addEventListener('lifelink-logout', async () => {
+        await logoutUser();
+    });
+}

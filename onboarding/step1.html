@@ -69,135 +69,141 @@
                     </p>
                 </div>
 
-                <!-- Authentication Required (Hidden initially) -->
-                <div id="auth-required" class="hidden space-y-6 text-center">
-                    <p class="text-slate-600 dark:text-slate-400 mb-8" data-i18n="onboarding.auth_required">
-                        Please sign in or create an account to start your journey with LifeLink.
-                    </p>
-                    <div class="space-y-4 max-w-sm mx-auto">
+                <!-- Authentication Required (Default view for guests) -->
+                <div id="auth-required" class="space-y-8 py-4">
+                    <div class="max-w-md mx-auto space-y-6">
                         <button onclick="startGoogleSignup()"
-                            class="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-all group">
+                            class="w-full flex items-center justify-center gap-4 px-6 py-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 group">
                             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg"
-                                class="w-5 h-5" alt="Google">
-                            <span class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-primary">Continue
+                                class="w-6 h-6" alt="Google">
+                            <span
+                                class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-primary text-lg">Continue
                                 with Google</span>
                         </button>
 
-                        <div class="relative py-4">
+                        <div class="relative py-2">
                             <div class="absolute inset-0 flex items-center">
                                 <div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
                             </div>
-                            <div class="relative flex justify-center text-sm"><span
-                                    class="px-2 bg-white dark:bg-surface-dark text-slate-500">Or use email</span></div>
+                            <div
+                                class="relative flex justify-center text-xs uppercase font-bold text-slate-400 tracking-wider">
+                                <span class="px-4 bg-white dark:bg-surface-dark">Or join with email</span>
+                            </div>
                         </div>
 
                         <a href="../auth/login.html"
-                            class="block w-full px-6 py-4 rounded-xl bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
-                            Sign in with Email
+                            class="block w-full px-6 py-4 rounded-2xl bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white transition-all text-center text-lg shadow-sm">
+                            <span data-i18n="onboarding.sign_in">Sign in / Create Account</span>
                         </a>
+                    </div>
+
+                    <div
+                        class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-2xl border border-blue-100 dark:border-blue-800/50 flex items-start gap-4">
+                        <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 mt-0.5">info</span>
+                        <p class="text-sm text-blue-700 dark:text-blue-300 leading-relaxed">
+                            <strong>Why sign in?</strong> To ensure your life-saving information is securely saved and
+                            synced across all your devices. Verification takes only a few minutes.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Role Selection -->
-                <form id="roleForm" class="space-y-4">
-
-                    <!-- Donor Option -->
-                    <label class="block cursor-pointer group">
-                        <input type="radio" name="role" value="donor" class="peer sr-only" required>
-                        <div
-                            class="p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-lg">
-                            <div class="flex items-start gap-4">
-                                <div
-                                    class="w-14 h-14 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 text-primary flex items-center justify-center flex-shrink-0">
-                                    <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
-                                </div>
-                                <div class="flex-1">
-                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2"
-                                        data-i18n="onboarding.role.donor.title">Blood Donor</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400"
-                                        data-i18n="onboarding.role.donor.desc">
-                                        Register as a blood donor and help save lives in your community. Get matched
-                                        with recipients in need.
-                                    </p>
-                                </div>
-                                <div
-                                    class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                                    <span
-                                        class="material-symbols-outlined text-sm text-white hidden peer-checked:block">check</span>
-                                </div>
-                            </div>
-                        </div>
-                    </label>
-
-                    <!-- Hospital Option -->
-                    <label class="block cursor-pointer group">
-                        <input type="radio" name="role" value="hospital" class="peer sr-only">
-                        <div
-                            class="p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-lg">
-                            <div class="flex items-start gap-4">
-                                <div
-                                    class="w-14 h-14 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center flex-shrink-0">
-                                    <span class="material-symbols-outlined text-3xl">local_hospital</span>
-                                </div>
-                                <div class="flex-1">
-                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2"
-                                        data-i18n="onboarding.role.hospital.title">Hospital / Medical
-                                        Facility</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400"
-                                        data-i18n="onboarding.role.hospital.desc">
-                                        Register your hospital or medical facility to request blood donations and manage
-                                        patient needs.
-                                    </p>
-                                </div>
-                                <div
-                                    class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                                    <span
-                                        class="material-symbols-outlined text-sm text-white hidden peer-checked:block">check</span>
+                <!-- Role Selection (Hidden for guests) -->
+                <form id="roleForm" class="hidden space-y-6 animate-fade-in">
+                    <div class="grid grid-cols-1 gap-6">
+                        <!-- Donor Option -->
+                        <label class="block cursor-pointer group">
+                            <input type="radio" name="role" value="donor" class="peer sr-only" required>
+                            <div
+                                class="p-8 rounded-3xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5">
+                                <div class="flex items-start gap-6">
+                                    <div
+                                        class="w-16 h-16 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                        <span
+                                            class="material-symbols-outlined text-4xl leading-none">volunteer_activism</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2"
+                                            data-i18n="onboarding.role.donor.title">Blood Donor</h3>
+                                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed"
+                                            data-i18n="onboarding.role.donor.desc">
+                                            Register as a blood donor and help save lives. We'll notify you when someone
+                                            nearby matches your blood type.
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="w-8 h-8 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center flex-shrink-0 mt-2">
+                                        <span
+                                            class="material-symbols-outlined text-lg text-white hidden peer-checked:block">check</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </label>
+                        </label>
 
-                    <!-- Patient Option -->
-                    <label class="block cursor-pointer group">
-                        <input type="radio" name="role" value="patient" class="peer sr-only">
-                        <div
-                            class="p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-lg">
-                            <div class="flex items-start gap-4">
-                                <div
-                                    class="w-14 h-14 rounded-xl bg-red-100 dark:bg-red-900/30 text-emergency flex items-center justify-center flex-shrink-0">
-                                    <span class="material-symbols-outlined text-3xl">personal_injury</span>
-                                </div>
-                                <div class="flex-1">
-                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2"
-                                        data-i18n="onboarding.role.patient.title">Patient /
-                                        Recipient</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400"
-                                        data-i18n="onboarding.role.patient.desc">
-                                        Request blood on behalf of yourself or a family member in need of urgent medical
-                                        assistance.
-                                    </p>
-                                </div>
-                                <div
-                                    class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                                    <span
-                                        class="material-symbols-outlined text-sm text-white hidden peer-checked:block">check</span>
+                        <!-- Hospital Option -->
+                        <label class="block cursor-pointer group">
+                            <input type="radio" name="role" value="hospital" class="peer sr-only">
+                            <div
+                                class="p-8 rounded-3xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5">
+                                <div class="flex items-start gap-6">
+                                    <div
+                                        class="w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                        <span
+                                            class="material-symbols-outlined text-4xl leading-none">local_hospital</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2"
+                                            data-i18n="onboarding.role.hospital.title">Hospital / Clinic</h3>
+                                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed"
+                                            data-i18n="onboarding.role.hospital.desc">
+                                            Manage patient requests and find compatible donors instantly through our
+                                            AI-powered matching system.
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="w-8 h-8 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center flex-shrink-0 mt-2">
+                                        <span
+                                            class="material-symbols-outlined text-lg text-white hidden peer-checked:block">check</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </label>
+                        </label>
+
+                        <!-- Patient Option -->
+                        <label class="block cursor-pointer group">
+                            <input type="radio" name="role" value="patient" class="peer sr-only">
+                            <div
+                                class="p-8 rounded-3xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5">
+                                <div class="flex items-start gap-6">
+                                    <div
+                                        class="w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-900/30 text-emergency flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                        <span
+                                            class="material-symbols-outlined text-4xl leading-none">personal_injury</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2"
+                                            data-i18n="onboarding.role.patient.title">Patient / Recipient</h3>
+                                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed"
+                                            data-i18n="onboarding.role.patient.desc">
+                                            Request blood urgently and receive first-aid guidance while we connect you
+                                            with nearby verified donors.
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="w-8 h-8 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center flex-shrink-0 mt-2">
+                                        <span
+                                            class="material-symbols-outlined text-lg text-white hidden peer-checked:block">check</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 pt-8">
-                        <a href="../index.html"
-                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
-                            data-i18n="onboarding.btn.back">
-                            Back to Home
-                        </a>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
                         <button type="submit"
-                            class="flex-1 bg-brand-gradient text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
-                            <span data-i18n="onboarding.btn.continue">Continue</span>
-                            <span class="material-symbols-outlined">arrow_forward</span>
+                            class="flex-1 bg-brand-gradient text-white px-8 py-5 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3">
+                            <span data-i18n="onboarding.btn.continue">Continue Journey</span>
+                            <span class="material-symbols-outlined text-2xl">arrow_forward</span>
                         </button>
                     </div>
                 </form>
@@ -228,7 +234,11 @@
         const authSection = document.getElementById('auth-required');
 
         initAuthObserver(async (user) => {
+            const navbar = document.querySelector('app-navbar');
+
             if (user) {
+                if (navbar && navbar.updateAuth) navbar.updateAuth(user);
+
                 // Check if profile is already complete
                 const profile = await getFullUserProfile(db, user.uid);
                 if (profile && profile.onboardingComplete) {
