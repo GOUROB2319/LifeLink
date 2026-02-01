@@ -56,7 +56,7 @@ class Navbar extends HTMLElement {
                     ${!isAuth ? `
                     <a href="/auth/login.html" class="hidden sm:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
                     
-                    <a href="/onboarding/step1.html" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group">
+                    <a href="/auth/register.html" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group">
                         <span class="relative z-10 flex items-center gap-2">
                             <span data-i18n="nav.join">Join LifeLink</span>
                             <span class="material-symbols-outlined text-lg">arrow_forward</span>

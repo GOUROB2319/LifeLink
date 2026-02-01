@@ -64,6 +64,12 @@
 
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up"
                         style="animation-delay: 200ms;">
+                        <a href="auth/register.html"
+                            class="bg-brand-gradient text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-3 shadow-2xl shadow-primary/30 transition-all hover:scale-105">
+                            <span class="material-symbols-outlined">person_add</span>
+                            <span data-i18n="hero.cta.join">Join LifeLink</span>
+                        </a>
+
                         <a href="dashboard/emergency.html"
                             class="bg-emergency hover:bg-red-600 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-3 shadow-2xl shadow-red-500/30 transition-all hover:scale-105">
                             <span class="material-symbols-outlined animate-pulse">e911_emergency</span>
@@ -155,7 +161,8 @@
                         <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white"
                             data-i18n="process.step1.title">1. Register</h3>
                         <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed"
-                            data-i18n="process.step1.desc">Create your profile as a donor, hospital, or patient.</p>
+                            data-i18n="process.step1.desc">Create your profile via <a href="auth/register.html"
+                                class="text-primary hover:underline">Sign Up</a>.</p>
                     </div>
 
                     <!-- Step 2 -->

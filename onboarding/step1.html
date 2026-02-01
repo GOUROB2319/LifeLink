@@ -69,46 +69,8 @@
                     </p>
                 </div>
 
-                <!-- Authentication Required (Default view for guests) -->
-                <div id="auth-required" class="space-y-8 py-4">
-                    <div class="max-w-md mx-auto space-y-6">
-                        <button onclick="startGoogleSignup()"
-                            class="w-full flex items-center justify-center gap-4 px-6 py-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 group">
-                            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg"
-                                class="w-6 h-6" alt="Google">
-                            <span
-                                class="font-bold text-slate-700 dark:text-slate-300 group-hover:text-primary text-lg">Continue
-                                with Google</span>
-                        </button>
-
-                        <div class="relative py-2">
-                            <div class="absolute inset-0 flex items-center">
-                                <div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
-                            </div>
-                            <div
-                                class="relative flex justify-center text-xs uppercase font-bold text-slate-400 tracking-wider">
-                                <span class="px-4 bg-white dark:bg-surface-dark">Or join with email</span>
-                            </div>
-                        </div>
-
-                        <a href="../auth/login.html"
-                            class="block w-full px-6 py-4 rounded-2xl bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white transition-all text-center text-lg shadow-sm">
-                            <span data-i18n="onboarding.sign_in">Sign in / Create Account</span>
-                        </a>
-                    </div>
-
-                    <div
-                        class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-2xl border border-blue-100 dark:border-blue-800/50 flex items-start gap-4">
-                        <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 mt-0.5">info</span>
-                        <p class="text-sm text-blue-700 dark:text-blue-300 leading-relaxed">
-                            <strong>Why sign in?</strong> To ensure your life-saving information is securely saved and
-                            synced across all your devices. Verification takes only a few minutes.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Role Selection (Hidden for guests) -->
-                <form id="roleForm" class="hidden space-y-6 animate-fade-in">
+                <!-- Role Selection -->
+                <form id="roleForm" class="space-y-6 animate-fade-in">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Donor Option -->
                         <label class="block cursor-pointer group">
@@ -231,7 +193,6 @@
         import { saveUserProfile, getFullUserProfile } from '../assets/js/db-service.js';
 
         const roleForm = document.getElementById('roleForm');
-        const authSection = document.getElementById('auth-required');
 
         initAuthObserver(async (user) => {
             const navbar = document.querySelector('app-navbar');
@@ -245,14 +206,9 @@
                     await handleAuthRedirect(user);
                     return;
                 }
-
-                // User is logged in, show role selection
-                roleForm.classList.remove('hidden');
-                if (authSection) authSection.classList.add('hidden');
             } else {
-                // User not logged in, show auth buttons
-                roleForm.classList.add('hidden');
-                if (authSection) authSection.classList.remove('hidden');
+                // User not logged in, MUST register first
+                window.location.href = '../auth/register.html';
             }
         });
 
@@ -284,15 +240,6 @@
             window.location.href = rolePages[role];
         });
 
-        // Google Login for Onboarding
-        window.startGoogleSignup = async () => {
-            const result = await loginWithGoogle();
-            if (result.success) {
-                // Observer will handle UI update
-            } else {
-                alert(result.error);
-            }
-        };
     </script>
 </body>
 

@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import firebaseConfig from "./firebase-config.js";
 import { saveUserProfile, getUserRole, checkUserExists, getFullUserProfile } from "./db-service.js";
@@ -55,6 +55,19 @@ const loginWithGoogle = async () => {
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
 
+        // Check if user exists, if not create basic profile
+        const profile = await getFullUserProfile(db, user.uid);
+        if (!profile) {
+            await saveUserProfile(db, user, null, {
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                createdAt: new Date(),
+                onboardingComplete: false,
+                authMethod: 'google'
+            });
+        }
+
         await handleAuthRedirect(user);
         return { success: true, user };
     } catch (error) {
@@ -72,7 +85,28 @@ const logoutUser = async () => {
     }
 };
 
-export { auth, db, initAuthObserver, loginUser, loginWithGoogle, logoutUser, handleAuthRedirect };
+// Registration Logic
+const registerUser = async (email, password, profileData = {}) => {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Save initial profile data
+        await saveUserProfile(db, user, null, {
+            ...profileData,
+            email: email,
+            createdAt: new Date(),
+            onboardingComplete: false
+        });
+
+        await handleAuthRedirect(user);
+        return { success: true, user };
+    } catch (error) {
+        return { success: false, error: error.message, code: error.code };
+    }
+};
+
+export { auth, db, initAuthObserver, loginUser, registerUser, loginWithGoogle, logoutUser, handleAuthRedirect };
 
 // Global event listener for logout from components
 if (typeof window !== 'undefined') {
