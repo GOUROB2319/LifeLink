@@ -44,7 +44,7 @@
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="availabilityToggle" class="sr-only peer" checked>
                             <div
-                                class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-primary">
+                                class="relative w-11 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-5">
                             </div>
                         </label>
                     </div>
@@ -53,13 +53,13 @@
                 </div>
                 <div class="bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl p-6 text-white shadow-lg">
                     <p class="text-sm opacity-90 mb-2">Total Donations</p>
-                    <p class="text-5xl font-black mb-1">12</p>
+                    <p class="text-5xl font-black mb-1">0</p>
                     <p class="text-sm opacity-75">Lives saved</p>
                 </div>
                 <div class="bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl p-6 text-white shadow-lg">
                     <p class="text-sm opacity-90 mb-2">Next Eligible</p>
-                    <p class="text-3xl font-black mb-1">45 Days</p>
-                    <p class="text-sm opacity-75">Last donation: 3 months ago</p>
+                    <p class="text-3xl font-black mb-1">--</p>
+                    <p class="text-sm opacity-75">Last donation: Not recorded</p>
                 </div>
             </div>
 
@@ -71,38 +71,11 @@
                         Donation History
                     </h3>
                     <div id="donation-history" class="space-y-4">
-                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
+                        <div class="text-center py-10">
                             <div
-                                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-primary">bloodtype</span>
+                                class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4">
                             </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-slate-900 dark:text-white">AB+ Donation</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Dhaka Medical College Hospital</p>
-                            </div>
-                            <p class="text-sm text-slate-500">3 months ago</p>
-                        </div>
-                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
-                            <div
-                                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-primary">bloodtype</span>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-slate-900 dark:text-white">AB+ Donation</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Square Hospital</p>
-                            </div>
-                            <p class="text-sm text-slate-500">7 months ago</p>
-                        </div>
-                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
-                            <div
-                                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined text-primary">bloodtype</span>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-slate-900 dark:text-white">AB+ Donation</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">United Hospital</p>
-                            </div>
-                            <p class="text-sm text-slate-500">11 months ago</p>
+                            <p class="text-sm text-slate-500">Loading donation history...</p>
                         </div>
                     </div>
                 </div>

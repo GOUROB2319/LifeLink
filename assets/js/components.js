@@ -8,15 +8,17 @@ const getBaseUrl = () => {
     const path = currentUrl.pathname;
     const roots = ['/auth/', '/dashboard/', '/info/', '/onboarding/'];
     let rootPath = '/';
+    let matchedRoot = false;
     for (const seg of roots) {
         if (path.includes(seg)) {
             rootPath = path.split(seg)[0] + '/';
+            matchedRoot = true;
             break;
         }
     }
 
     // If on index or unknown, fallback to directory root
-    if (rootPath === '/' && path.endsWith('.html')) {
+    if (!matchedRoot && rootPath === '/' && path.endsWith('.html')) {
         rootPath = path.slice(0, path.lastIndexOf('/') + 1);
     }
 

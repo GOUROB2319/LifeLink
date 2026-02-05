@@ -63,7 +63,7 @@ service cloud.firestore {
         && request.resource.data.diff(resource.data).changedKeys().hasOnly(['verificationStatus','verifiedAt','role','updatedAt'])
         && request.resource.data.role in ['doctor','patient'];
 
-      allow delete: if false;
+      allow delete: if isOwner(uid);
     }
 
     // REQUESTS collection
