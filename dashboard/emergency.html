@@ -256,6 +256,10 @@
             };
 
             const submitResult = await submitEmergencyRequest(db, requestData);
+            if (!submitResult.success) {
+                responseDiv.innerHTML = '<p class="text-emergency font-bold">Failed to submit your request. Please try again.</p>';
+                return;
+            }
 
             // 2. AI Triaging
             const prompt = `

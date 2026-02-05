@@ -26,7 +26,7 @@
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full">
             <div class="mb-12">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-semibold text-primary" data-i18n="onboarding.step1.of">Step 1 of 4</span>
+                    <span class="text-sm font-semibold text-primary" data-i18n="onboarding.step4.of">Step 4 of 4</span>
                     <span class="text-sm text-primary" data-i18n="onboarding.step4.title">Complete!</span>
                 </div>
                 <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
@@ -120,6 +120,10 @@
                 else if (role === 'hospital') finalData = hospitalData;
                 else if (role === 'patient') finalData = patientData;
 
+                if (user.displayName && !finalData.displayName) {
+                    finalData.displayName = user.displayName;
+                }
+
                 // Sync to Firestore
                 try {
                     await saveUserProfile(db, user, role, {
@@ -133,8 +137,16 @@
                     console.log('Onboarding data synced professionaly.');
 
                     // Update Dashboard Link dynamically
+                    const roleToPage = {
+                        donor: 'donor.html',
+                        patient: 'patient_dashboard.html',
+                        doctor: 'doctor_dashboard.html',
+                        hospital: 'hospital_dashboard.html'
+                    };
+                    const dashPage = roleToPage[role] || 'donor.html';
+                    localStorage.setItem('lifelink_dashboard', dashPage);
                     const dashLink = document.querySelector('a[href*="dashboard/"]');
-                    if (dashLink) dashLink.href = `../dashboard/${role}.html`;
+                    if (dashLink) dashLink.href = `../dashboard/${dashPage}`;
 
                     // Clear localStorage after successful save
                     localStorage.removeItem('onboarding_role');

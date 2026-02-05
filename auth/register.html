@@ -37,7 +37,7 @@
                     <div class="flex items-center gap-1 mb-12">
                         <div
                             class="w-24 h-24 bg-white/10 backdrop-blur-xl rounded-[2rem] flex items-center justify-center border border-white/20 p-2 shadow-2xl">
-                            <img src="../assets/images/LifeLink BD Logo.svg" alt="LifeLink BD Logo"
+                            <img src="../assets/images/lifelink-logo.svg" alt="LifeLink BD Logo"
                                 class="w-full h-full object-contain">
                         </div>
                         <span class="text-4xl font-black tracking-tight">LifeLink <span
@@ -239,14 +239,17 @@
             registerBtn.disabled = true;
             registerBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Creating Account...';
 
+            console.log("Attempting registration for:", email);
             const result = await registerUser(email, password, {
                 displayName: fullName,
                 phone: '+880' + phoneNumber
             });
 
             if (result.success) {
-                // Redirect happened automatically in registerUser via handleAuthRedirect
+                console.log("Registration successful, redirecting...");
+                // handleAuthRedirect is called inside registerUser
             } else {
+                console.error("Registration failed:", result.error);
                 authError.classList.remove('hidden');
                 if (result.code === 'auth/email-already-in-use') {
                     authError.innerHTML = 'Email already in use. <a href="login.html" class="underline font-bold">Sign in here</a>.';

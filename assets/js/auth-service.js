@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, deleteUser, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import firebaseConfig from "./firebase-config.js";
 import { saveUserProfile, getUserRole, checkUserExists, getFullUserProfile } from "./db-service.js";
@@ -17,15 +17,32 @@ const googleProvider = new GoogleAuthProvider();
 const handleAuthRedirect = async (user) => {
     if (!user) return;
 
-    const profile = await getFullUserProfile(db, user.uid);
+    try {
+        console.log("Checking profile for redirection:", user.uid);
+        const profile = await getFullUserProfile(db, user.uid);
 
-    // If profile has explicit onboardingComplete flag, go to dashboard
-    if (profile && profile.onboardingComplete) {
-        const role = profile.role || 'patient';
-        window.location.href = `../dashboard/${role}.html`;
-    } else {
-        // New or incomplete user -> Go to onboarding step 1
-        window.location.href = '../onboarding/step1.html';
+        if (profile && profile.onboardingComplete) {
+            const role = profile.role || 'patient';
+            console.log(`User ${user.uid} is a ${role} with completed onboarding.`);
+
+            const roleToPage = {
+                donor: 'donor.html',
+                patient: 'patient_dashboard.html',
+                doctor: 'doctor_dashboard.html',
+                hospital: 'hospital_dashboard.html',
+                admin: 'admin_dashboard.html'
+            };
+
+            const destination = roleToPage[role] || 'donor.html';
+            localStorage.setItem('lifelink_dashboard', destination);
+            window.location.href = `../dashboard/${destination}`;
+        } else {
+            console.log(`User ${user.uid} onboarding incomplete, redirecting to step 1.`);
+            window.location.href = '../onboarding/step1.html';
+        }
+    } catch (error) {
+        console.error("Redirection logic failed:", error);
+        window.location.href = '../onboarding/step1.html'; // Safe fallback
     }
 };
 
@@ -91,6 +108,10 @@ const registerUser = async (email, password, profileData = {}) => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
+        if (profileData.displayName) {
+            await updateProfile(user, { displayName: profileData.displayName });
+        }
+
         // Save initial profile data
         await saveUserProfile(db, user, null, {
             ...profileData,
@@ -106,7 +127,20 @@ const registerUser = async (email, password, profileData = {}) => {
     }
 };
 
-export { auth, db, initAuthObserver, loginUser, registerUser, loginWithGoogle, logoutUser, handleAuthRedirect };
+const deleteUserAccount = async () => {
+    try {
+        const user = auth.currentUser;
+        if (!user) throw new Error("No user logged in");
+        await deleteUser(user);
+        window.location.href = '../index.html';
+        return { success: true };
+    } catch (error) {
+        console.error("Error deleting user account:", error);
+        return { success: false, error: error.message };
+    }
+};
+
+export { auth, db, initAuthObserver, loginUser, registerUser, loginWithGoogle, logoutUser, deleteUserAccount, handleAuthRedirect };
 
 // Global event listener for logout from components
 if (typeof window !== 'undefined') {

@@ -8,7 +8,8 @@ const firebaseConfig = {
     storageBucket: "lifelink-295e7.firebasestorage.app",
     messagingSenderId: "302994575210",
     appId: "1:302994575210:web:3457f2307a35a590e7df13",
-    measurementId: "G-D9BBNKPF2F"
+    measurementId: "G-D9BBNKPF2F",
+    appCheckSiteKey: "" // Optional: Firebase App Check (reCAPTCHA v3 site key)
 };
 
 export default firebaseConfig;

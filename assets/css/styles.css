@@ -117,6 +117,20 @@ body {
     box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
 }
 
+@keyframes pulseSubtle {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.animate-pulse-subtle {
+    animation: pulseSubtle 2s ease-in-out infinite;
+}
+
 /* Gradient Text */
 .text-gradient {
     background: linear-gradient(135deg, #10B981 0%, #3B82F6 100%);

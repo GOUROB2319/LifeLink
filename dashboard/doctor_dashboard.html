@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - LifeLink</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+</head>
+
+<body
+    class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+    <app-navbar auth="true"></app-navbar>
+    <main class="relative z-10 pt-28 pb-20 min-h-screen">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-10">
+                <div>
+                    <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2">Doctor Dashboard</h1>
+                    <p class="text-slate-600 dark:text-slate-400">Manage your appointments, status, and profile</p>
+                </div>
+                <div class="flex gap-3">
+                    <a href="settings.html"
+                        class="px-6 py-3 rounded-xl border-2 border-slate-300 dark:border-slate-600 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined">settings</span>
+                        <span>Settings</span>
+                    </a>
+                    <a id="profileLink" href="directory.html"
+                        class="px-6 py-3 rounded-xl bg-brand-gradient text-white font-semibold shadow-lg shadow-primary/20 hover:scale-105 transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span>View Profile</span>
+                    </a>
+                </div>
+            </div>
+
+            <div id="verificationBanner" class="hidden mb-6"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-slate-900 dark:text-white">Accepting Appointments</h3>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="availabilityToggle" class="sr-only peer">
+                            <div
+                                class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-primary">
+                            </div>
+                        </label>
+                    </div>
+                    <p id="availabilityText" class="text-sm text-slate-600 dark:text-slate-400">Loading status...</p>
+                </div>
+                <div class="bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl p-6 text-white shadow-lg">
+                    <p class="text-sm opacity-90 mb-2">Upcoming Appointments</p>
+                    <p id="upcomingCount" class="text-5xl font-black mb-1">0</p>
+                    <p class="text-sm opacity-75">Next 7 days</p>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl p-6 text-white shadow-lg">
+                    <p class="text-sm opacity-90 mb-2">Patients Served</p>
+                    <p id="patientCount" class="text-5xl font-black mb-1">0</p>
+                    <p class="text-sm opacity-75">Total verified visits</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">event</span>
+                        Upcoming Appointments
+                    </h3>
+                    <div id="appointments" class="space-y-4">
+                        <div class="text-center py-10">
+                            <div class="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4"></div>
+                            <p class="text-slate-500">Loading appointments...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">badge</span>
+                        Professional Summary
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
+                            <span class="material-symbols-outlined text-primary">stethoscope</span>
+                            <div>
+                                <p class="text-sm text-slate-500">Specialty</p>
+                                <p id="doctorSpecialty" class="font-semibold text-slate-900 dark:text-white">General Practitioner</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
+                            <span class="material-symbols-outlined text-primary">location_on</span>
+                            <div>
+                                <p class="text-sm text-slate-500">Location</p>
+                                <p id="doctorLocation" class="font-semibold text-slate-900 dark:text-white">Not provided</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
+                            <span class="material-symbols-outlined text-primary">verified</span>
+                            <div>
+                                <p class="text-sm text-slate-500">Verification</p>
+                                <p id="doctorVerification" class="font-semibold text-slate-900 dark:text-white">Pending</p>
+                            </div>
+                        </div>
+                        <a href="settings.html"
+                            class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold hover:bg-primary hover:text-white transition-all">
+                            <span class="material-symbols-outlined">edit</span>
+                            Update Profile
+                        </a>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">add_circle</span>
+                            Schedule Appointment
+                        </h4>
+                        <form id="appointmentForm" class="space-y-4">
+                            <input id="patientName" type="text" placeholder="Patient name"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                            <input id="appointmentDate" type="date"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                            <input id="appointmentReason" type="text" placeholder="Reason (optional)"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                            <button type="submit"
+                                class="w-full bg-brand-gradient text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all">
+                                Add Appointment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { auth, db, initAuthObserver } from '../assets/js/auth-service.js';
+        import { getFullUserProfile, saveUserProfile, getDoctorAppointments, createAppointment, updateAppointmentStatus } from '../assets/js/db-service.js';
+
+        localStorage.setItem('lifelink_dashboard', 'doctor_dashboard.html');
+
+        const availToggle = document.getElementById('availabilityToggle');
+        const availText = document.getElementById('availabilityText');
+        const appointmentsEl = document.getElementById('appointments');
+        const upcomingCount = document.getElementById('upcomingCount');
+        const patientCount = document.getElementById('patientCount');
+        const verificationBanner = document.getElementById('verificationBanner');
+        const doctorSpecialty = document.getElementById('doctorSpecialty');
+        const doctorLocation = document.getElementById('doctorLocation');
+        const doctorVerification = document.getElementById('doctorVerification');
+        const appointmentForm = document.getElementById('appointmentForm');
+        const patientNameInput = document.getElementById('patientName');
+        const appointmentDateInput = document.getElementById('appointmentDate');
+        const appointmentReasonInput = document.getElementById('appointmentReason');
+
+        initAuthObserver(async (user) => {
+            const navbar = document.querySelector('app-navbar');
+            if (user && navbar && navbar.updateAuth) navbar.updateAuth(user);
+
+            if (!user) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+
+            const profile = await getFullUserProfile(db, user.uid);
+            if (profile) {
+                availToggle.checked = profile.availability !== false;
+                updateAvailText(availToggle.checked);
+
+                doctorSpecialty.textContent = profile.specialty || 'General Practitioner';
+                doctorLocation.textContent = profile.address || profile.district || 'Not provided';
+                const status = profile.verificationStatus || 'pending';
+                doctorVerification.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+
+                renderVerificationBanner(status);
+            }
+
+            await loadAppointments(user.uid);
+        });
+
+        function updateAvailText(isAvail) {
+            availText.textContent = isAvail ? 'You are accepting new appointments' : 'You are not accepting new appointments';
+            availText.className = isAvail ? 'text-sm text-emerald-600 font-medium' : 'text-sm text-slate-500';
+        }
+
+        availToggle.addEventListener('change', async function () {
+            updateAvailText(this.checked);
+            await saveUserProfile(db, auth.currentUser, null, { availability: this.checked });
+        });
+
+        function renderVerificationBanner(status) {
+            verificationBanner.classList.remove('hidden');
+            if (status === 'verified') {
+                verificationBanner.className = 'mb-6 p-4 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 font-semibold';
+                verificationBanner.textContent = 'Your credentials are verified. You can accept appointments.';
+            } else if (status === 'rejected') {
+                verificationBanner.className = 'mb-6 p-4 rounded-2xl bg-red-50 text-red-600 border border-red-200 font-semibold';
+                verificationBanner.textContent = 'Verification rejected. Please update your documents and resubmit.';
+            } else {
+                verificationBanner.className = 'mb-6 p-4 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 font-semibold';
+                verificationBanner.textContent = 'Verification pending. You will be notified once reviewed.';
+            }
+        }
+
+        async function loadAppointments(uid) {
+            try {
+                const items = await getDoctorAppointments(db, uid);
+                if (!items.length) {
+                    appointmentsEl.innerHTML = '<p class="text-sm text-slate-500">No upcoming appointments yet.</p>';
+                    upcomingCount.textContent = '0';
+                    patientCount.textContent = '0';
+                    return;
+                }
+
+                upcomingCount.textContent = items.length;
+                patientCount.textContent = items.filter(item => item.status === 'completed').length;
+
+                appointmentsEl.innerHTML = items.slice(0, 6).map(item => `
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary">person</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-semibold text-slate-900 dark:text-white">${item.patientName || 'Patient'}</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">${item.reason || 'General consultation'}</p>
+                            <p class="text-xs text-slate-500 mt-1">Status: <span class="font-semibold">${item.status || 'scheduled'}</span></p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs text-slate-500 mb-2">${formatDate(item.date)}</p>
+                            ${item.status === 'scheduled' ? `
+                                <div class="flex gap-2 justify-end">
+                                    <button data-id="${item.id}" data-status="confirmed" class="appt-status text-xs font-bold text-emerald-600 hover:underline">Confirm</button>
+                                    <button data-id="${item.id}" data-status="cancelled" class="appt-status text-xs font-bold text-emergency hover:underline">Cancel</button>
+                                </div>
+                            ` : item.status === 'confirmed' ? `
+                                <div class="flex gap-2 justify-end">
+                                    <button data-id="${item.id}" data-status="completed" class="appt-status text-xs font-bold text-primary hover:underline">Complete</button>
+                                    <button data-id="${item.id}" data-status="cancelled" class="appt-status text-xs font-bold text-emergency hover:underline">Cancel</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `).join('');
+
+                const statusButtons = appointmentsEl.querySelectorAll('.appt-status');
+                statusButtons.forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const id = btn.getAttribute('data-id');
+                        const status = btn.getAttribute('data-status');
+                        const res = await updateAppointmentStatus(db, id, status);
+                        if (res.success) {
+                            loadAppointments(uid);
+                        } else {
+                            alert('Unable to update appointment: ' + res.error);
+                        }
+                    });
+                });
+            } catch (err) {
+                console.error(err);
+                appointmentsEl.innerHTML = '<p class="text-sm text-emergency">Failed to load appointments.</p>';
+            }
+        }
+
+        appointmentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!auth.currentUser) return;
+
+            const patientName = patientNameInput.value.trim();
+            const appointmentDate = appointmentDateInput.value;
+            if (!patientName || !appointmentDate) {
+                alert('Please provide patient name and date.');
+                return;
+            }
+
+            const res = await createAppointment(db, {
+                doctorId: auth.currentUser.uid,
+                patientName,
+                date: appointmentDate,
+                reason: appointmentReasonInput.value.trim(),
+                status: 'scheduled'
+            });
+
+            if (res.success) {
+                patientNameInput.value = '';
+                appointmentDateInput.value = '';
+                appointmentReasonInput.value = '';
+                loadAppointments(auth.currentUser.uid);
+            } else {
+                alert('Failed to add appointment: ' + res.error);
+            }
+        });
+
+        function formatDate(value) {
+            if (!value) return 'TBD';
+            const date = value.toDate ? value.toDate() : new Date(value);
+            return date.toLocaleDateString();
+        }
+    </script>
+</body>
+
+</html>

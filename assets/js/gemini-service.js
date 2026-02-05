@@ -7,6 +7,11 @@ import apiConfig from './api-config.js';
  */
 export const askGemini = async (prompt) => {
     try {
+        const apiKey = apiConfig?.gemini?.apiKey;
+        if (!apiKey || apiKey.includes('YOUR_GEMINI_API_KEY_HERE')) {
+            throw new Error('Missing Gemini API key. Add your key in assets/js/api-config.js');
+        }
+
         const response = await fetch(`${apiConfig.gemini.baseUrl}?key=${apiConfig.gemini.apiKey}`, {
             method: 'POST',
             headers: {
@@ -19,17 +24,20 @@ export const askGemini = async (prompt) => {
             })
         });
 
+        if (!response.ok) {
+            throw new Error(`Gemini API error: ${response.status}`);
+        }
+
         const data = await response.json();
 
-        if (data.candidates && data.candidates[0].content.parts[0].text) {
-            return data.candidates[0].content.parts[0].text;
-        } else {
-            console.error('Gemini API Error:', data);
-            return 'Sorry, I couldn\'t process that request right now.';
-        }
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) return text;
+
+        console.error('Gemini API Error:', data);
+        throw new Error('Gemini API returned an empty response.');
     } catch (error) {
         console.error('Gemini Fetch Error:', error);
-        return 'An error occurred while connecting to the AI service.';
+        throw error;
     }
 };
 
@@ -48,12 +56,12 @@ export const getAiMatchAnalysis = async (donor, recipient) => {
         Return as JSON format: { "score": number, "compatibility": "string", "advice": "string" }
     `;
 
-    const result = await askGemini(prompt);
     try {
+        const result = await askGemini(prompt);
         // Attempt to parse JSON from AI response
         const jsonMatch = result.match(/\{.*\}/s);
         return jsonMatch ? JSON.parse(jsonMatch[0]) : { error: 'Failed to parse AI response' };
     } catch (e) {
-        return { error: 'Invalid AI response format' };
+        return { error: e.message || 'AI service unavailable' };
     }
 };

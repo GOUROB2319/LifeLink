@@ -1,28 +1,27 @@
-# LifeLink - Professional Healthcare Platform
+﻿# LifeLink - Professional Healthcare Platform
 
 A life-saving healthcare platform connecting patients, blood/organ donors, doctors, and hospitals.
 
 ## Features
 
-- **Emergency Blood Request System** - Real-time donor matching with critical/urgent/routine priority levels
-- **Donor Dashboard** - Availability toggle, donation history, achievements, next eligibility countdown  
-- **Medical Directory** - Search and find doctors and hospitals with verification status
-- **Organ Donation Registry** - Education, myth-busting, and digital consent forms
-- **Secure Authentication** - Google OAuth and phone authentication support
-- **Professional Design** - Clean, trustworthy medical aesthetic following WCAG 2.1 AA standards
+- Emergency blood request system with priority levels
+- Donor dashboard with availability, history, and achievements
+- Medical directory for doctors and hospitals
+- Organ donation registry with consent workflow
+- Secure authentication (Email/Password + Google OAuth)
+- Responsive, accessible UI
 
 ## Project Structure
 
-This project follows a professional directory structure:
-
 ```
 LifeLink/
-├── assets/                  # Static resources
-│   ├── css/                 # Global styles (style.css)
-│   ├── js/                  # JavaScript logic (app.js, firebase-config.js)
-│   └── images/              # Project images
-├── pages/                   # Application pages (Login, Dashboard, etc.)
-├── index.html               # Main Landing Page
+├── assets/                  # Static resources (CSS, JS, images)
+├── auth/                    # Login & registration
+├── dashboard/               # App dashboards & flows
+├── info/                    # Marketing & policy pages
+├── onboarding/              # Multi-step onboarding
+├── index.html               # Main landing page
+├── firestore.rules          # Firestore security rules
 └── README.md                # Documentation
 ```
 
@@ -30,55 +29,54 @@ LifeLink/
 
 ### Core Pages
 - `index.html` - Landing page with hero, statistics, testimonials
-- `pages/login.html` - Secure login with OAuth (Google/Phone)
-- `pages/emergency-request.html` - Emergency blood request dashboard with live donor matching
-- `pages/donor-dashboard.html` - Donor profile and activity dashboard
+- `auth/login.html` - Login with Email/Password and Google
+- `auth/register.html` - Account creation
+- `dashboard/emergency.html` - Emergency blood request flow
+- `dashboard/donor.html` - Donor dashboard
+
+### Role Dashboards
+- `dashboard/doctor_dashboard.html` - Doctor dashboard & appointments
+- `dashboard/patient_dashboard.html` - Patient dashboard & request tracking
+- `dashboard/hospital_dashboard.html` - Hospital dashboard & inventory
 
 ### Directory & Search
-- `pages/medical-directory.html` - Doctor and provider search
-- `pages/hospital-profile.html` - Hospital profile and resources  
-- `pages/organ-registry.html` - Organ donation registry and education
+- `dashboard/directory.html` - Doctor and provider search
+- `dashboard/hospital.html` - Hospital profile and resources
+- `info/organ_donation.html` - Organ donation registry and education
 
-### User Management  
-- `pages/onboarding-1.html` - Multi-step onboarding (account setup)
-- `pages/settings.html` - User settings and privacy controls
-- `pages/donation-success.html` - Post-donation confirmation and impact summary
+### User Management
+- `onboarding/step1.html` - Multi-step onboarding (account setup)
+- `dashboard/settings.html` - User settings and privacy controls
+- `dashboard/donation_success.html` - Post-donation confirmation and impact summary
 
 ## Technology Stack
 
-- **Frontend**: HTML5, TailwindCSS
-- **Typography**: Inter font family
+- **Frontend**: HTML5 + TailwindCSS (CDN)
+- **Typography**: Inter + Hind Siliguri
 - **Icons**: Material Symbols Outlined
-- **Images**: Hotlinked from Google (production-ready)
-- **JavaScript**: Vanilla JS with Firebase UI simulation & Real Authentication
-
-## Design Philosophy
-
-- **Clean & Professional**: "Doctor's White Coat" aesthetic
-- **Emergency-Critical Actions**: Highly visible with pulse animations
-- **Accessibility**: WCAG 2.1 AA compliant
-- **Mobile-First**: Fully responsive across all devices
-- **Zero Learning Curve**: Intuitive for elderly and less tech-savvy users
+- **JavaScript**: Vanilla JS with Firebase Auth + Firestore
 
 ## Firebase Integration
 
-The app uses **Firebase SDK** for authentication and simulations for other features:
-- **Real Authentication**: Google Sign-In and Email/Password (configured in `assets/js/firebase-config.js`)
-- **Visual Cues**: Real-time counters, live status indicators, privacy toggles
+The app uses Firebase for authentication and data storage:
+- **Authentication**: Email/Password, Google Sign-In
+- **Database**: Firestore (users, requests, donations, appointments)
 
-## Color Palette
+## Firestore Security Rules (Required for Production)
 
-- **Primary (Medical Blue)**: #1A56DB
-- **Emergency (Alert Red)**: #DC2626
-- **Success (Life Green)**: #10B981
-- **Supporting (Sky Blue)**: #0EA5E9
-- **Base**: Pure White (#FFFFFF)
+This project includes a `firestore.rules` file. Paste it in:
+Firebase Console → Firestore Database → Rules → Publish.
+
+These rules:
+- Allow only owners to read/update their profiles
+- Expose verified doctors/hospitals in directory
+- Lock down requests and appointments to owners
 
 ## Getting Started
 
 1. Open `index.html` in your browser
 2. Navigate through the application using the links
-3. Test emergency blood request flow
+3. Try the emergency request flow
 4. Explore donor dashboard and medical directory
 
 ## Browser Support
@@ -91,9 +89,3 @@ The app uses **Firebase SDK** for authentication and simulations for other featu
 ## License
 
 © 2024 LifeLink Healthcare Systems. All Rights Reserved.
-
-## Contact
-
-- Emergency: +1 (800) LIFE-SOS
-- Email: support@lifelink.org
-- Location: Medical District, NYC

@@ -70,7 +70,7 @@
                         <span class="material-symbols-outlined text-primary">history</span>
                         Donation History
                     </h3>
-                    <div class="space-y-4">
+                    <div id="donation-history" class="space-y-4">
                         <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
                             <div
                                 class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -162,7 +162,7 @@
     <script src="../assets/js/main.js"></script>
     <script type="module">
         import { auth, db, initAuthObserver } from '../assets/js/auth-service.js';
-        import { getFullUserProfile, saveUserProfile, collection, query, where, onSnapshot, orderBy } from '../assets/js/db-service.js';
+        import { getFullUserProfile, saveUserProfile, collection, query, where, onSnapshot, orderBy, getUserDonationHistory } from '../assets/js/db-service.js';
 
         const availToggle = document.getElementById('availabilityToggle');
         const availText = document.getElementById('availabilityText');
@@ -178,15 +178,91 @@
                     availToggle.checked = profile.availability !== false;
                     updateAvailText(availToggle.checked);
 
+                    // Update Stats
+                    const totalDonationsEl = document.querySelector('.from-emerald-500 .text-5xl');
+                    if (totalDonationsEl) totalDonationsEl.textContent = profile.totalDonations || 0;
+
+                    const nextEligibleEl = document.querySelector('.from-amber-500 .text-3xl');
+                    if (nextEligibleEl) {
+                        const daysLeft = calculateNextEligibility(profile.lastDonationDate);
+                        nextEligibleEl.textContent = daysLeft > 0 ? `${daysLeft} Days` : 'Eligible Now';
+                    }
+
                     // Start listening for matched emergencies
                     if (profile.bloodGroup) {
                         listenForMatchingRequests(profile.bloodGroup);
                     }
+
+                    // Load Donation History
+                    loadDonationHistory(user.uid);
                 }
             } else {
                 window.location.href = '../auth/login.html';
             }
         });
+
+        async function loadDonationHistory(uid) {
+            const historyContainer = document.getElementById('donation-history');
+            if (!historyContainer) return;
+
+            try {
+                const history = await getUserDonationHistory(db, uid);
+
+                if (history.length === 0) {
+                    historyContainer.innerHTML = `
+                        <div class="text-center py-8">
+                            <p class="text-sm text-slate-400">No donation records found yet.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                historyContainer.innerHTML = history.map(item => {
+                    const date = item.date.toDate ? item.date.toDate() : new Date(item.date);
+                    const timeAgo = formatTimeAgo(date);
+                    return `
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined text-primary">bloodtype</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-slate-900 dark:text-white">${item.bloodGroup || 'Blood'} Donation</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">${item.hospitalName || item.hospital || 'Hospital'}</p>
+                            </div>
+                            <p class="text-sm text-slate-500">${timeAgo}</p>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error("Error loading history:", err);
+            }
+        }
+
+        function formatTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            let interval = seconds / 31536000;
+            if (interval > 1) return Math.floor(interval) + " years ago";
+            interval = seconds / 2592000;
+            if (interval > 1) return Math.floor(interval) + " months ago";
+            interval = seconds / 86400;
+            if (interval > 1) return Math.floor(interval) + " days ago";
+            interval = seconds / 3600;
+            if (interval > 1) return Math.floor(interval) + " hours ago";
+            interval = seconds / 60;
+            if (interval > 1) return Math.floor(interval) + " minutes ago";
+            return Math.floor(seconds) + " seconds ago";
+        }
+
+        function calculateNextEligibility(lastDate) {
+            if (!lastDate) return 0;
+            const donationDate = lastDate.toDate ? lastDate.toDate() : new Date(lastDate);
+            const nextDate = new Date(donationDate);
+            nextDate.setMonth(nextDate.getMonth() + 3); // 3 months rule
+
+            const diffTime = nextDate - new Date();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
 
         function updateAvailText(isAvail) {
             availText.textContent = isAvail ? 'You are currently available for donation' : 'You are currently unavailable for donation';

@@ -7,34 +7,49 @@ class Navbar extends HTMLElement {
         const isAuth = this.getAttribute('auth') === 'true';
         const activeLink = this.getAttribute('active') || '';
 
-        // Correct paths based on depth (simple heuristic: count slashes in location.pathname)
-        // For a more robust solution, we can just use root-relative paths if served correctly, 
-        // but for file:// or simple serving, we need relative adjustments.
-        // Assuming /website/ is root for now or using absolute relative to current page.
-        // Let's us simple relative logic based on assumed folder structure.
+        const baseUrl = (() => {
+            const currentUrl = new URL(window.location.href);
+            const htmlBase = document.documentElement.getAttribute('data-base');
+            if (htmlBase) {
+                return new URL(htmlBase, currentUrl.href).toString();
+            }
 
-        const getPath = (path) => {
-            return path;
+            const marker = '/LifeLink/';
+            const markerIndex = currentUrl.pathname.lastIndexOf(marker);
+            const rootPath = markerIndex !== -1
+                ? currentUrl.pathname.slice(0, markerIndex + marker.length)
+                : currentUrl.pathname.slice(0, currentUrl.pathname.lastIndexOf('/') + 1);
+
+            return `${currentUrl.protocol}//${currentUrl.host}${rootPath}`;
+        })();
+
+        const resolvePath = (path) => {
+            const clean = path.replace(/^\/+/, '');
+            return new URL(clean, baseUrl).toString();
         };
+        this._resolvePath = resolvePath;
+
+        this.injectSecurityMeta();
+        this.injectAppCheckScript();
 
         this.innerHTML = `
     <header class="fixed top-0 z-50 w-full transition-all duration-300 glass border-b border-white/20 dark:border-slate-800">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-20 items-center justify-between">
                 <!-- Logo -->
-                <div class="flex items-center gap-0.5 cursor-pointer group" onclick="window.location.href='/index.html'">
+                <div class="flex items-center gap-0.5 cursor-pointer group" onclick="window.location.href='${resolvePath('index.html')}'">
                     <div class="relative flex items-center justify-center w-12 h-12 transition-transform duration-300 hover:scale-105">
-                        <img src="/assets/images/LifeLink BD Logo.svg" alt="LifeLink BD Logo" class="w-full h-full object-contain">
+                        <img src="${resolvePath('assets/images/lifelink-logo.svg')}" alt="LifeLink BD Logo" class="w-full h-full object-contain">
                     </div>
                     <span class="text-xl font-bold tracking-tight text-slate-800 dark:text-white">LifeLink <span class="text-secondary">BD</span></span>
                 </div>
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-1">
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'services' ? 'bg-primary/10 text-primary' : ''}" href="/info/services.html" data-i18n="nav.services">Services</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'how-it-works' ? 'bg-primary/10 text-primary' : ''}" href="/index.html#how-it-works" data-i18n="nav.howItWorks">How it Works</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'impact' ? 'bg-primary/10 text-primary' : ''}" href="/index.html#impact" data-i18n="nav.impact">Impact</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'about' ? 'bg-primary/10 text-primary' : ''}" href="/info/about.html" data-i18n="nav.about">About Us</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'services' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/services.html')}" data-i18n="nav.services">Services</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'how-it-works' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#how-it-works')}" data-i18n="nav.howItWorks">How it Works</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'impact' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#impact')}" data-i18n="nav.impact">Impact</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'about' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/about.html')}" data-i18n="nav.about">About Us</a>
                 </nav>
 
                 <!-- Actions -->
@@ -49,9 +64,9 @@ class Navbar extends HTMLElement {
                     <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
 
                     ${!isAuth ? `
-                    <a href="/auth/login.html" class="hidden sm:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
+                    <a href="${resolvePath('auth/login.html')}" class="hidden sm:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
                     
-                    <a href="/auth/register.html" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group">
+                    <a href="${resolvePath('auth/register.html')}" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group">
                         <span class="relative z-10 flex items-center gap-2">
                             <span data-i18n="nav.join">Join LifeLink</span>
                             <span class="material-symbols-outlined text-lg">arrow_forward</span>
@@ -73,13 +88,17 @@ class Navbar extends HTMLElement {
                                 <p id="user-display-name" class="text-sm font-bold text-slate-900 dark:text-white truncate">User Name</p>
                             </div>
                             
-                            <a href="/dashboard/donor.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                            <a id="dashboard-link" href="${resolvePath('dashboard/donor.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
                                 <span class="material-symbols-outlined text-[20px]">dashboard</span>
                                 <span>Dashboard</span>
                             </a>
-                            <a href="/dashboard/settings.html" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                            <a href="${resolvePath('dashboard/settings.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
                                 <span class="material-symbols-outlined text-[20px]">settings</span>
                                 <span>Settings</span>
+                            </a>
+                            <a href="${resolvePath('dashboard/admin_dashboard.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                                <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+                                <span>Admin Dashboard</span>
                             </a>
                             <div class="h-[1px] bg-slate-100 dark:bg-slate-800 my-1"></div>
                             <button id="logout-btn" class="w-full flex items-center gap-3 px-4 py-3 text-sm text-emergency hover:bg-red-50 dark:hover:bg-red-900/10 transition-all font-bold">
@@ -101,15 +120,15 @@ class Navbar extends HTMLElement {
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-xl transition-all duration-300 origin-top transform scale-y-0 opacity-0">
             <div class="px-4 py-6 space-y-4">
-                <a href="/info/services.html" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.services">Services</a>
-                <a href="/index.html#how-it-works" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.howItWorks">How it Works</a>
-                <a href="/index.html#impact" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.impact">Impact</a>
-                <a href="/info/about.html" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.about">About Us</a>
+                <a href="${resolvePath('info/services.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.services">Services</a>
+                <a href="${resolvePath('index.html#how-it-works')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.howItWorks">How it Works</a>
+                <a href="${resolvePath('index.html#impact')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.impact">Impact</a>
+                <a href="${resolvePath('info/about.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.about">About Us</a>
                 
                 ${!isAuth ? `
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col gap-3">
-                    <a href="/auth/login.html" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-300" data-i18n="nav.login">Login</a>
-                    <a href="/onboarding/step1.html" class="block w-full text-center py-3 rounded-xl bg-brand-gradient text-white font-bold shadow-lg shadow-primary/20" data-i18n="nav.join">Join LifeLink</a>
+                    <a href="${resolvePath('auth/login.html')}" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-300" data-i18n="nav.login">Login</a>
+                    <a href="${resolvePath('onboarding/step1.html')}" class="block w-full text-center py-3 rounded-xl bg-brand-gradient text-white font-bold shadow-lg shadow-primary/20" data-i18n="nav.join">Join LifeLink</a>
                 </div>
                 ` : ``}
             </div>
@@ -118,6 +137,47 @@ class Navbar extends HTMLElement {
         `;
 
         this.initLogic();
+    }
+
+    injectSecurityMeta() {
+        const head = document.head;
+        if (!head) return;
+
+        const ensureMeta = (key, value, isHttpEquiv = false) => {
+            const selector = isHttpEquiv ? `meta[http-equiv="${key}"]` : `meta[name="${key}"]`;
+            if (head.querySelector(selector)) return;
+            const meta = document.createElement('meta');
+            if (isHttpEquiv) {
+                meta.setAttribute('http-equiv', key);
+            } else {
+                meta.setAttribute('name', key);
+            }
+            meta.setAttribute('content', value);
+            head.appendChild(meta);
+        };
+
+        ensureMeta('Content-Security-Policy',
+            "default-src 'self'; " +
+            "script-src 'self' https://cdn.tailwindcss.com https://www.gstatic.com https://www.googleapis.com 'unsafe-inline'; " +
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+            "font-src https://fonts.gstatic.com data:; " +
+            "img-src 'self' data: https:; " +
+            "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://generativelanguage.googleapis.com; " +
+            "frame-ancestors 'none';",
+            true
+        );
+
+        ensureMeta('Referrer-Policy', 'no-referrer');
+        ensureMeta('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+    }
+
+    injectAppCheckScript() {
+        if (document.querySelector('script[data-app-check]')) return;
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = this._resolvePath('assets/js/app-check.js');
+        script.setAttribute('data-app-check', 'true');
+        document.head.appendChild(script);
     }
 
     initLogic() {
@@ -156,6 +216,13 @@ class Navbar extends HTMLElement {
         const nameEl = this.querySelector('#user-display-name');
         if (nameEl) nameEl.textContent = displayName;
 
+        // Update dashboard link if a role-specific path is stored
+        const dashboardLink = this.querySelector('#dashboard-link');
+        const storedDashboard = localStorage.getItem('lifelink_dashboard');
+        if (dashboardLink && storedDashboard && this._resolvePath) {
+            dashboardLink.href = this._resolvePath(`dashboard/${storedDashboard}`);
+        }
+
         // Logout logic - we expect the globally available logout function
         const logoutBtn = this.querySelector('#logout-btn');
         if (logoutBtn) {
@@ -185,7 +252,7 @@ class Footer extends HTMLElement {
                 <div class="md:col-span-1">
                     <div class="flex items-center gap-1 mb-6">
                         <div class="w-20 h-20 bg-white/5 rounded-2xl flex items-center justify-center p-2">
-                            <img src="/assets/images/LifeLink BD Logo.svg" alt="LifeLink BD Logo" class="w-full h-full object-contain">
+                            <img src="${resolvePath('assets/images/lifelink-logo.svg')}" alt="LifeLink BD Logo" class="w-full h-full object-contain">
                         </div>
                         <span class="text-2xl font-bold text-white">LifeLink <span class="text-secondary">BD</span></span>
                     </div>
@@ -198,10 +265,10 @@ class Footer extends HTMLElement {
                 <div>
                     <h4 class="text-white font-bold mb-4" data-i18n="footer.quick_links">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="/dashboard/donor.html" class="hover:text-primary transition-colors" data-i18n="footer.find_donors">Find Donors</a></li>
-                        <li><a href="/dashboard/hospital.html" class="hover:text-primary transition-colors" data-i18n="footer.hospital_partners">Hospital Partners</a></li>
-                        <li><a href="/dashboard/emergency.html" class="hover:text-primary transition-colors" data-i18n="footer.emergency">Emergency</a></li>
-                        <li><a href="/dashboard/directory.html" class="hover:text-primary transition-colors" data-i18n="footer.find_doctor">Find a Doctor</a></li>
+                        <li><a href="${resolvePath('dashboard/donor.html')}" class="hover:text-primary transition-colors" data-i18n="footer.find_donors">Find Donors</a></li>
+                        <li><a href="${resolvePath('dashboard/hospital.html')}" class="hover:text-primary transition-colors" data-i18n="footer.hospital_partners">Hospital Partners</a></li>
+                        <li><a href="${resolvePath('dashboard/emergency.html')}" class="hover:text-primary transition-colors" data-i18n="footer.emergency">Emergency</a></li>
+                        <li><a href="${resolvePath('dashboard/directory.html')}" class="hover:text-primary transition-colors" data-i18n="footer.find_doctor">Find a Doctor</a></li>
                     </ul>
                 </div>
 
@@ -209,8 +276,8 @@ class Footer extends HTMLElement {
                 <div>
                     <h4 class="text-white font-bold mb-4" data-i18n="footer.support">Support</h4>
                     <ul class="space-y-2">
-                        <li><a href="/info/services.html" class="hover:text-primary transition-colors" data-i18n="footer.help_center">Help Center</a></li>
-                        <li><a href="/info/privacy.html" class="hover:text-primary transition-colors" data-i18n="footer.terms_privacy">Terms & Privacy</a></li>
+                        <li><a href="${resolvePath('info/services.html')}" class="hover:text-primary transition-colors" data-i18n="footer.help_center">Help Center</a></li>
+                        <li><a href="${resolvePath('info/privacy.html')}" class="hover:text-primary transition-colors" data-i18n="footer.terms_privacy">Terms & Privacy</a></li>
                         <li><a href="#" class="hover:text-primary transition-colors" data-i18n="footer.faq">FAQ</a></li>
                     </ul>
                 </div>
@@ -244,7 +311,7 @@ class Footer extends HTMLElement {
                     </p>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a href="#" class="text-slate-400 hover:text-primary transition-colors">Facebook</a>
+                    <a href="https://www.facebook.com/LifeLinkB" class="text-slate-400 hover:text-primary transition-colors" rel="noopener" target="_blank">Facebook</a>
                     <a href="#" class="text-slate-400 hover:text-primary transition-colors">Twitter</a>
                     <a href="#" class="text-slate-400 hover:text-primary transition-colors">LinkedIn</a>
                 </div>

@@ -46,7 +46,7 @@
     </style>
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
     <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
-    <script src="/assets/js/components.js"></script>
+    <script src="../assets/js/components.js"></script>
 </head>
 
 <body
@@ -342,27 +342,123 @@
     </div>
     <script type="module">
         import { auth, db, initAuthObserver } from '../assets/js/auth-service.js';
-        import { getFullUserProfile, getDonorsByBloodGroup } from '../assets/js/db-service.js';
+        import { getFullUserProfile, getDonorsByBloodGroup, searchDirectory, onSnapshot, doc } from '../assets/js/db-service.js';
         import { getAiMatchAnalysis } from '../assets/js/gemini-service.js';
 
         const aiContainer = document.getElementById('ai-matches');
 
         initAuthObserver(async (user) => {
             const navbar = document.querySelector('app-navbar');
-            if (user) {
-                if (navbar && navbar.updateAuth) navbar.updateAuth(user);
-                const profile = await getFullUserProfile(db, user.uid);
-                if (profile) {
-                    // Update Page Title and Info
-                    document.querySelector('h1').textContent = profile.hospitalName || profile.displayName || 'My Hospital';
-                    document.querySelector('[data-location="City Map View"]').parentElement.previousElementSibling.querySelector('p').textContent = profile.address || 'Address not set';
+            if (user && navbar && navbar.updateAuth) navbar.updateAuth(user);
 
-                    // Fetch matching donors for a "Critical" blood group (e.g. O-)
-                    // This is a demo: finding donors for O- automatically
-                    fetchAiMatches('O-');
-                }
+            // Extract Hospital UID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const hospitalUid = urlParams.get('uid');
+
+            if (hospitalUid) {
+                listenHospitalDetails(hospitalUid);
+            } else {
+                // Fallback for demo if no UID provided
+                fetchAiMatches('O-');
             }
         });
+
+        function listenHospitalDetails(uid) {
+            const hospitalRef = doc(db, 'users', uid);
+            onSnapshot(hospitalRef, (snap) => {
+                if (!snap.exists()) return;
+                const profile = snap.data();
+
+                // Update Hero Header
+                document.querySelector('h1').textContent = profile.hospitalName || profile.displayName || "Hospital";
+                document.title = `${profile.hospitalName || 'Hospital'} - LifeLink`;
+
+                // Specific meta details in hero
+                const heroMeta = document.querySelectorAll('.flex.flex-wrap.items-center.gap-4.text-sm div');
+                if (heroMeta.length >= 2) {
+                    heroMeta[1].innerHTML = `<span class="material-symbols-outlined text-[18px]">location_on</span> ${profile.address || profile.district || 'Location Private'}`;
+                }
+
+                // Update Blood Units if data exists
+                if (profile.bloodAvailability) {
+                    renderBloodUnits(profile.bloodAvailability);
+                }
+
+                // Update Specialties
+                if (profile.specialties) {
+                    renderSpecialties(profile.specialties);
+                }
+
+                // Fetch and render doctors from this hospital
+                loadHospitalDoctors(profile.hospitalName);
+
+                // AI Matches for their critical need
+                fetchAiMatches(profile.criticalNeed || 'O-');
+            });
+        }
+
+        function renderBloodUnits(units) {
+            const container = document.querySelector('.grid.grid-cols-2.gap-4.sm\\:grid-cols-4');
+            container.innerHTML = Object.entries(units).map(([type, count]) => {
+                const isCritical = count <= 2;
+                return `
+                    <div class="rounded-card border ${isCritical ? 'border-red-100 bg-red-50 dark:border-red-900/30 dark:bg-red-900/10' : 'border-gray-100 bg-gray-50 dark:border-gray-700 dark:bg-gray-900'} p-4 text-center">
+                        <div class="mb-1 text-2xl font-black ${isCritical ? 'text-emergency' : 'text-[#111318] dark:text-white'}">${type}</div>
+                        <div class="text-sm font-medium ${isCritical ? 'text-emergency font-bold' : 'text-green-600'}">${count} Units</div>
+                        <div class="mt-1 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                            <div class="h-1.5 rounded-full ${isCritical ? 'bg-emergency' : 'bg-green-500'}" style="width: ${Math.min(count * 10, 100)}%"></div>
+                        </div>
+                        ${isCritical ? '<span class="mt-1 block text-[10px] font-bold uppercase tracking-wider text-emergency">Critical</span>' : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSpecialties(specialties) {
+            const container = document.querySelector('.flex.flex-wrap.gap-3');
+            if (container) {
+                container.innerHTML = specialties.map(s => `
+                    <span class="rounded-card inline-flex items-center gap-2 bg-blue-50 px-4 py-2 text-sm font-semibold text-primary dark:bg-blue-900/20 dark:text-blue-300">
+                        <span class="material-symbols-outlined text-[18px]">medical_services</span> ${s}
+                    </span>
+                `).join('');
+            }
+        }
+
+        async function loadHospitalDoctors(hospitalName) {
+            const container = document.querySelector('.grid.gap-4.md\\:grid-cols-2');
+            if (!container) return;
+
+            try {
+                const doctors = await searchDirectory(db, { name: hospitalName, role: 'doctor' });
+
+                if (doctors.length === 0) {
+                    container.innerHTML = `<p class="col-span-full text-slate-500 py-4 italic">No doctors listed for this hospital yet.</p>`;
+                    return;
+                }
+
+                container.innerHTML = doctors.map(doc => `
+                    <div class="rounded-card flex items-start gap-4 border border-[#f0f2f4] p-4 transition hover:border-blue-100 hover:bg-blue-50/30 dark:border-gray-700 dark:hover:border-blue-900 dark:hover:bg-blue-900/10">
+                        <div class="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-gray-200">
+                            <img src="${doc.photoURL || 'https://via.placeholder.com/150'}" alt="${doc.displayName}" class="h-full w-full object-cover" />
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-base font-bold text-[#111318] dark:text-white">${doc.displayName}</h4>
+                            <p class="text-sm text-[#636e88] dark:text-gray-400">${doc.specialty || 'Medical Specialist'}</p>
+                            <div class="mt-2 flex items-center gap-2 text-xs font-medium ${doc.availability ? 'text-green-600 dark:text-green-400' : 'text-slate-500'}">
+                                <span class="h-2 w-2 rounded-full ${doc.availability ? 'bg-green-500' : 'bg-slate-300'}"></span> 
+                                ${doc.availability ? 'Available Today' : 'Unavailable'}
+                            </div>
+                        </div>
+                        <a href="doctor_profile.html?uid=${doc.uid}" class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-primary hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-300">
+                            <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                        </a>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error("Error loading doctors:", err);
+            }
+        }
 
         async function fetchAiMatches(bloodGroup) {
             aiContainer.innerHTML = `<div class="p-8 text-center"><div class="animate-spin w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full mx-auto mb-4"></div><p class="text-sm text-slate-500">AI is finding potential donors...</p></div>`;
@@ -376,6 +472,9 @@
 
                 // Analyze with AI
                 const analysis = await getAiMatchAnalysis({ bloodGroup, urgency: 'high' }, donors);
+                const aiSummary = analysis?.error
+                    ? 'AI analysis unavailable right now. Showing nearby compatible donors.'
+                    : (analysis.compatibility || analysis.advice || 'AI analysis completed.');
 
                 aiContainer.innerHTML = `
                     <div class="p-4 bg-primary/5 rounded-xl border border-primary/10 mb-6">
@@ -383,7 +482,7 @@
                             <span class="material-symbols-outlined">psychology</span>
                             <span>AI Strategy</span>
                         </div>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 italic">${analysis.matchProbability}</p>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 italic">${aiSummary}</p>
                     </div>
                     <div class="space-y-4">
                         ${donors.slice(0, 3).map(donor => `

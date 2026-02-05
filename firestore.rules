@@ -1,0 +1,115 @@
+﻿rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function userDoc(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data;
+    }
+
+    function roleIs(role) {
+      return isSignedIn() && userDoc(request.auth.uid).role == role;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isVerifiedDoctor() {
+      return isSignedIn()
+        && userDoc(request.auth.uid).role == 'doctor'
+        && userDoc(request.auth.uid).verificationStatus == 'verified';
+    }
+
+    function safeUserUpdate() {
+      return request.resource.data.keys().hasOnly([
+        'uid','email','displayName','photoURL','role','availability','createdAt','lastLogin',
+        'phone','address','division','district','dob','gender','bloodGroup','weight','conditions','lastDonation',
+        'hospitalName','regNumber','type','website','adminName','adminPosition',
+        'age','condition','contactName','relationship','contactPhone','contactEmail','hospital',
+        'verificationDoc','isVerified','onboardingComplete','onboardingCompleteAt','updatedAt',
+        'verificationStatus','verifiedAt','specialty','licenseNumber','npiNumber','experience',
+        'organDonation','inventoryNotes','inventoryUpdatedAt','bloodAvailability','criticalNeed','specialties',
+        'notificationPrefs','status'
+      ]);
+    }
+
+    function immutableRole() {
+      return !(resource.data.keys().hasAny(['role']) && request.resource.data.role != resource.data.role);
+    }
+
+    function onlyStatusUpdate() {
+      return request.resource.data.diff(resource.data).changedKeys().hasOnly(['status','updatedAt']);
+    }
+
+    // USERS collection
+    match /users/{uid} {
+      allow create: if isOwner(uid);
+
+      // Owner can read own profile. Directory exposure only for verified doctors/hospitals.
+      allow read: if isOwner(uid)
+        || (resource.data.role in ['doctor','hospital'] && resource.data.verificationStatus == 'verified');
+
+      // Owner can update safe fields but cannot change role.
+      allow update: if isOwner(uid)
+        && safeUserUpdate()
+        && immutableRole();
+
+      allow delete: if false;
+    }
+
+    // REQUESTS collection
+    match /requests/{requestId} {
+      // Anyone signed-in can create a request (patient or hospital)
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status in ['active','matched','completed','cancelled'];
+
+      // Active requests readable by donors/verified doctors/hospitals, owners always
+      allow read: if (resource.data.userId == request.auth.uid)
+        || (resource.data.status == 'active' && (roleIs('donor') || roleIs('hospital') || isVerifiedDoctor()));
+
+      // Owner can update own request, but only status updates
+      allow update: if isSignedIn()
+        && resource.data.userId == request.auth.uid
+        && onlyStatusUpdate()
+        && request.resource.data.status in ['active','matched','completed','cancelled'];
+
+      // Hospitals can mark requests they created as matched/completed only
+      allow update: if roleIs('hospital')
+        && resource.data.userId == request.auth.uid
+        && onlyStatusUpdate()
+        && request.resource.data.status in ['matched','completed'];
+
+      allow delete: if false;
+    }
+
+    // APPOINTMENTS collection
+    match /appointments/{appointmentId} {
+      allow create: if roleIs('doctor')
+        && request.resource.data.doctorId == request.auth.uid;
+
+      allow read: if roleIs('doctor')
+        && resource.data.doctorId == request.auth.uid;
+
+      allow update: if roleIs('doctor')
+        && resource.data.doctorId == request.auth.uid
+        && request.resource.data.status in ['scheduled','confirmed','cancelled','completed'];
+
+      allow delete: if false;
+    }
+
+    // DONATIONS collection
+    match /donations/{donationId} {
+      allow create: if roleIs('donor')
+        && request.resource.data.donorId == request.auth.uid;
+
+      allow read: if roleIs('donor')
+        && resource.data.donorId == request.auth.uid;
+
+      allow update, delete: if false;
+    }
+  }
+}

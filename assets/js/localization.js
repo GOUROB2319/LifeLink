@@ -10,6 +10,7 @@ const translations = {
         "hero.badge": "Reliable Healthcare Network",
         "hero.title": "Connecting Lives in<br>Every <span class='text-emergency'>Heartbeat</span>",
         "hero.subtitle": "LifeLink is the professional bridge connecting donors, patients, and hospitals. Our mission is to streamline blood donations and medical assistance.",
+        "hero.cta.join": "Join LifeLink",
         "hero.cta.emergency": "Emergency Blood Request",
         "hero.cta.find_doctor": "Find a Doctor",
         "trust.label": "Trusted by Global Healthcare Leaders",
@@ -42,7 +43,6 @@ const translations = {
         "footer.rights": "© 2024 LifeLink BD. All rights reserved.",
         "footer.platform": "Platform",
         "footer.resources": "Resources",
-        "footer.resources": "Resources",
         "footer.contact": "Contact",
 
         // Login Page
@@ -69,6 +69,9 @@ const translations = {
         // Onboarding Step 1
         "onboarding.auth_required": "Please sign in or create an account to start your journey with LifeLink.",
         "onboarding.step1.of": "Step 1 of 4",
+        "onboarding.step2.of": "Step 2 of 4",
+        "onboarding.step3.of": "Step 3 of 4",
+        "onboarding.step4.of": "Step 4 of 4",
         "onboarding.step1.role": "Choose Your Role",
         "onboarding.step1.title": "Join LifeLink",
         "onboarding.step1.subtitle": "Select your role to get started",
@@ -207,6 +210,7 @@ const translations = {
         "hero.badge": "নির্ভরযোগ্য স্বাস্থ্যসেবা নেটওয়ার্ক",
         "hero.title": "প্রতিটি স্পন্দনে জীবন<br><span class='text-emergency'>সংযুক্ত করা</span>",
         "hero.subtitle": "লাইফলিংক হল ডোনার, রোগী এবং হাসপাতালের মধ্যে সংযোগ স্থাপনকারী পেশাদার সেতু। আমাদের লক্ষ্য রক্তদান এবং চিকিৎসা সহায়তা সহজতর করা।",
+        "hero.cta.join": "লাইফলিংকে যোগ দিন",
         "hero.cta.emergency": "জরুরী রক্তের অনুরোধ",
         "hero.cta.find_doctor": "ডাক্তার খুঁজুন",
         "trust.label": "বিশ্বসেরা স্বাস্থ্যসেবা প্রতিষ্ঠান দ্বারা বিশ্বস্ত",
@@ -239,7 +243,6 @@ const translations = {
         "footer.rights": "© ২০২৪ লাইফলিংক বিডি। সকল অধিকার সংরক্ষিত।",
         "footer.platform": "প্ল্যাটফর্ম",
         "footer.resources": "রিসোর্স",
-        "footer.resources": "রিসোর্স",
         "footer.contact": "যোগাযোগ",
 
         // Login Page - BN
@@ -266,6 +269,9 @@ const translations = {
         // Onboarding Step 1 - BN
         "onboarding.auth_required": "লাইফলিংকে আপনার যাত্রা শুরু করতে অনুগ্রহ করে সাইন-ইন বা একটি অ্যাকাউন্ট তৈরি করুন।",
         "onboarding.step1.of": "ধাপ ১ (মোট ৪টি)",
+        "onboarding.step2.of": "ধাপ ২ (মোট ৪টি)",
+        "onboarding.step3.of": "ধাপ ৩ (মোট ৪টি)",
+        "onboarding.step4.of": "ধাপ ৪ (মোট ৪টি)",
         "onboarding.step1.role": "আপনার রোল নির্বাচন করুন",
         "onboarding.step1.title": "লাইফলিংকে যোগ দিন",
         "onboarding.step1.subtitle": "শুরু করতে আপনার রোল নির্বাচন করুন",
@@ -434,6 +440,15 @@ class LocalizationManager {
                 } else {
                     el.innerHTML = translations[this.currentLang][key];
                 }
+            }
+        });
+
+        // Update placeholders
+        const placeholderElements = document.querySelectorAll('[data-placeholder-i18n]');
+        placeholderElements.forEach(el => {
+            const key = el.getAttribute('data-placeholder-i18n');
+            if (translations[this.currentLang][key]) {
+                el.setAttribute('placeholder', translations[this.currentLang][key]);
             }
         });
 

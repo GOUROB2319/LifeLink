@@ -45,7 +45,7 @@
     </style>
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
     <link rel="apple-touch-icon" href="../assets/images/favicon.svg" />
-    <script src="/assets/js/components.js"></script>
+    <script src="../assets/js/components.js"></script>
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
 </head>
 
@@ -281,17 +281,17 @@
                             <span class="material-symbols-outlined text-sm">history</span>
                             Reviewing for 12m 45s
                         </p>
-                        <button
+                        <button id="rejectBtn"
                             class="flex items-center gap-2 px-6 py-3 bg-reject-red text-white font-bold rounded-lg hover:bg-red-700 transition-colors shadow-lg shadow-red-500/20">
                             <span class="material-symbols-outlined text-xl">close</span>
                             Reject
                         </button>
-                        <button
+                        <button id="moreInfoBtn"
                             class="flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">
                             <span class="material-symbols-outlined text-xl">help</span>
                             Request More Info
                         </button>
-                        <button
+                        <button id="approveBtn"
                             class="flex items-center gap-2 px-10 py-3 bg-approve-green text-white font-bold rounded-lg hover:bg-green-700 transition-colors shadow-lg shadow-green-500/20">
                             <span class="material-symbols-outlined text-xl">check_circle</span>
                             Approve
@@ -301,6 +301,92 @@
             </div>
         </main>
     </div>
+    <script type="module">
+        import { auth, db, initAuthObserver } from '../assets/js/auth-service.js';
+        import { getFullUserProfile, saveUserProfile } from '../assets/js/db-service.js';
+
+        const approveBtn = document.getElementById('approveBtn');
+        const rejectBtn = document.getElementById('rejectBtn');
+        const moreInfoBtn = document.getElementById('moreInfoBtn');
+
+        // Extract UID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const doctorUid = urlParams.get('uid');
+
+        initAuthObserver(async (user) => {
+            const navbar = document.querySelector('app-navbar');
+            if (user && navbar && navbar.updateAuth) navbar.updateAuth(user);
+
+            if (doctorUid) {
+                loadDoctorDetails(doctorUid);
+            }
+        });
+
+        async function loadDoctorDetails(uid) {
+            try {
+                const profile = await getFullUserProfile(db, uid);
+                if (profile) {
+                    document.querySelector('h2').textContent = profile.displayName || 'Doctor';
+                    document.querySelector('.text-primary.font-semibold.text-sm').textContent = profile.specialty || 'General Practitioner';
+
+                    // Update stats
+                    const stats = document.querySelectorAll('.text-sm.font-semibold.text-[#111318]');
+                    if (stats.length >= 3) {
+                        stats[0].textContent = profile.licenseNumber || 'N/A';
+                        stats[1].textContent = profile.npiNumber || 'N/A';
+                        stats[2].textContent = (profile.experience || 'Experienced') + ' Years';
+                    }
+
+                    // Update Image if available
+                    if (profile.photoURL) {
+                        document.querySelector('.size-28').style.backgroundImage = `url("${profile.photoURL}")`;
+                    }
+                }
+            } catch (err) {
+                console.error("Error loading doctor:", err);
+            }
+        }
+
+        async function updateVerificationStatus(status) {
+            if (!doctorUid) {
+                alert("No doctor selected for verification.");
+                return;
+            }
+
+            const confirmAction = confirm(`Are you sure you want to ${status === 'verified' ? 'approve' : 'reject'} this application?`);
+            if (!confirmAction) return;
+
+            const actionBtn = status === 'verified' ? approveBtn : rejectBtn;
+            const originalText = actionBtn.textContent;
+            actionBtn.disabled = true;
+            actionBtn.textContent = 'Processing...';
+
+            try {
+                // Update the user's document in the users collection
+                const res = await saveUserProfile(db, { uid: doctorUid }, null, {
+                    verificationStatus: status,
+                    verifiedAt: status === 'verified' ? new Date().toISOString() : null,
+                    role: status === 'verified' ? 'doctor' : 'patient'
+                });
+
+                if (res.success) {
+                    alert(`Doctor application has been ${status === 'verified' ? 'approved' : 'rejected'}.`);
+                    window.location.href = 'admin_dashboard.html';
+                } else {
+                    throw new Error(res.error);
+                }
+            } catch (err) {
+                alert('Error: ' + err.message);
+                actionBtn.disabled = false;
+                actionBtn.textContent = originalText;
+            }
+        }
+
+        approveBtn.addEventListener('click', () => updateVerificationStatus('verified'));
+        rejectBtn.addEventListener('click', () => updateVerificationStatus('rejected'));
+        moreInfoBtn.addEventListener('click', () => alert("Feature coming soon: Request more documents."));
+
+    </script>
 </body>
 
 </html>
