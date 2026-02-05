@@ -82,6 +82,14 @@
     const divisionFilter = document.getElementById('divisionFilter');
     const searchBtn = document.getElementById('searchBtn');
 
+    const fallbackAfter = (container, message, delay = 6000) => {
+      setTimeout(() => {
+        if (container && container.textContent.includes('Searching records')) {
+          container.innerHTML = `<p class="col-span-full text-center text-slate-500 py-10">${message}</p>`;
+        }
+      }, delay);
+    };
+
     initAuthObserver(async (user) => {
       const navbar = document.querySelector('app-navbar');
       if (user && navbar && navbar.updateAuth) navbar.updateAuth(user);
@@ -96,6 +104,7 @@
                   <p class="text-slate-500">Searching records...</p>
               </div>
           `;
+      fallbackAfter(resultsGrid, 'No directory data found.');
 
       const criteria = {
         name: searchInput.value,

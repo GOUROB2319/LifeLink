@@ -87,27 +87,7 @@
                     <div class="mb-8 text-center md:text-left">
                         <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-2" data-i18n="login.header">
                             Login to Account</h2>
-                        <p class="text-slate-500 text-sm" data-i18n="login.instruction">Please select your role and sign
-                            in</p>
-                    </div>
-
-                    <!-- Role Tabs -->
-                    <div class="flex gap-2 p-1 bg-slate-100 dark:bg-slate-800/50 rounded-xl mb-8">
-                        <button
-                            class="role-tab flex-1 py-2.5 text-sm font-bold rounded-lg transition-all shadow-sm bg-white text-primary dark:bg-slate-700 dark:text-white"
-                            data-role="patient" data-i18n="login.role.patient">
-                            Patient/Donor
-                        </button>
-                        <button
-                            class="role-tab flex-1 py-2.5 text-sm font-bold rounded-lg transition-all text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
-                            data-role="doctor" data-i18n="login.role.doctor">
-                            Doctor
-                        </button>
-                        <button
-                            class="role-tab flex-1 py-2.5 text-sm font-bold rounded-lg transition-all text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
-                            data-role="hospital" data-i18n="login.role.hospital">
-                            Hospital
-                        </button>
+                        <p class="text-slate-500 text-sm" data-i18n="login.instruction">Sign in to continue</p>
                     </div>
 
                     <form id="loginForm" class="space-y-5">
@@ -194,28 +174,6 @@
             if (user) {
                 await handleAuthRedirect(user);
             }
-        });
-
-        // Role Tab Logic
-        const tabs = document.querySelectorAll('.role-tab');
-        let currentRole = 'patient';
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent button submission if inside form (though type is button missing, default is submit in some contexts, but here explicitly styled)
-                const role = tab.getAttribute('data-role');
-                currentRole = role;
-
-                // Update Visuals
-                tabs.forEach(t => {
-                    t.classList.remove('bg-white', 'shadow-sm', 'text-primary', 'dark:bg-slate-700', 'dark:text-white');
-                    t.classList.add('text-slate-500', 'hover:text-slate-700', 'dark:text-slate-400', 'dark:hover:text-slate-200');
-                });
-
-                // Add active styles
-                tab.classList.remove('text-slate-500', 'hover:text-slate-700', 'dark:text-slate-400', 'dark:hover:text-slate-200');
-                tab.classList.add('bg-white', 'shadow-sm', 'text-primary', 'dark:bg-slate-700', 'dark:text-white');
-            });
         });
 
         // Form Submission

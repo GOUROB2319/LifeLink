@@ -175,11 +175,12 @@ class Navbar extends HTMLElement {
 
         ensureMeta('Content-Security-Policy',
             "default-src 'self'; " +
-            "script-src 'self' https://cdn.tailwindcss.com https://www.gstatic.com https://www.googleapis.com 'unsafe-inline'; " +
+            "script-src 'self' https://cdn.tailwindcss.com https://www.gstatic.com https://www.googleapis.com https://apis.google.com https://accounts.google.com 'unsafe-inline' blob:; " +
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
             "font-src https://fonts.gstatic.com data:; " +
             "img-src 'self' data: https:; " +
-            "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://generativelanguage.googleapis.com; " +
+            "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://generativelanguage.googleapis.com https://www.gstatic.com https://accounts.google.com; " +
+            "frame-src https://accounts.google.com https://*.google.com; " +
             "frame-ancestors 'none';",
             true
         );

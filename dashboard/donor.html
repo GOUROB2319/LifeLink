@@ -44,7 +44,7 @@
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="availabilityToggle" class="sr-only peer" checked>
                             <div
-                                class="relative w-11 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-5">
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
                             </div>
                         </label>
                     </div>
@@ -174,9 +174,23 @@
             }
         });
 
+        const fallbackAfter = (container, message, delay = 6000) => {
+            setTimeout(() => {
+                if (container && container.textContent.includes('...')) {
+                    container.innerHTML = `
+                        <div class="text-center py-8">
+                            <span class="material-symbols-outlined text-slate-300 text-4xl mb-2">search_off</span>
+                            <p class="text-sm text-slate-400">${message}</p>
+                        </div>
+                    `;
+                }
+            }, delay);
+        };
+
         async function loadDonationHistory(uid) {
             const historyContainer = document.getElementById('donation-history');
             if (!historyContainer) return;
+            fallbackAfter(historyContainer, 'No donation records found yet.');
 
             try {
                 const history = await getUserDonationHistory(db, uid);
@@ -254,6 +268,8 @@
                 where("status", "==", "active"),
                 orderBy("createdAt", "desc")
             );
+
+            fallbackAfter(alertContainer, `No active requests for ${bloodGroup} right now.`);
 
             onSnapshot(q, (snapshot) => {
                 // Clear container but keep header if needed

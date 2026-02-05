@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, deleteUser, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, deleteUser, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import firebaseConfig from "./firebase-config.js";
 import { saveUserProfile, getUserRole, checkUserExists, getFullUserProfile } from "./db-service.js";
@@ -9,6 +9,26 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
+
+// Handle redirect results if popup is blocked or closed
+getRedirectResult(auth).then(async (result) => {
+    if (!result || !result.user) return;
+    const user = result.user;
+    const profile = await getFullUserProfile(db, user.uid);
+    if (!profile) {
+        await saveUserProfile(db, user, null, {
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            createdAt: new Date(),
+            onboardingComplete: false,
+            authMethod: 'google'
+        });
+    }
+    await handleAuthRedirect(user);
+}).catch(() => {
+    // Silent fail - normal if no redirect in progress
+});
 
 /**
  * Handle routing based on user profile state
@@ -88,6 +108,14 @@ const loginWithGoogle = async () => {
         await handleAuthRedirect(user);
         return { success: true, user };
     } catch (error) {
+        if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+            try {
+                await signInWithRedirect(auth, googleProvider);
+                return { success: true, user: null, redirect: true };
+            } catch (redirectError) {
+                return { success: false, error: redirectError.message, code: redirectError.code };
+            }
+        }
         return { success: false, error: error.message, code: error.code };
     }
 };

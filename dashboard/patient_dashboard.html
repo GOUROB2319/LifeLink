@@ -125,7 +125,7 @@
                             </div>
                             <input id="pushToggle" type="checkbox" class="sr-only peer">
                             <div
-                                class="relative w-11 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-5">
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
                             </div>
                         </label>
                         <label class="flex items-center justify-between cursor-pointer">
@@ -135,7 +135,7 @@
                             </div>
                             <input id="smsToggle" type="checkbox" class="sr-only peer">
                             <div
-                                class="relative w-11 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-5">
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
                             </div>
                         </label>
                         <button id="saveNotifications"
@@ -166,6 +166,16 @@
         const smsToggle = document.getElementById('smsToggle');
         const saveNotifications = document.getElementById('saveNotifications');
 
+        const fallbackAfter = (container, message, delay = 6000) => {
+            setTimeout(() => {
+                if (container && container.textContent.includes('Loading')) {
+                    container.innerHTML = `
+                        <p class="text-sm text-slate-500">${message}</p>
+                    `;
+                }
+            }, delay);
+        };
+
         initAuthObserver(async (user) => {
             const navbar = document.querySelector('app-navbar');
             if (user && navbar && navbar.updateAuth) navbar.updateAuth(user);
@@ -187,6 +197,7 @@
                 }
             }
 
+            fallbackAfter(requestsList, 'No requests yet. Create one when needed.');
             await loadRequests(user.uid);
         });
 
