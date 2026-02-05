@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile - LifeLink</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+</head>
+
+<body class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+    <app-navbar auth="true"></app-navbar>
+
+    <main class="relative z-10 pt-28 pb-20 min-h-screen">
+        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-surface-dark rounded-[2rem] shadow-2xl border border-slate-200 dark:border-slate-700 p-8 md:p-12">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+                    <div class="h-28 w-28 rounded-full overflow-hidden bg-slate-100 border border-slate-200 dark:border-slate-700">
+                        <img id="doctorPhoto" src="../assets/images/lifelink-logo.svg" alt="Doctor" class="h-full w-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Doctor Profile</p>
+                        <h1 id="doctorName" class="text-3xl font-black text-slate-900 dark:text-white mt-2">Loading...</h1>
+                        <p id="doctorSpecialty" class="text-slate-500 dark:text-slate-400 mt-2">Medical Specialist</p>
+                        <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-900/10 dark:text-emerald-300">
+                            <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                            Available
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-5">
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Hospital</p>
+                        <p id="doctorHospital" class="mt-2 text-sm font-semibold text-slate-700 dark:text-slate-200">Not provided</p>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-5">
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Location</p>
+                        <p id="doctorLocation" class="mt-2 text-sm font-semibold text-slate-700 dark:text-slate-200">Not provided</p>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-5">
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Email</p>
+                        <p id="doctorEmail" class="mt-2 text-sm font-semibold text-slate-700 dark:text-slate-200">Not provided</p>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-5">
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Phone</p>
+                        <p id="doctorPhone" class="mt-2 text-sm font-semibold text-slate-700 dark:text-slate-200">Not provided</p>
+                    </div>
+                </div>
+
+                <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                    <a href="directory.html" class="flex-1 px-6 py-3 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Back to Directory</a>
+                    <a href="emergency.html" class="flex-1 bg-brand-gradient text-white px-6 py-3 rounded-xl font-bold text-center shadow-lg shadow-primary/20 hover:scale-105 transition-all">Request Emergency Help</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <app-footer></app-footer>
+
+    <script src="../assets/js/localization.js"></script>
+    <script src="../assets/js/animations.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script type="module">
+        import { db } from '../assets/js/auth-service.js';
+        import { getFullUserProfile } from '../assets/js/db-service.js';
+
+        const params = new URLSearchParams(window.location.search);
+        const uid = params.get('uid');
+
+        const nameEl = document.getElementById('doctorName');
+        const specialtyEl = document.getElementById('doctorSpecialty');
+        const hospitalEl = document.getElementById('doctorHospital');
+        const locationEl = document.getElementById('doctorLocation');
+        const emailEl = document.getElementById('doctorEmail');
+        const phoneEl = document.getElementById('doctorPhone');
+        const photoEl = document.getElementById('doctorPhoto');
+
+        if (!uid) {
+            nameEl.textContent = 'Doctor not found';
+        } else {
+            try {
+                const profile = await getFullUserProfile(db, uid);
+                if (!profile) {
+                    nameEl.textContent = 'Doctor not found';
+                } else {
+                    nameEl.textContent = profile.displayName || 'Doctor';
+                    specialtyEl.textContent = profile.specialty || 'Medical Specialist';
+                    hospitalEl.textContent = profile.hospitalName || 'Not provided';
+                    locationEl.textContent = profile.address || profile.district || 'Not provided';
+                    emailEl.textContent = profile.email || 'Not provided';
+                    phoneEl.textContent = profile.phone || 'Not provided';
+                    if (profile.photoURL) {
+                        photoEl.src = profile.photoURL;
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load doctor profile:', err);
+                nameEl.textContent = 'Doctor not found';
+            }
+        }
+    </script>
+</body>
+
+</html>

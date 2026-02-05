@@ -210,6 +210,8 @@
         </div>
     </main>
 
+    <app-footer></app-footer>
+
     <script src="../assets/js/localization.js"></script>
     <script type="module">
         import { registerUser, loginWithGoogle, initAuthObserver, db } from '../assets/js/auth-service.js';
@@ -266,7 +268,13 @@
             const result = await loginWithGoogle();
             if (!result.success) {
                 authError.classList.remove('hidden');
-                authError.textContent = result.error;
+                if (result.code === 'auth/unauthorized-domain') {
+                    authError.textContent = 'Google sign-in blocked. Please add this domain (localhost/127.0.0.1) in Firebase Authentication > Settings > Authorized domains.';
+                } else if (result.code === 'auth/popup-blocked') {
+                    authError.textContent = 'Popup blocked by the browser. Please allow popups and try again.';
+                } else {
+                    authError.textContent = result.error;
+                }
             }
         });
     </script>

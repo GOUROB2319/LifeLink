@@ -110,7 +110,7 @@ const translations = {
         "onboarding.label.division": "Division *",
         "onboarding.option.select_division": "Select division",
         "onboarding.label.district": "District *",
-        "onboarding.placeholder.district": "Enter your district",
+        "onboarding.placeholder.district": "Select district",
         "onboarding.label.address": "Full Address",
         "onboarding.placeholder.address": "House/Flat, Road, Area, Thana",
         "onboarding.section.medical": "Medical Eligibility",
@@ -310,7 +310,7 @@ const translations = {
         "onboarding.label.division": "বিভাগ *",
         "onboarding.option.select_division": "বিভাগ নির্বাচন করুন",
         "onboarding.label.district": "জেলা *",
-        "onboarding.placeholder.district": "আপনার জেলা লিখুন",
+        "onboarding.placeholder.district": "জেলা নির্বাচন করুন",
         "onboarding.label.address": "পূর্ণ ঠিকানা",
         "onboarding.placeholder.address": "বাসা/ফ্ল্যাট, রাস্তা, এলাকা, থানা",
         "onboarding.section.medical": "চিকিৎসা উপযুক্ততা",
@@ -417,6 +417,7 @@ class LocalizationManager {
         this.currentLang = lang;
         localStorage.setItem('lifelink_lang', lang);
         this.updateDOM();
+        document.dispatchEvent(new CustomEvent('lifelink-language-change', { detail: { lang } }));
 
         // Update document dir and lang attributes if needed
         document.documentElement.lang = lang;

@@ -193,9 +193,9 @@
                   data-i18n="onboarding.label.district">
                   District *
                 </label>
-                <input type="text" name="district" required
-                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="Enter your district" data-placeholder-i18n="onboarding.placeholder.district">
+                <select name="district" required data-district-select
+                  class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                </select>
               </div>
 
               <!-- Full Address -->
@@ -304,6 +304,7 @@
 
   <!-- Scripts -->
   <script src="../assets/js/localization.js"></script>
+  <script src="../assets/js/districts.js"></script>
   <script src="../assets/js/animations.js"></script>
   <script src="../assets/js/main.js"></script>
 

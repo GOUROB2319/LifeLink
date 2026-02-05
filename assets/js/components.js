@@ -1,3 +1,37 @@
+const getBaseUrl = () => {
+    const currentUrl = new URL(window.location.href);
+    const htmlBase = document.documentElement.getAttribute('data-base');
+    if (htmlBase) {
+        return new URL(htmlBase, currentUrl.href).toString();
+    }
+
+    const path = currentUrl.pathname;
+    const roots = ['/auth/', '/dashboard/', '/info/', '/onboarding/'];
+    let rootPath = '/';
+    for (const seg of roots) {
+        if (path.includes(seg)) {
+            rootPath = path.split(seg)[0] + '/';
+            break;
+        }
+    }
+
+    // If on index or unknown, fallback to directory root
+    if (rootPath === '/' && path.endsWith('.html')) {
+        rootPath = path.slice(0, path.lastIndexOf('/') + 1);
+    }
+
+    const origin = currentUrl.protocol === 'file:' ? 'file://' : `${currentUrl.protocol}//${currentUrl.host}`;
+    return `${origin}${rootPath}`;
+};
+
+const createResolvePath = () => {
+    const baseUrl = getBaseUrl();
+    return (path) => {
+        const clean = path.replace(/^\/+/, '');
+        return new URL(clean, baseUrl).toString();
+    };
+};
+
 class Navbar extends HTMLElement {
     constructor() {
         super();
@@ -7,36 +41,7 @@ class Navbar extends HTMLElement {
         const isAuth = this.getAttribute('auth') === 'true';
         const activeLink = this.getAttribute('active') || '';
 
-        const baseUrl = (() => {
-            const currentUrl = new URL(window.location.href);
-            const htmlBase = document.documentElement.getAttribute('data-base');
-            if (htmlBase) {
-                return new URL(htmlBase, currentUrl.href).toString();
-            }
-
-            const path = currentUrl.pathname;
-            const roots = ['/auth/', '/dashboard/', '/info/', '/onboarding/'];
-            let rootPath = '/';
-            for (const seg of roots) {
-                if (path.includes(seg)) {
-                    rootPath = path.split(seg)[0] + '/';
-                    break;
-                }
-            }
-
-            // If on index or unknown, fallback to directory root
-            if (rootPath === '/' && path.endsWith('.html')) {
-                rootPath = path.slice(0, path.lastIndexOf('/') + 1);
-            }
-
-            const origin = currentUrl.protocol === 'file:' ? 'file://' : `${currentUrl.protocol}//${currentUrl.host}`;
-            return `${origin}${rootPath}`;
-        })();
-
-        const resolvePath = (path) => {
-            const clean = path.replace(/^\/+/, '');
-            return new URL(clean, baseUrl).toString();
-        };
+        const resolvePath = createResolvePath();
         this._resolvePath = resolvePath;
 
         this.injectSecurityMeta();
@@ -254,6 +259,7 @@ class Footer extends HTMLElement {
     }
 
     connectedCallback() {
+        const resolvePath = createResolvePath();
         this.innerHTML = `
     <footer class="bg-slate-900 text-slate-300 py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">

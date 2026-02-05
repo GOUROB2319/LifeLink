@@ -181,6 +181,8 @@
         </div>
     </main>
 
+    <app-footer></app-footer>
+
     <!-- Localization Script -->
     <script src="../assets/js/localization.js"></script>
 
@@ -261,7 +263,13 @@
             const result = await loginWithGoogle();
             if (!result.success) {
                 errorDiv.classList.remove('hidden');
-                errorMsg.textContent = result.error;
+                if (result.code === 'auth/unauthorized-domain') {
+                    errorMsg.textContent = 'Google sign-in blocked. Please add this domain (localhost/127.0.0.1) in Firebase Authentication > Settings > Authorized domains.';
+                } else if (result.code === 'auth/popup-blocked') {
+                    errorMsg.textContent = 'Popup blocked by the browser. Please allow popups and try again.';
+                } else {
+                    errorMsg.textContent = result.error;
+                }
             }
         });
     </script>
