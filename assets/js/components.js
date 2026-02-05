@@ -22,9 +22,9 @@ class Navbar extends HTMLElement {
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-20 items-center justify-between">
                 <!-- Logo -->
-                <div class="flex items-center gap-3 cursor-pointer group" onclick="window.location.href='/index.html'">
-                    <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                        <span class="material-symbols-outlined text-2xl">favorite</span>
+                <div class="flex items-center gap-0.5 cursor-pointer group" onclick="window.location.href='/index.html'">
+                    <div class="relative flex items-center justify-center w-12 h-12 transition-transform duration-300 hover:scale-105">
+                        <img src="/assets/images/LifeLink BD Logo.svg" alt="LifeLink BD Logo" class="w-full h-full object-contain">
                     </div>
                     <span class="text-xl font-bold tracking-tight text-slate-800 dark:text-white">LifeLink <span class="text-secondary">BD</span></span>
                 </div>
@@ -183,11 +183,11 @@ class Footer extends HTMLElement {
             <div class="grid md:grid-cols-4 gap-12 mb-12">
                 <!-- Brand -->
                 <div class="md:col-span-1">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                            <span class="material-symbols-outlined text-2xl">favorite</span>
+                    <div class="flex items-center gap-1 mb-6">
+                        <div class="w-20 h-20 bg-white/5 rounded-2xl flex items-center justify-center p-2">
+                            <img src="/assets/images/LifeLink BD Logo.svg" alt="LifeLink BD Logo" class="w-full h-full object-contain">
                         </div>
-                        <span class="text-xl font-bold text-white">LifeLink <span class="text-secondary">BD</span></span>
+                        <span class="text-2xl font-bold text-white">LifeLink <span class="text-secondary">BD</span></span>
                     </div>
                     <p class="text-sm text-slate-400 leading-relaxed" data-i18n="footer.tagline">
                         The professional bridge between medical resources and human needs. Available 24/7 for emergency support.
@@ -240,7 +240,7 @@ class Footer extends HTMLElement {
                 <div class="flex flex-col gap-1 text-center md:text-left">
                     <p class="text-sm text-slate-400" data-i18n="footer.rights">&copy; 2024 LifeLink BD. All rights reserved.</p>
                     <p class="text-[10px] text-slate-500 opacity-60">
-                        Red Cross logo by International Red Cross and Red Crescent Movement - <a href="https://www.icrc.org" class="hover:text-primary underline">www.icrc.org</a>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=113885843" class="hover:text-primary underline">Link</a>
+                        Red Cross logo by International Committee of the Red Cross - <a href="http://www.icrc.org/Web/Eng/siteeng0.nsf/htmlall/p4012/%24File/ICRC_002_4012.PDF" rel="nofollow" class="hover:text-primary underline">Source</a>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=9937766" class="hover:text-primary underline">Link</a>
                     </p>
                 </div>
                 <div class="flex items-center gap-4">
