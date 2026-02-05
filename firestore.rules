@@ -36,8 +36,9 @@ service cloud.firestore {
       ]);
     }
 
-    function immutableRole() {
-      return !(resource.data.keys().hasAny(['role']) && request.resource.data.role != resource.data.role);
+    function roleChangeAllowed() {
+      return !(resource.data.keys().hasAny(['role']))
+        || (resource.data.role in ['patient'] && request.resource.data.role in ['patient','donor','hospital']);
     }
 
     function onlyStatusUpdate() {
@@ -52,10 +53,15 @@ service cloud.firestore {
       allow read: if isOwner(uid)
         || (resource.data.role in ['doctor','hospital'] && resource.data.verificationStatus == 'verified');
 
-      // Owner can update safe fields but cannot change role.
+      // Owner can update safe fields and only allowed role changes
       allow update: if isOwner(uid)
         && safeUserUpdate()
-        && immutableRole();
+        && roleChangeAllowed();
+
+      // Admin can update verification fields on any user
+      allow update: if roleIs('admin')
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly(['verificationStatus','verifiedAt','role','updatedAt'])
+        && request.resource.data.role in ['doctor','patient'];
 
       allow delete: if false;
     }

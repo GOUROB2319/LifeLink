@@ -234,6 +234,12 @@
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
+            if (!auth.currentUser) {
+                alert('Please login to submit an emergency request.');
+                window.location.href = '../auth/login.html';
+                return;
+            }
+
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
 
@@ -251,8 +257,8 @@
             // 1. Save to Firestore
             const requestData = {
                 ...data,
-                userId: auth.currentUser ? auth.currentUser.uid : 'anonymous',
-                userEmail: auth.currentUser ? auth.currentUser.email : 'none'
+                userId: auth.currentUser.uid,
+                userEmail: auth.currentUser.email || ''
             };
 
             const submitResult = await submitEmergencyRequest(db, requestData);

@@ -14,13 +14,23 @@ class Navbar extends HTMLElement {
                 return new URL(htmlBase, currentUrl.href).toString();
             }
 
-            const marker = '/LifeLink/';
-            const markerIndex = currentUrl.pathname.lastIndexOf(marker);
-            const rootPath = markerIndex !== -1
-                ? currentUrl.pathname.slice(0, markerIndex + marker.length)
-                : currentUrl.pathname.slice(0, currentUrl.pathname.lastIndexOf('/') + 1);
+            const path = currentUrl.pathname;
+            const roots = ['/auth/', '/dashboard/', '/info/', '/onboarding/'];
+            let rootPath = '/';
+            for (const seg of roots) {
+                if (path.includes(seg)) {
+                    rootPath = path.split(seg)[0] + '/';
+                    break;
+                }
+            }
 
-            return `${currentUrl.protocol}//${currentUrl.host}${rootPath}`;
+            // If on index or unknown, fallback to directory root
+            if (rootPath === '/' && path.endsWith('.html')) {
+                rootPath = path.slice(0, path.lastIndexOf('/') + 1);
+            }
+
+            const origin = currentUrl.protocol === 'file:' ? 'file://' : `${currentUrl.protocol}//${currentUrl.host}`;
+            return `${origin}${rootPath}`;
         })();
 
         const resolvePath = (path) => {
@@ -278,7 +288,6 @@ class Footer extends HTMLElement {
                     <ul class="space-y-2">
                         <li><a href="${resolvePath('info/services.html')}" class="hover:text-primary transition-colors" data-i18n="footer.help_center">Help Center</a></li>
                         <li><a href="${resolvePath('info/privacy.html')}" class="hover:text-primary transition-colors" data-i18n="footer.terms_privacy">Terms & Privacy</a></li>
-                        <li><a href="#" class="hover:text-primary transition-colors" data-i18n="footer.faq">FAQ</a></li>
                     </ul>
                 </div>
 
@@ -312,8 +321,6 @@ class Footer extends HTMLElement {
                 </div>
                 <div class="flex items-center gap-4">
                     <a href="https://www.facebook.com/LifeLinkB" class="text-slate-400 hover:text-primary transition-colors" rel="noopener" target="_blank">Facebook</a>
-                    <a href="#" class="text-slate-400 hover:text-primary transition-colors">Twitter</a>
-                    <a href="#" class="text-slate-400 hover:text-primary transition-colors">LinkedIn</a>
                 </div>
             </div>
         </div>
