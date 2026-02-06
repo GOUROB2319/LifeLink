@@ -175,10 +175,14 @@
         import { validateField, showFieldError, clearFieldError, setupRealtimeValidation } from '../assets/js/validation.js';
         import { handleAsyncOperation, showErrorNotification } from '../assets/js/error-handler.js';
 
-        // Auto-redirect if already logged in
+        // Auto-redirect if already logged in (only on page load, not after login)
+        let hasAttemptedLogin = false;
         initAuthObserver(async (user) => {
-            if (user) {
-                await handleAuthRedirect(user);
+            if (user && !hasAttemptedLogin) {
+                const profile = await getFullUserProfile(db, user.uid);
+                if (profile && profile.onboardingComplete) {
+                    await handleAuthRedirect(user);
+                }
             }
         });
 
@@ -216,6 +220,8 @@
                 return;
             }
 
+            hasAttemptedLogin = true;
+            
             // Use error handler for async operation
             const result = await handleAsyncOperation(
                 () => loginUser(email, password),
@@ -239,6 +245,7 @@
 
         // Google Login
         document.getElementById('googleBtn').addEventListener('click', async () => {
+            hasAttemptedLogin = true;
             const result = await handleAsyncOperation(
                 () => loginWithGoogle(),
                 document.getElementById('googleBtn'),

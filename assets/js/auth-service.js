@@ -14,6 +14,7 @@ const googleProvider = new GoogleAuthProvider();
 getRedirectResult(auth).then(async (result) => {
     if (!result || !result.user) return;
     const user = result.user;
+    console.log('Google redirect result:', user.email);
     const profile = await getFullUserProfile(db, user.uid);
     if (!profile) {
         await saveUserProfile(db, user, null, {
@@ -26,14 +27,10 @@ getRedirectResult(auth).then(async (result) => {
         });
     }
     await handleAuthRedirect(user);
-}).catch(() => {
-    // Silent fail - normal if no redirect in progress
+}).catch((error) => {
+    console.error('Redirect error:', error);
 });
 
-/**
- * Handle routing based on user profile state
- * @param {Object} user - Firebase user
- */
 const handleAuthRedirect = async (user) => {
     if (!user) return;
 
@@ -55,25 +52,48 @@ const handleAuthRedirect = async (user) => {
 
             const destination = roleToPage[role] || 'donor.html';
             localStorage.setItem('lifelink_dashboard', destination);
-            window.location.href = `../dashboard/${destination}`;
+            
+            // Detect current path and redirect accordingly
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/auth/')) {
+                window.location.href = `../dashboard/${destination}`;
+            } else if (currentPath.includes('/onboarding/')) {
+                window.location.href = `../dashboard/${destination}`;
+            } else if (currentPath.includes('/dashboard/')) {
+                window.location.href = destination;
+            } else {
+                window.location.href = `dashboard/${destination}`;
+            }
         } else {
             console.log(`User ${user.uid} onboarding incomplete, redirecting to step 1.`);
-            window.location.href = '../onboarding/step1.html';
+            
+            // Detect current path for onboarding redirect
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/auth/')) {
+                window.location.href = '../onboarding/step1.html';
+            } else if (currentPath.includes('/dashboard/')) {
+                window.location.href = '../onboarding/step1.html';
+            } else {
+                window.location.href = 'onboarding/step1.html';
+            }
         }
     } catch (error) {
         console.error("Redirection logic failed:", error);
-        window.location.href = '../onboarding/step1.html'; // Safe fallback
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('/auth/')) {
+            window.location.href = '../onboarding/step1.html';
+        } else {
+            window.location.href = 'onboarding/step1.html';
+        }
     }
 };
 
-// Auth State Observer
 const initAuthObserver = (callback) => {
     onAuthStateChanged(auth, async (user) => {
         if (callback) callback(user);
     });
 };
 
-// Login Logic
 const loginUser = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -86,12 +106,37 @@ const loginUser = async (email, password) => {
     }
 };
 
-// Google Login
 const loginWithGoogle = async () => {
     try {
-        await signInWithRedirect(auth, googleProvider);
-        return { success: true, user: null, redirect: true };
+        const result = await signInWithPopup(auth, googleProvider);
+        const user = result.user;
+        
+        console.log('Google popup success:', user.email);
+        
+        const profile = await getFullUserProfile(db, user.uid);
+        if (!profile) {
+            await saveUserProfile(db, user, null, {
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                createdAt: new Date(),
+                onboardingComplete: false,
+                authMethod: 'google'
+            });
+        }
+        
+        await handleAuthRedirect(user);
+        return { success: true, user };
     } catch (error) {
+        console.error('Google login error:', error);
+        if (error.code === 'auth/popup-blocked') {
+            try {
+                await signInWithRedirect(auth, googleProvider);
+                return { success: true, user: null, redirect: true };
+            } catch (redirectError) {
+                return { success: false, error: redirectError.message, code: redirectError.code };
+            }
+        }
         return { success: false, error: error.message, code: error.code };
     }
 };
@@ -106,7 +151,6 @@ const logoutUser = async () => {
     }
 };
 
-// Registration Logic
 const registerUser = async (email, password, profileData = {}) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -116,7 +160,6 @@ const registerUser = async (email, password, profileData = {}) => {
             await updateProfile(user, { displayName: profileData.displayName });
         }
 
-        // Save initial profile data
         await saveUserProfile(db, user, null, {
             ...profileData,
             email: email,
@@ -146,7 +189,6 @@ const deleteUserAccount = async () => {
 
 export { auth, db, initAuthObserver, loginUser, registerUser, loginWithGoogle, logoutUser, deleteUserAccount, handleAuthRedirect };
 
-// Global event listener for logout from components
 if (typeof window !== 'undefined') {
     window.addEventListener('lifelink-logout', async () => {
         await logoutUser();

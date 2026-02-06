@@ -179,9 +179,8 @@ class Navbar extends HTMLElement {
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
             "font-src https://fonts.gstatic.com data:; " +
             "img-src 'self' data: https:; " +
-            "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://generativelanguage.googleapis.com https://www.gstatic.com https://accounts.google.com; " +
-            "frame-src https://accounts.google.com https://*.google.com https://*.firebaseapp.com; " +
-            "frame-ancestors 'none';",
+            "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://generativelanguage.googleapis.com https://www.gstatic.com https://accounts.google.com https://www.google-analytics.com; " +
+            "frame-src https://accounts.google.com https://*.google.com https://*.firebaseapp.com;",
             true
         );
 
