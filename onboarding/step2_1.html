@@ -300,23 +300,95 @@
   <script src="../assets/js/animations.js"></script>
   <script src="../assets/js/main.js"></script>
 
-  <script>
-    // Form submission handler
-    document.getElementById('donorForm').addEventListener('submit', function (e) {
+  <script type="module">
+    import { validateField, showFieldError, clearFieldError, setupRealtimeValidation } from '../assets/js/validation.js';
+    import { handleAsyncOperation, showErrorNotification, showSuccessNotification } from '../assets/js/error-handler.js';
+    import { saveUserProfile, getFullUserProfile } from '../assets/js/db-service.js';
+    import { auth, db } from '../assets/js/auth-service.js';
+
+    // Get form inputs
+    const form = document.getElementById('donorForm');
+    const dobInput = form.querySelector('[name="dob"]');
+    const weightInput = form.querySelector('[name="weight"]');
+    const emailInput = form.querySelector('[name="email"]');
+    const phoneInput = form.querySelector('[name="phone"]');
+    const bloodGroupInput = form.querySelector('[name="bloodGroup"]');
+
+    // Setup validation
+    setupRealtimeValidation(dobInput, 'dob');
+    setupRealtimeValidation(weightInput, 'weight');
+    setupRealtimeValidation(emailInput, 'email');
+    setupRealtimeValidation(phoneInput, 'phone');
+    setupRealtimeValidation(bloodGroupInput, 'bloodGroup');
+
+    // Form submission
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
+
+      // Clear errors
+      [dobInput, weightInput, emailInput, phoneInput, bloodGroupInput].forEach(clearFieldError);
 
       // Get form data
       const formData = new FormData(this);
       const donorData = Object.fromEntries(formData);
 
-      // Store in localStorage (in real app, this would go to Firebase)
-      localStorage.setItem('onboarding_donor_data', JSON.stringify(donorData));
+      // Validate
+      const dobError = validateField('dob', donorData.dob);
+      const weightError = validateField('weight', donorData.weight);
+      const emailError = validateField('email', donorData.email);
+      const phoneError = validateField('phone', donorData.phone);
+      const bloodError = validateField('bloodGroup', donorData.bloodGroup);
 
-      // Navigate to step 3
-      window.location.href = 'step3.html';
+      let hasError = false;
+      if (dobError) { showFieldError(dobInput, dobError); hasError = true; }
+      if (weightError) { showFieldError(weightInput, weightError); hasError = true; }
+      if (emailError) { showFieldError(emailInput, emailError); hasError = true; }
+      if (phoneError) { showFieldError(phoneInput, phoneError); hasError = true; }
+      if (bloodError) { showFieldError(bloodGroupInput, bloodError); hasError = true; }
+
+      if (hasError) return;
+
+      // Get conditions
+      const conditions = Array.from(document.querySelectorAll('input[name="conditions"]:checked'))
+        .map(cb => cb.value);
+
+      // Check if user is authenticated
+      const user = auth.currentUser;
+      if (!user) {
+        showErrorNotification('Please login first');
+        window.location.href = '../auth/login.html';
+        return;
+      }
+
+      // Save to Firebase
+      const result = await handleAsyncOperation(
+        async () => {
+          await saveUserProfile(db, user, 'donor', {
+            dob: donorData.dob,
+            gender: donorData.gender,
+            bloodGroup: donorData.bloodGroup,
+            email: donorData.email,
+            phone: donorData.phone,
+            division: donorData.division,
+            district: donorData.district,
+            address: donorData.address,
+            weight: parseFloat(donorData.weight),
+            conditions: conditions,
+            lastDonation: donorData.lastDonation || null,
+            onboardingStep: 2
+          });
+        },
+        form.querySelector('button[type="submit"]'),
+        'Saving...'
+      );
+
+      if (result.success) {
+        showSuccessNotification('Profile saved successfully');
+        window.location.href = 'step3.html';
+      }
     });
 
-    // Prevent selecting multiple medical conditions if "none" is selected
+    // Prevent selecting multiple conditions if "none" is selected
     const checkboxes = document.querySelectorAll('input[name="conditions"]');
     checkboxes.forEach(checkbox => {
       checkbox.addEventListener('change', function () {
@@ -330,6 +402,26 @@
           });
         }
       });
+    });
+
+    // Load existing data if any
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const profile = await getFullUserProfile(db, user.uid);
+        if (profile && profile.onboardingStep >= 2) {
+          // Pre-fill form
+          if (profile.dob) dobInput.value = profile.dob;
+          if (profile.gender) form.querySelector('[name="gender"]').value = profile.gender;
+          if (profile.bloodGroup) bloodGroupInput.value = profile.bloodGroup;
+          if (profile.email) emailInput.value = profile.email;
+          if (profile.phone) phoneInput.value = profile.phone;
+          if (profile.division) form.querySelector('[name="division"]').value = profile.division;
+          if (profile.district) form.querySelector('[name="district"]').value = profile.district;
+          if (profile.address) form.querySelector('[name="address"]').value = profile.address;
+          if (profile.weight) weightInput.value = profile.weight;
+          if (profile.lastDonation) form.querySelector('[name="lastDonation"]').value = profile.lastDonation;
+        }
+      }
     });
   </script>
 </body>

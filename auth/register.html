@@ -214,68 +214,75 @@
 
     <script src="../assets/js/localization.js"></script>
     <script type="module">
-        import { registerUser, loginWithGoogle, initAuthObserver, db } from '../assets/js/auth-service.js';
+        import { registerUser, loginWithGoogle } from '../assets/js/auth-service.js';
+        import { validateField, showFieldError, clearFieldError, setupRealtimeValidation, formatBDPhone } from '../assets/js/validation.js';
+        import { handleAsyncOperation } from '../assets/js/error-handler.js';
 
         const registerForm = document.getElementById('registerForm');
         const authError = document.getElementById('authError');
         const registerBtn = document.getElementById('registerBtn');
+        
+        const fullNameInput = document.getElementById('fullName');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const phoneInput = document.getElementById('phoneNumber');
 
-        // Form Submission
+        setupRealtimeValidation(fullNameInput, 'name');
+        setupRealtimeValidation(emailInput, 'email');
+        setupRealtimeValidation(passwordInput, 'password');
+        setupRealtimeValidation(phoneInput, 'phone');
+
         registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             authError.classList.add('hidden');
+            [fullNameInput, emailInput, passwordInput, phoneInput].forEach(clearFieldError);
 
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-        const phoneNumber = document.getElementById('phoneNumber').value;
+            const fullName = fullNameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const phoneNumber = phoneInput.value.trim();
 
-            if (password.length < 6) {
+            const nameError = validateField('name', fullName);
+            const emailError = validateField('email', email);
+            const passwordError = validateField('password', password);
+            const phoneError = validateField('phone', phoneNumber);
+
+            let hasError = false;
+            if (nameError) { showFieldError(fullNameInput, nameError); hasError = true; }
+            if (emailError) { showFieldError(emailInput, emailError); hasError = true; }
+            if (passwordError) { showFieldError(passwordInput, passwordError); hasError = true; }
+            if (phoneError) { showFieldError(phoneInput, phoneError); hasError = true; }
+            if (hasError) return;
+
+            const result = await handleAsyncOperation(
+                () => registerUser(email, password, {
+                    displayName: fullName,
+                    phone: formatBDPhone(phoneNumber)
+                }),
+                registerBtn,
+                'Creating Account...'
+            );
+
+            if (!result.success) {
                 authError.classList.remove('hidden');
-                authError.textContent = 'Password must be at least 6 characters.';
-                return;
-            }
-
-            // Loading state
-            const originalContent = registerBtn.innerHTML;
-            registerBtn.disabled = true;
-            registerBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Creating Account...';
-
-            console.log("Attempting registration for:", email);
-            const result = await registerUser(email, password, {
-                displayName: fullName,
-                phone: '+88' + phoneNumber
-            });
-
-            if (result.success) {
-                console.log("Registration successful, redirecting...");
-                // handleAuthRedirect is called inside registerUser
-            } else {
-                console.error("Registration failed:", result.error);
-                authError.classList.remove('hidden');
-                if (result.code === 'auth/email-already-in-use') {
+                if (result.error?.code === 'auth/email-already-in-use') {
                     authError.innerHTML = 'Email already in use. <a href="login.html" class="underline font-bold">Sign in here</a>.';
                 } else {
-                    authError.textContent = result.error;
+                    authError.textContent = result.error?.message || 'Registration failed';
                 }
-                registerBtn.disabled = false;
-                registerBtn.innerHTML = originalContent;
             }
         });
 
-        // Google Login
         document.getElementById('googleBtn').addEventListener('click', async () => {
-            const result = await loginWithGoogle();
-            if (result.redirect) return;
+            const result = await handleAsyncOperation(
+                () => loginWithGoogle(),
+                document.getElementById('googleBtn'),
+                'Connecting...'
+            );
+            if (result.data?.redirect) return;
             if (!result.success) {
                 authError.classList.remove('hidden');
-                if (result.code === 'auth/unauthorized-domain') {
-                    authError.textContent = 'Google sign-in blocked. Please add this domain (localhost/127.0.0.1) in Firebase Authentication > Settings > Authorized domains.';
-                } else if (result.code === 'auth/popup-blocked') {
-                    authError.textContent = 'Popup blocked by the browser. Please allow popups and try again.';
-                } else {
-                    authError.textContent = result.error;
-                }
+                authError.textContent = result.error?.message || 'Google sign-in failed';
             }
         });
     </script>

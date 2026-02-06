@@ -105,6 +105,8 @@
                                 <span
                                     class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">mail</span>
                                 <input type="email" id="email" required
+                                    aria-label="Email address"
+                                    aria-describedby="email-help"
                                     class="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none font-medium"
                                     placeholder="name@example.com">
                             </div>
@@ -121,6 +123,8 @@
                                 <span
                                     class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">lock</span>
                                 <input type="password" id="password" required
+                                    aria-label="Password"
+                                    aria-describedby="password-help"
                                     class="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none font-medium"
                                     placeholder="••••••••">
                             </div>
@@ -168,6 +172,8 @@
 
     <script type="module">
         import { loginUser, loginWithGoogle, initAuthObserver, handleAuthRedirect } from '../assets/js/auth-service.js';
+        import { validateField, showFieldError, clearFieldError, setupRealtimeValidation } from '../assets/js/validation.js';
+        import { handleAsyncOperation, showErrorNotification } from '../assets/js/error-handler.js';
 
         // Auto-redirect if already logged in
         initAuthObserver(async (user) => {
@@ -181,53 +187,74 @@
         const errorDiv = document.getElementById('authError');
         const errorMsg = document.getElementById('errorMsg');
         const submitBtn = document.getElementById('loginBtn');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        // Setup real-time validation
+        setupRealtimeValidation(emailInput, 'email');
+        setupRealtimeValidation(passwordInput, 'password');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             errorDiv.classList.add('hidden');
+            clearFieldError(emailInput);
+            clearFieldError(passwordInput);
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
 
-            // Loading State
-            const originalBtnContent = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Processing...';
+            // Validate inputs
+            const emailError = validateField('email', email);
+            const passwordError = validateField('password', password);
 
-            const result = await loginUser(email, password);
+            if (emailError) {
+                showFieldError(emailInput, emailError);
+                return;
+            }
+            if (passwordError) {
+                showFieldError(passwordInput, passwordError);
+                return;
+            }
 
-            if (result.success) {
-                // handleAuthRedirect is called inside loginUser
-            } else {
+            // Use error handler for async operation
+            const result = await handleAsyncOperation(
+                () => loginUser(email, password),
+                submitBtn,
+                'Signing in...'
+            );
+
+            if (!result.success) {
                 errorDiv.classList.remove('hidden');
 
                 // Improved Error Messaging
-                if (result.code === 'auth/user-not-found') {
+                if (result.error?.code === 'auth/user-not-found') {
                     errorMsg.innerHTML = 'No account found with this email. <a href="register.html" class="underline font-bold">Create one now?</a>';
-                } else if (result.code === 'auth/wrong-password' || result.code === 'auth/invalid-credential') {
+                } else if (result.error?.code === 'auth/wrong-password' || result.error?.code === 'auth/invalid-credential') {
                     errorMsg.innerHTML = 'Invalid email or password. Please try again or <a href="../info/contact.html" class="underline font-bold">reset password</a>.';
                 } else {
-                    errorMsg.textContent = result.error || 'Login failed. Please check your credentials.';
+                    errorMsg.textContent = result.error?.message || 'Login failed. Please check your credentials.';
                 }
-
-                // Reset Button
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnContent;
             }
         });
 
         // Google Login
         document.getElementById('googleBtn').addEventListener('click', async () => {
-            const result = await loginWithGoogle();
-            if (result.redirect) return;
+            const result = await handleAsyncOperation(
+                () => loginWithGoogle(),
+                document.getElementById('googleBtn'),
+                'Connecting...'
+            );
+            
+            if (result.data?.redirect) return;
+            
             if (!result.success) {
                 errorDiv.classList.remove('hidden');
-                if (result.code === 'auth/unauthorized-domain') {
+                if (result.error?.code === 'auth/unauthorized-domain') {
                     errorMsg.textContent = 'Google sign-in blocked. Please add this domain (localhost/127.0.0.1) in Firebase Authentication > Settings > Authorized domains.';
-                } else if (result.code === 'auth/popup-blocked') {
+                } else if (result.error?.code === 'auth/popup-blocked') {
                     errorMsg.textContent = 'Popup blocked by the browser. Please allow popups and try again.';
                 } else {
-                    errorMsg.textContent = result.error;
+                    errorMsg.textContent = result.error?.message || 'Google sign-in failed';
                 }
             }
         });

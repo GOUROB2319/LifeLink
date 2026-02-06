@@ -215,10 +215,15 @@
         import { auth, db } from '../assets/js/auth-service.js';
         import { askGemini } from '../assets/js/gemini-service.js';
         import { submitEmergencyRequest } from '../assets/js/db-service.js';
+        import { validateField, showFieldError, clearFieldError } from '../assets/js/validation.js';
+        import { showErrorNotification, showSuccessNotification } from '../assets/js/error-handler.js';
 
         const form = document.getElementById('emergencyForm');
         const modal = document.getElementById('aiModal');
         const responseDiv = document.getElementById('aiResponse');
+
+        const bloodGroupInput = form.querySelector('[name="bloodGroup"]');
+        const phoneInput = form.querySelector('[name="phone"]');
 
         window.closeAiModal = () => {
             modal.classList.add('hidden');
@@ -229,13 +234,29 @@
             e.preventDefault();
 
             if (!auth.currentUser) {
-                alert('Please login to submit an emergency request.');
+                showErrorNotification('Please login to submit an emergency request.');
                 window.location.href = '../auth/login.html';
                 return;
             }
 
+            // Clear errors
+            clearFieldError(bloodGroupInput);
+            clearFieldError(phoneInput);
+
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
+
+            // Validate
+            const bloodError = validateField('bloodGroup', data.bloodGroup);
+            const phoneError = validateField('phone', data.phone);
+
+            if (bloodError) { showFieldError(bloodGroupInput, bloodError); return; }
+            if (phoneError) { showFieldError(phoneInput, phoneError); return; }
+
+            if (!data.urgency) {
+                showErrorNotification('Please select urgency level');
+                return;
+            }
 
             // Show Modal
             modal.classList.remove('hidden');
@@ -248,7 +269,7 @@
                 </div>
             `;
 
-            // 1. Save to Firestore
+            // Save to Firestore
             const requestData = {
                 ...data,
                 userId: auth.currentUser.uid,
@@ -261,7 +282,9 @@
                 return;
             }
 
-            // 2. AI Triaging
+            showSuccessNotification('Emergency request submitted successfully');
+
+            // AI Triaging
             const prompt = `
                 I have an emergency blood request:
                 - Blood Group: ${data.bloodGroup}
@@ -295,7 +318,7 @@
                     </div>
                 `;
             } catch (err) {
-                responseDiv.innerHTML = '<p class="text-emergency">Failed to connect to AI service. Your request has been shared with nearby donors.</p>';
+                responseDiv.innerHTML = '<p class="text-emerald-600 dark:text-emerald-400 font-bold">✅ Your request has been shared with nearby donors.</p>';
             }
         });
     </script>

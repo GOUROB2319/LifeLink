@@ -37,8 +37,9 @@ service cloud.firestore {
     }
 
     function roleChangeAllowed() {
-      return !(resource.data.keys().hasAny(['role']))
-        || (resource.data.role in ['patient'] && request.resource.data.role in ['patient','donor','hospital']);
+      return !resource.data.keys().hasAny(['role'])
+        || (resource.data.role == 'patient' && request.resource.data.role in ['patient','donor','hospital'])
+        || (resource.data.role == 'donor' && request.resource.data.role in ['patient','donor','hospital']);
     }
 
     function onlyStatusUpdate() {

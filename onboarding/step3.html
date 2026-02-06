@@ -157,22 +157,54 @@
     <script src="../assets/js/localization.js"></script>
     <script src="../assets/js/animations.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script>
-        document.getElementById('docUpload').addEventListener('change', function (e) {
+    <script type="module">
+        import { auth, db } from '../assets/js/auth-service.js';
+        import { saveUserProfile } from '../assets/js/db-service.js';
+        import { handleAsyncOperation, showErrorNotification, showSuccessNotification } from '../assets/js/error-handler.js';
+
+        const fileInput = document.getElementById('docUpload');
+        const form = document.getElementById('verificationForm');
+
+        fileInput.addEventListener('change', function (e) {
             if (this.files.length > 0) {
-                document.getElementById('fileName').textContent = this.files[0].name;
+                const file = this.files[0];
+                if (file.size > 5 * 1024 * 1024) {
+                    showErrorNotification('File size must be less than 5MB');
+                    this.value = '';
+                    return;
+                }
+                document.getElementById('fileName').textContent = file.name;
                 document.getElementById('uploadedFile').classList.remove('hidden');
             }
         });
 
-        document.getElementById('verificationForm').addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
-            const fileInput = document.getElementById('docUpload');
-            if (fileInput.files.length > 0) {
-                localStorage.setItem('onboarding_doc_name', fileInput.files[0].name);
+
+            const user = auth.currentUser;
+            if (!user) {
+                showErrorNotification('Please login first');
+                window.location.href = '../auth/login.html';
+                return;
             }
-            localStorage.setItem('onboarding_verified', 'true');
-            window.location.href = 'step4.html';
+
+            const result = await handleAsyncOperation(
+                async () => {
+                    await saveUserProfile(db, user, null, {
+                        verificationDoc: fileInput.files[0]?.name || 'pending',
+                        verificationStatus: 'pending',
+                        onboardingComplete: true,
+                        onboardingCompleteAt: new Date()
+                    });
+                },
+                form.querySelector('button[type="submit"]'),
+                'Completing...'
+            );
+
+            if (result.success) {
+                showSuccessNotification('Registration completed successfully!');
+                window.location.href = 'step4.html';
+            }
         });
     </script>
 </body>
