@@ -24,7 +24,7 @@ service cloud.firestore {
     }
 
     function safeUserUpdate() {
-      return request.resource.data.keys().hasOnly([
+      return request.resource.data.diff(resource.data).changedKeys().hasOnly([
         'uid','email','displayName','photoURL','role','availability','createdAt','lastLogin',
         'phone','address','division','district','dob','gender','bloodGroup','weight','conditions','lastDonation',
         'hospitalName','regNumber','type','website','adminName','adminPosition',

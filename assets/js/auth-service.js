@@ -89,33 +89,9 @@ const loginUser = async (email, password) => {
 // Google Login
 const loginWithGoogle = async () => {
     try {
-        const result = await signInWithPopup(auth, googleProvider);
-        const user = result.user;
-
-        // Check if user exists, if not create basic profile
-        const profile = await getFullUserProfile(db, user.uid);
-        if (!profile) {
-            await saveUserProfile(db, user, null, {
-                displayName: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-                createdAt: new Date(),
-                onboardingComplete: false,
-                authMethod: 'google'
-            });
-        }
-
-        await handleAuthRedirect(user);
-        return { success: true, user };
+        await signInWithRedirect(auth, googleProvider);
+        return { success: true, user: null, redirect: true };
     } catch (error) {
-        if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
-            try {
-                await signInWithRedirect(auth, googleProvider);
-                return { success: true, user: null, redirect: true };
-            } catch (redirectError) {
-                return { success: false, error: redirectError.message, code: redirectError.code };
-            }
-        }
         return { success: false, error: error.message, code: error.code };
     }
 };

@@ -219,6 +219,7 @@
         // Google Login
         document.getElementById('googleBtn').addEventListener('click', async () => {
             const result = await loginWithGoogle();
+            if (result.redirect) return;
             if (!result.success) {
                 errorDiv.classList.remove('hidden');
                 if (result.code === 'auth/unauthorized-domain') {
