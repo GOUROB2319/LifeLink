@@ -28,35 +28,31 @@ const getBaseUrl = () => {
 
 // Theme Manager - Auto-initialize
 (function() {
-    const theme = localStorage.getItem('lifelink_theme') || 'system';
-    const html = document.documentElement;
-    
-    function applyTheme() {
-        const currentTheme = localStorage.getItem('lifelink_theme') || 'system';
-        if (currentTheme === 'system') {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (localStorage.getItem('lifelink_theme') === 'system') {
+            const html = document.documentElement;
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             html.classList.toggle('dark', prefersDark);
             html.classList.toggle('light', !prefersDark);
-        } else if (currentTheme === 'dark') {
+        }
+    });
+    
+    window.setTheme = function(newTheme) {
+        localStorage.setItem('lifelink_theme', newTheme);
+        const html = document.documentElement;
+        
+        if (newTheme === 'system') {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            html.classList.toggle('dark', prefersDark);
+            html.classList.toggle('light', !prefersDark);
+        } else if (newTheme === 'dark') {
             html.classList.add('dark');
             html.classList.remove('light');
         } else {
             html.classList.add('light');
             html.classList.remove('dark');
         }
-    }
-    
-    applyTheme();
-    
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if (localStorage.getItem('lifelink_theme') === 'system') {
-            applyTheme();
-        }
-    });
-    
-    window.setTheme = function(newTheme) {
-        localStorage.setItem('lifelink_theme', newTheme);
-        applyTheme();
+        
         document.dispatchEvent(new CustomEvent('lifelink-theme-change', { detail: { theme: newTheme } }));
     };
     
