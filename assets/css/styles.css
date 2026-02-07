@@ -6,6 +6,11 @@ body {
     scroll-behavior: smooth;
 }
 
+/* Prevent theme flash on load */
+.theme-preload * {
+    transition: none !important;
+}
+
 /* Material Symbols */
 .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';

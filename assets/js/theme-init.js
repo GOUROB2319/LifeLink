@@ -5,19 +5,23 @@
 
     const applyTheme = () => {
         const theme = localStorage.getItem('lifelink_theme') || 'system';
+        html.classList.remove('dark', 'light');
         if (theme === 'system') {
             const prefersDark = media.matches;
             html.classList.toggle('dark', prefersDark);
             html.classList.toggle('light', !prefersDark);
         } else if (theme === 'dark') {
             html.classList.add('dark');
-            html.classList.remove('light');
         } else {
             html.classList.add('light');
-            html.classList.remove('dark');
         }
     };
 
     applyTheme();
     media.addEventListener('change', applyTheme);
+
+    // Remove preload class after initial paint
+    requestAnimationFrame(() => {
+        html.classList.remove('theme-preload');
+    });
 })();

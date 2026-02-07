@@ -61,6 +61,32 @@ const getBaseUrl = () => {
     };
 })();
 
+// Global auth observer for navbar consistency
+(function() {
+    if (window.__lifelinkAuthObserverReady) return;
+    window.__lifelinkAuthObserverReady = true;
+
+    const init = async () => {
+        try {
+            const module = await import('./auth-service.js');
+            if (!module?.initAuthObserver) return;
+            module.initAuthObserver((user) => {
+                document.querySelectorAll('app-navbar').forEach((nav) => {
+                    if (user && nav.updateAuth) nav.updateAuth(user);
+                });
+            });
+        } catch (err) {
+            console.warn('Navbar auth observer init failed:', err);
+        }
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
 const createResolvePath = () => {
     const baseUrl = getBaseUrl();
     return (path) => {
@@ -94,7 +120,7 @@ class Navbar extends HTMLElement {
     render(isAuth, activeLink) {
         const resolvePath = this._resolvePath || ((p) => p);
         this.innerHTML = `
-    <header class="fixed top-0 z-50 w-full transition-all duration-300 glass border-b border-white/20 dark:border-slate-800">
+    <header class="fixed top-0 z-50 w-full transition-all duration-300 glass dark:glass-dark border-b border-white/20 dark:border-slate-800">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-20 items-center justify-between">
                 <!-- Logo -->

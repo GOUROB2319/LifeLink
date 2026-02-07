@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="theme-preload" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -26,8 +26,8 @@
     <main class="relative z-10 pt-28 pb-20">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div class="mb-10">
-                <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2">Settings</h1>
-                <p class="text-slate-600 dark:text-slate-400">Manage your account and preferences</p>
+                <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2" data-i18n="settings.title">Settings</h1>
+                <p class="text-slate-600 dark:text-slate-400" data-i18n="settings.subtitle">Manage your account and preferences</p>
             </div>
 
             <div class="space-y-6">
@@ -36,22 +36,22 @@
                     class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">palette</span>
-                        Appearance
+                        <span data-i18n="settings.appearance">Appearance</span>
                     </h2>
                     <div class="space-y-4">
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Choose your preferred theme</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4" data-i18n="settings.theme_help">Choose your preferred theme</p>
                         <div class="grid grid-cols-3 gap-4">
                             <button type="button" data-theme="system" class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
                                 <span class="material-symbols-outlined text-3xl">brightness_auto</span>
-                                <span class="font-semibold text-sm">System</span>
+                                <span class="font-semibold text-sm" data-i18n="settings.theme.system">System</span>
                             </button>
                             <button type="button" data-theme="light" class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
                                 <span class="material-symbols-outlined text-3xl">light_mode</span>
-                                <span class="font-semibold text-sm">Light</span>
+                                <span class="font-semibold text-sm" data-i18n="settings.theme.light">Light</span>
                             </button>
                             <button type="button" data-theme="dark" class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
                                 <span class="material-symbols-outlined text-3xl">dark_mode</span>
-                                <span class="font-semibold text-sm">Dark</span>
+                                <span class="font-semibold text-sm" data-i18n="settings.theme.dark">Dark</span>
                             </button>
                         </div>
                     </div>
@@ -59,64 +59,12 @@
 
                 <div
                     class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Profile Information</h2>
-                    <form id="profileForm" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Full
-                                    Name</label>
-                                <input type="text" id="fullName"
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email</label>
-                                <input type="email" id="email" disabled
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-500 cursor-not-allowed">
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Phone</label>
-                                <input type="tel" id="phone"
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Blood
-                                    Group</label>
-                                <select id="bloodGroup"
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
-                                    <option value="A+">A+</option>
-                                    <option value="A-">A-</option>
-                                    <option value="B+">B+</option>
-                                    <option value="B-">B-</option>
-                                    <option value="AB+">AB+</option>
-                                    <option value="AB-">AB-</option>
-                                    <option value="O+">O+</option>
-                                    <option value="O-">O-</option>
-                                </select>
-                            </div>
-                            <div class="md:col-span-2">
-                                <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Address</label>
-                                <textarea id="address" rows="2"
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"></textarea>
-                            </div>
-                        </div>
-                        <button type="submit"
-                            class="bg-brand-gradient text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300">
-                            Save Changes
-                        </button>
-                    </form>
-                </div>
-
-                <div
-                    class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Notification Preferences</h2>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6" data-i18n="settings.notifications">Notification Preferences</h2>
                     <div class="space-y-4">
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white">Email Notifications</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Receive updates via email</p>
+                                <p class="font-semibold text-slate-900 dark:text-white" data-i18n="settings.notifications.email">Email Notifications</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400" data-i18n="settings.notifications.email_desc">Receive updates via email</p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
                             <div
@@ -125,8 +73,8 @@
                         </label>
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white">SMS Alerts</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Get notified via SMS for urgent
+                                <p class="font-semibold text-slate-900 dark:text-white" data-i18n="settings.notifications.sms">SMS Alerts</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400" data-i18n="settings.notifications.sms_desc">Get notified via SMS for urgent
                                     requests</p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
@@ -139,12 +87,12 @@
 
                 <div
                     class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Privacy Settings</h2>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6" data-i18n="settings.privacy">Privacy Settings</h2>
                     <div class="space-y-4">
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white">Profile Visibility</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Show profile to other users</p>
+                                <p class="font-semibold text-slate-900 dark:text-white" data-i18n="settings.privacy.visibility">Profile Visibility</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400" data-i18n="settings.privacy.visibility_desc">Show profile to other users</p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
                             <div
@@ -153,8 +101,8 @@
                         </label>
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white">Show Donation History</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Display your donation statistics
+                                <p class="font-semibold text-slate-900 dark:text-white" data-i18n="settings.privacy.history">Show Donation History</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400" data-i18n="settings.privacy.history_desc">Display your donation statistics
                                 </p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
@@ -167,15 +115,15 @@
 
                 <div
                     class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold text-emergency mb-6">Danger Zone</h2>
+                    <h2 class="text-2xl font-bold text-emergency mb-6" data-i18n="settings.danger">Danger Zone</h2>
                     <div class="space-y-4">
                         <button id="deactivateBtn"
                             class="w-full px-6 py-3 rounded-xl border-2 border-emergency text-emergency font-semibold hover:bg-emergency hover:text-white transition-all">
-                            Deactivate Account
+                            <span data-i18n="settings.danger.deactivate">Deactivate Account</span>
                         </button>
                         <button id="deleteAccBtn"
                             class="w-full px-6 py-3 rounded-xl bg-emergency text-white font-semibold hover:bg-red-700 transition-all">
-                            Delete Account Permanently
+                            <span data-i18n="settings.danger.delete">Delete Account Permanently</span>
                         </button>
                     </div>
                 </div>
@@ -184,7 +132,7 @@
     </main>
     <script type="module">
         import { auth, db, initAuthObserver, logoutUser, deleteUserAccount } from '../assets/js/auth-service.js';
-        import { saveUserProfile, getFullUserProfile, deleteUserProfile } from '../assets/js/db-service.js';
+        import { saveUserProfile, deleteUserProfile } from '../assets/js/db-service.js';
 
         // Theme Selector Logic
         const themeButtons = document.querySelectorAll('.theme-option');
@@ -214,63 +162,13 @@
 
         document.addEventListener('lifelink-theme-change', updateThemeButtons);
 
-        const profileForm = document.getElementById('profileForm');
-
         initAuthObserver(async (user) => {
             const navbar = document.querySelector('app-navbar');
             if (user) {
                 if (navbar && navbar.updateAuth) navbar.updateAuth(user);
-
-                const profile = await getFullUserProfile(db, user.uid);
-                if (profile) {
-                    // Populate fields
-                    document.getElementById('fullName').value = profile.displayName || '';
-                    document.getElementById('email').value = profile.email || '';
-                    document.getElementById('phone').value = profile.phone || '';
-                    if (profile.bloodGroup) {
-                        document.getElementById('bloodGroup').value = profile.bloodGroup;
-                    }
-                    document.getElementById('address').value = profile.address || '';
-                }
             } else {
                 window.location.href = '../auth/login.html';
             }
-        });
-
-        profileForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">sync</span> Saving...';
-
-            const updatedData = {
-                displayName: document.getElementById('fullName').value,
-                phone: document.getElementById('phone').value,
-                bloodGroup: document.getElementById('bloodGroup').value,
-                address: document.getElementById('address').value,
-                updatedAt: new Date()
-            };
-
-            const result = await saveUserProfile(db, auth.currentUser, null, updatedData);
-
-            if (result.success) {
-                // Show floating success toast instead of alert for professional feel
-                const toast = document.createElement('div');
-                toast.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-slide-up z-[200]';
-                toast.innerHTML = '<span class="material-symbols-outlined text-emerald-400">check_circle</span> Changes saved successfully!';
-                document.body.appendChild(toast);
-                setTimeout(() => {
-                    toast.classList.add('opacity-0', 'transition-opacity');
-                    setTimeout(() => toast.remove(), 500);
-                }, 3000);
-            } else {
-                alert('Error updating profile: ' + result.error);
-            }
-
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
         });
 
         // Danger Zone Actions
