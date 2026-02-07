@@ -109,7 +109,7 @@ class Navbar extends HTMLElement {
                 <!-- Actions -->
                 <div class="flex items-center gap-3">
                     <!-- Language Toggle -->
-                    <button onclick="toggleLanguage()" class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-all group">
+                    <button id="lang-toggle-btn" class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-all group">
                         <span class="material-symbols-outlined text-[18px] text-slate-700 group-hover:text-primary dark:text-slate-300">translate</span>
                         <span id="lang-toggle-text" class="text-xs font-bold text-slate-700 dark:text-slate-200 group-hover:text-primary">EN</span>
                     </button>
@@ -254,6 +254,15 @@ class Navbar extends HTMLElement {
     }
 
     initLogic() {
+        // Language Toggle
+        const langBtn = this.querySelector('#lang-toggle-btn');
+        if (langBtn) {
+            langBtn.addEventListener('click', () => {
+                if (window.localization) {
+                    window.localization.toggleLanguage();
+                }
+            });
+        }
 
         // Mobile Menu
         const mobileBtn = this.querySelector('#mobile-menu-btn');
