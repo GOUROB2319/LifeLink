@@ -11,6 +11,15 @@ body {
     transition: none !important;
 }
 
+/* Language-specific font tuning */
+.lang-bn body {
+    font-family: 'Hind Siliguri', 'Inter', sans-serif;
+}
+
+.lang-en body {
+    font-family: 'Inter', 'Hind Siliguri', sans-serif;
+}
+
 /* Material Symbols */
 .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';

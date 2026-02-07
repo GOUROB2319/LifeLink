@@ -26,40 +26,13 @@ const getBaseUrl = () => {
     return `${origin}${rootPath}`;
 };
 
-// Theme Manager - Auto-initialize
-(function() {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if (localStorage.getItem('lifelink_theme') === 'system') {
-            const html = document.documentElement;
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            html.classList.toggle('dark', prefersDark);
-            html.classList.toggle('light', !prefersDark);
-        }
-    });
-    
-    window.setTheme = function(newTheme) {
-        localStorage.setItem('lifelink_theme', newTheme);
-        const html = document.documentElement;
-        
-        if (newTheme === 'system') {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            html.classList.toggle('dark', prefersDark);
-            html.classList.toggle('light', !prefersDark);
-        } else if (newTheme === 'dark') {
-            html.classList.add('dark');
-            html.classList.remove('light');
-        } else {
-            html.classList.add('light');
-            html.classList.remove('dark');
-        }
-        
-        document.dispatchEvent(new CustomEvent('lifelink-theme-change', { detail: { theme: newTheme } }));
+const createResolvePath = () => {
+    const baseUrl = getBaseUrl();
+    return (path) => {
+        const clean = path.replace(/^\/+/, '');
+        return new URL(clean, baseUrl).toString();
     };
-    
-    window.getTheme = function() {
-        return localStorage.getItem('lifelink_theme') || 'system';
-    };
-})();
+};
 
 // Global auth observer for navbar consistency
 (function() {
@@ -68,7 +41,9 @@ const getBaseUrl = () => {
 
     const init = async () => {
         try {
-            const module = await import('./auth-service.js');
+            const resolvePath = createResolvePath();
+            const authUrl = resolvePath('assets/js/auth-service.js');
+            const module = await import(authUrl);
             if (!module?.initAuthObserver) return;
             module.initAuthObserver((user) => {
                 document.querySelectorAll('app-navbar').forEach((nav) => {
@@ -86,14 +61,6 @@ const getBaseUrl = () => {
         init();
     }
 })();
-
-const createResolvePath = () => {
-    const baseUrl = getBaseUrl();
-    return (path) => {
-        const clean = path.replace(/^\/+/, '');
-        return new URL(clean, baseUrl).toString();
-    };
-};
 
 class Navbar extends HTMLElement {
     constructor() {
@@ -120,7 +87,7 @@ class Navbar extends HTMLElement {
     render(isAuth, activeLink) {
         const resolvePath = this._resolvePath || ((p) => p);
         this.innerHTML = `
-    <header class="fixed top-0 z-50 w-full transition-all duration-300 glass dark:glass-dark border-b border-white/20 dark:border-slate-800">
+    <header class="fixed top-0 z-50 w-full transition-all duration-300 glass dark:glass-dark dark:bg-slate-900/95 border-b border-white/20 dark:border-slate-800">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-20 items-center justify-between">
                 <!-- Logo -->
@@ -133,10 +100,10 @@ class Navbar extends HTMLElement {
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-1">
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors ${activeLink === 'services' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/services.html')}" data-i18n="nav.services">Services</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors ${activeLink === 'how-it-works' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#how-it-works')}" data-i18n="nav.howItWorks">How it Works</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors ${activeLink === 'impact' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#impact')}" data-i18n="nav.impact">Impact</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors ${activeLink === 'about' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/about.html')}" data-i18n="nav.about">About Us</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors ${activeLink === 'services' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/services.html')}" data-i18n="nav.services">Services</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors ${activeLink === 'how-it-works' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#how-it-works')}" data-i18n="nav.howItWorks">How it Works</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors ${activeLink === 'impact' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#impact')}" data-i18n="nav.impact">Impact</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors ${activeLink === 'about' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/about.html')}" data-i18n="nav.about">About Us</a>
                 </nav>
 
                 <!-- Actions -->
@@ -151,7 +118,7 @@ class Navbar extends HTMLElement {
                     <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
 
                     ${!isAuth ? `
-                    <a href="${resolvePath('auth/login.html')}" class="hidden sm:block text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
+                    <a href="${resolvePath('auth/login.html')}" class="hidden sm:block text-sm font-semibold text-slate-900 dark:text-white hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
                     
                     <a href="${resolvePath('auth/register.html')}" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group min-w-[180px] justify-center">
                         <span class="relative z-10 flex items-center gap-2">
@@ -220,10 +187,10 @@ class Navbar extends HTMLElement {
                         <span class="material-symbols-outlined">close</span>
                     </button>
                 </div>
-                <a href="${resolvePath('info/services.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.services">Services</a>
-                <a href="${resolvePath('index.html#how-it-works')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.howItWorks">How it Works</a>
-                <a href="${resolvePath('index.html#impact')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.impact">Impact</a>
-                <a href="${resolvePath('info/about.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.about">About Us</a>
+                <a href="${resolvePath('info/services.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold transition-colors" data-i18n="nav.services">Services</a>
+                <a href="${resolvePath('index.html#how-it-works')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold transition-colors" data-i18n="nav.howItWorks">How it Works</a>
+                <a href="${resolvePath('index.html#impact')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold transition-colors" data-i18n="nav.impact">Impact</a>
+                <a href="${resolvePath('info/about.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold transition-colors" data-i18n="nav.about">About Us</a>
                 
                 ${!isAuth ? `
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col gap-3">
@@ -268,7 +235,7 @@ class Navbar extends HTMLElement {
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
             "font-src https://fonts.gstatic.com data:; " +
             "img-src 'self' data: https:; " +
-            "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://generativelanguage.googleapis.com https://www.gstatic.com https://accounts.google.com https://www.google-analytics.com; " +
+            "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://www.gstatic.com https://accounts.google.com https://www.google-analytics.com; " +
             "frame-src https://accounts.google.com https://*.google.com https://*.firebaseapp.com;",
             true
         );
@@ -344,6 +311,9 @@ class Navbar extends HTMLElement {
             this.render(true, this.getAttribute('active') || '');
             this.initLogic();
             this.setupLanguageListener();
+            if (window.localization) {
+                window.localization.updateDOM();
+            }
         }
 
         const displayName = user.displayName || user.email.split('@')[0];

@@ -29,11 +29,8 @@ const translations = {
         "testimonials.title": "Patient & Donor Stories",
         "testimonials.subtitle": "Real experiences from our community members who have been part of the LifeLink mission.",
         "testimonials.card1.role": "Regular Donor",
-        "testimonials.card1.quote": "\"LifeLink made it incredibly easy to find a donation center. Its modern interface and quick response time are unmatched.\"",
         "testimonials.card2.role": "Hematologist",
-        "testimonials.card2.quote": "\"The algorithm efficiency is unparalleled. We've saved critical minutes during emergency procedures.\"",
         "testimonials.card3.role": "Recipient",
-        "testimonials.card3.quote": "\"Found a rare blood type match within 40 minutes. I am forever grateful to this platform.\"",
         "footer.tagline": "The professional bridge between medical resources and human needs. Available 24/7 for emergency support.",
         "footer.quick_links": "Quick Links",
         "footer.find_donors": "Find Donors",
@@ -50,58 +47,6 @@ const translations = {
         "footer.platform": "Platform",
         "footer.resources": "Resources",
         "footer.contact": "Contact",
-
-        // Settings Page
-        "settings.title": "Settings",
-        "settings.subtitle": "Manage your account and preferences",
-        "settings.appearance": "Appearance",
-        "settings.theme_help": "Choose your preferred theme",
-        "settings.theme.system": "System",
-        "settings.theme.light": "Light",
-        "settings.theme.dark": "Dark",
-        "settings.notifications": "Notification Preferences",
-        "settings.notifications.email": "Email Notifications",
-        "settings.notifications.email_desc": "Receive updates via email",
-        "settings.notifications.sms": "SMS Alerts",
-        "settings.notifications.sms_desc": "Get notified via SMS for urgent requests",
-        "settings.privacy": "Privacy Settings",
-        "settings.privacy.visibility": "Profile Visibility",
-        "settings.privacy.visibility_desc": "Show profile to other users",
-        "settings.privacy.history": "Show Donation History",
-        "settings.privacy.history_desc": "Display your donation statistics",
-        "settings.danger": "Danger Zone",
-        "settings.danger.deactivate": "Deactivate Account",
-        "settings.danger.delete": "Delete Account Permanently",
-
-        // Services Page
-        "services.title": "Our Services",
-        "services.subtitle": "Comprehensive healthcare solutions to save lives",
-        "services.card1.title": "Blood Donation",
-        "services.card1.desc": "Register as a donor and get matched with recipients in need. Our AI-powered system finds the best matches based on blood type, location, and availability.",
-        "services.card2.title": "Emergency Requests",
-        "services.card2.desc": "Submit urgent blood requests and get connected with available donors within minutes. Our 24/7 emergency hotline ensures immediate response.",
-        "services.card3.title": "Doctor Directory",
-        "services.card3.desc": "Search and connect with verified healthcare professionals across Bangladesh. Filter by specialty, location, and ratings.",
-        "services.card4.title": "Hospital Network",
-        "services.card4.desc": "Partner hospitals can manage blood requests, access our donor database, and coordinate with donors efficiently.",
-        "services.card5.title": "Organ Donation",
-        "services.card5.desc": "Register as an organ donor and help save multiple lives. Access educational resources and legal guidance.",
-        "services.card6.title": "AI Matching",
-        "services.card6.desc": "Our advanced AI algorithm matches donors with recipients based on multiple factors for optimal outcomes.",
-        "services.cta.title": "Ready to Save Lives?",
-        "services.cta.desc": "Join thousands of donors making a difference every day",
-        "services.cta.button": "Get Started",
-
-        // About Page
-        "about.title": "About LifeLink",
-        "about.subtitle": "Connecting donors with recipients to save lives across Bangladesh",
-        "about.vision.title": "Our Vision",
-        "about.vision.desc": "To create a Bangladesh where no one dies due to lack of blood. We envision a future where every patient in need has immediate access to safe blood through our AI-powered matching system.",
-        "about.mission.title": "Our Mission",
-        "about.mission.desc": "To revolutionize blood donation in Bangladesh by building the largest verified network of donors, leveraging technology to make blood donation accessible, efficient, and impactful for every Bangladeshi.",
-        "about.impact.title": "Our Impact",
-
-        // Login Page
         "login.title": "Welcome Back, Hero!",
         "login.subtitle": "Every login brings hope. Connect with donors, patients, and doctors seamlessly.",
         "login.ai.title": "AI Matching System",
@@ -118,7 +63,6 @@ const translations = {
         "login.new_user": "New to LifeLink?",
         "login.create_account": "Create Account",
         "login.no_account": "No account found with these credentials. Create one now?",
-
         "auth.register.title": "Create New Account",
         "auth.register.subtitle": "Join the LifeLink community and start saving lives.",
         "auth.register.full_name": "Full Name",
@@ -133,7 +77,6 @@ const translations = {
         "auth.register.have_account": "Already have an account?",
         "auth.register.sign_in": "Sign In",
         "auth.register.back_home": "Back to Home",
-
         "auth.register.hero_title": "The Future of Saving Lives is in Your Hands.",
         "auth.register.feature1.title": "AI-Powered Matching",
         "auth.register.feature1.desc": "Instantly connect with the most compatible donors in your immediate vicinity.",
@@ -142,8 +85,6 @@ const translations = {
         "auth.register.feature3.title": "Verified Network",
         "auth.register.feature3.desc": "Secure, verified interactions between donors and patients.",
         "auth.register.social_proof": "Join 15,000+ heroes saving lives daily.",
-
-        // Onboarding Step 1
         "onboarding.auth_required": "Please sign in or create an account to start your journey with LifeLink.",
         "onboarding.step1.of": "Step 1 of 4",
         "onboarding.step2.of": "Step 2 of 4",
@@ -162,8 +103,6 @@ const translations = {
         "onboarding.btn.continue": "Continue",
         "onboarding.already_have_account": "Already have an account?",
         "onboarding.sign_in": "Sign in",
-
-        // Onboarding Step 2 - Donor
         "onboarding.step2.donor.title": "Donor Profile",
         "onboarding.step2.donor.header": "Donor Information",
         "onboarding.step2.donor.subtitle": "Tell us about yourself to help save lives",
@@ -203,8 +142,6 @@ const translations = {
         "onboarding.info.last_donation": "Leave blank if first-time donor",
         "onboarding.btn.back_step": "Back",
         "onboarding.btn.continue_verify": "Continue to Verification",
-
-        // Onboarding Step 2 - Hospital
         "onboarding.step2.hospital.title": "Hospital Profile",
         "onboarding.step2.hospital.header": "Hospital Information",
         "onboarding.step2.hospital.subtitle": "Register your medical facility",
@@ -225,8 +162,6 @@ const translations = {
         "onboarding.label.admin_name": "Admin Name *",
         "onboarding.label.admin_position": "Position *",
         "onboarding.placeholder.admin_position": "e.g. Director, Manager",
-
-        // Onboarding Step 2 - Patient
         "onboarding.step2.patient.title": "Patient Profile",
         "onboarding.step2.patient.header": "Patient Information",
         "onboarding.step2.patient.subtitle": "Tell us about the patient in need",
@@ -247,8 +182,6 @@ const translations = {
         "onboarding.label.hospital_clinic": "Hospital/Clinic *",
         "onboarding.label.contact_phone": "Phone *",
         "onboarding.label.contact_email": "Email",
-
-        // Onboarding Step 3 - Verification
         "onboarding.step3.title": "Verification & Agreement",
         "onboarding.step3.header": "Verification",
         "onboarding.step3.subtitle": "Complete your registration",
@@ -261,8 +194,6 @@ const translations = {
         "onboarding.section.privacy": "Privacy Policy",
         "onboarding.label.privacy_agree": "I have read and agree to the Privacy Policy *",
         "onboarding.btn.complete": "Complete Registration",
-
-        // Onboarding Step 4 - Complete
         "onboarding.step4.title": "Complete!",
         "onboarding.step4.header": "Welcome to LifeLink!",
         "onboarding.step4.subtitle": "Your registration is complete. You're now part of a life-saving community.",
@@ -274,7 +205,51 @@ const translations = {
         "onboarding.feature.verified.desc": "All participants are verified for safety",
         "onboarding.section.next_steps": "Next Steps",
         "onboarding.btn.go_dashboard": "Go to Dashboard",
-        "onboarding.info.help": "Need help? Visit our Help Center"
+        "onboarding.info.help": "Need help? Visit our Help Center",
+        "settings.title": "Settings",
+        "settings.subtitle": "Manage your account and preferences",
+        "settings.appearance": "Appearance",
+        "settings.theme_help": "Choose your preferred theme",
+        "settings.theme.system": "System",
+        "settings.theme.light": "Light",
+        "settings.theme.dark": "Dark",
+        "settings.notifications": "Notification Preferences",
+        "settings.notifications.email": "Email Notifications",
+        "settings.notifications.email_desc": "Receive updates via email",
+        "settings.notifications.sms": "SMS Alerts",
+        "settings.notifications.sms_desc": "Get notified via SMS for urgent requests",
+        "settings.privacy": "Privacy Settings",
+        "settings.privacy.visibility": "Profile Visibility",
+        "settings.privacy.visibility_desc": "Show profile to other users",
+        "settings.privacy.history": "Show Donation History",
+        "settings.privacy.history_desc": "Display your donation statistics",
+        "settings.danger": "Danger Zone",
+        "settings.danger.deactivate": "Deactivate Account",
+        "settings.danger.delete": "Delete Account Permanently",
+        "services.title": "Our Services",
+        "services.subtitle": "Comprehensive healthcare solutions to save lives",
+        "services.card1.title": "Blood Donation",
+        "services.card1.desc": "Register as a donor and get matched with recipients in need. Our AI-powered system finds the best matches based on blood type, location, and availability.",
+        "services.card2.title": "Emergency Requests",
+        "services.card2.desc": "Submit urgent blood requests and get connected with available donors within minutes. Our 24/7 emergency hotline ensures immediate response.",
+        "services.card3.title": "Doctor Directory",
+        "services.card3.desc": "Search and connect with verified healthcare professionals across Bangladesh. Filter by specialty, location, and ratings.",
+        "services.card4.title": "Hospital Network",
+        "services.card4.desc": "Partner hospitals can manage blood requests, access our donor database, and coordinate with donors efficiently.",
+        "services.card5.title": "Organ Donation",
+        "services.card5.desc": "Register as an organ donor and help save multiple lives. Access educational resources and legal guidance.",
+        "services.card6.title": "AI Matching",
+        "services.card6.desc": "Our advanced AI algorithm matches donors with recipients based on multiple factors for optimal outcomes.",
+        "services.cta.title": "Ready to Save Lives?",
+        "services.cta.desc": "Join thousands of donors making a difference every day",
+        "services.cta.button": "Get Started",
+        "about.title": "About LifeLink",
+        "about.subtitle": "Connecting donors with recipients to save lives across Bangladesh",
+        "about.vision.title": "Our Vision",
+        "about.vision.desc": "To create a Bangladesh where no one dies due to lack of blood. We envision a future where every patient in need has immediate access to safe blood through our AI-powered matching system.",
+        "about.mission.title": "Our Mission",
+        "about.mission.desc": "To revolutionize blood donation in Bangladesh by building the largest verified network of donors, leveraging technology to make blood donation accessible, efficient, and impactful for every Bangladeshi.",
+        "about.impact.title": "Our Impact"
     },
     bn: {
         "nav.home": "হোম",
@@ -321,8 +296,6 @@ const translations = {
         "footer.platform": "প্ল্যাটফর্ম",
         "footer.resources": "রিসোর্স",
         "footer.contact": "যোগাযোগ",
-
-        // Login Page - BN
         "login.title": "স্বাগতম, হিরো!",
         "login.subtitle": "প্রতিটি লগইন আশার আলো দেখায়। ডোনার, রোগী এবং ডাক্তারদের সাথে সহজে যুক্ত হন।",
         "login.ai.title": "AI ম্যাচিং সিস্টেম",
@@ -339,8 +312,6 @@ const translations = {
         "login.new_user": "লাইফলিংকে নতুন?",
         "login.create_account": "অ্যাকাউন্ট তৈরি করুন",
         "login.no_account": "এই তথ্যে কোনো অ্যাকাউন্ট পাওয়া যায়নি। এখনই তৈরি করবেন?",
-
-        // Onboarding Step 1 - BN
         "onboarding.auth_required": "লাইফলিংকে আপনার যাত্রা শুরু করতে অনুগ্রহ করে সাইন-ইন বা একটি অ্যাকাউন্ট তৈরি করুন।",
         "onboarding.step1.of": "ধাপ ১ (মোট ৪টি)",
         "onboarding.step2.of": "ধাপ ২ (মোট ৪টি)",
@@ -359,8 +330,6 @@ const translations = {
         "onboarding.btn.continue": "চালিয়ে যান",
         "onboarding.already_have_account": "ইতিমধ্যে অ্যাকাউন্ট আছে?",
         "onboarding.sign_in": "সাইন ইন করুন",
-
-
         "auth.register.title": "নতুন অ্যাকাউন্ট খুলুন",
         "auth.register.subtitle": "লাইফলিংক কমিউনিটিতে যোগ দিন এবং জীবন বাঁচাতে শুরু করুন।",
         "auth.register.full_name": "পুরো নাম",
@@ -375,7 +344,6 @@ const translations = {
         "auth.register.have_account": "ইতিমধ্যে অ্যাকাউন্ট আছে?",
         "auth.register.sign_in": "লগইন করুন",
         "auth.register.back_home": "হোমে ফিরে যান",
-
         "auth.register.hero_title": "জীবন বাঁচানোর ভবিষ্যৎ আপনার হাতেই।",
         "auth.register.feature1.title": "এআই-চালিত ম্যাচিং",
         "auth.register.feature1.desc": "আপনার আশেপাশের সবচেয়ে উপযোগী দাতাদের সঙ্গে দ্রুত সংযোগ পান।",
@@ -384,14 +352,12 @@ const translations = {
         "auth.register.feature3.title": "যাচাইকৃত নেটওয়ার্ক",
         "auth.register.feature3.desc": "দাতা ও রোগীর মধ্যে নিরাপদ ও যাচাইকৃত সংযোগ।",
         "auth.register.social_proof": "প্রতিদিন জীবন বাঁচানো ১৫,০০০+ হিরোর সাথে যোগ দিন।",
-
         "testimonials.card1.role": "নিয়মিত রক্তদাতা",
         "testimonials.card1.quote": "লাইফলিংক আমাকে দ্রুত দানের কেন্দ্র খুঁজে পেতে সাহায্য করেছে। আধুনিক ইন্টারফেস ও দ্রুত সাড়া সত্যিই অসাধারণ।",
         "testimonials.card2.role": "হেমাটোলজিস্ট",
         "testimonials.card2.quote": "অ্যালগরিদমের দক্ষতা অতুলনীয়। জরুরি পরিস্থিতিতে আমরা মূল্যবান সময় বাঁচাতে পেরেছি।",
         "testimonials.card3.role": "গ্রহীতা",
         "testimonials.card3.quote": "৪০ মিনিটের মধ্যে বিরল রক্তের ম্যাচ পেয়েছি। এই প্ল্যাটফর্মের প্রতি আমি কৃতজ্ঞ।",
-        // Onboarding Step 2 - Donor - BN
         "onboarding.step2.donor.title": "রক্তদাতার প্রোফাইল",
         "onboarding.step2.donor.header": "রক্তদাতার তথ্য",
         "onboarding.step2.donor.subtitle": "জীবন বাঁচাতে সাহায্য করতে আপনার সম্পর্কে আমাদের বলুন",
@@ -431,8 +397,6 @@ const translations = {
         "onboarding.info.last_donation": "প্রথমবার রক্তদান করলে ফাঁকা রাখুন",
         "onboarding.btn.back_step": "পিছনে",
         "onboarding.btn.continue_verify": "যাচাইকরণে এগিয়ে যান",
-
-        // Onboarding Step 2 - Hospital - BN
         "onboarding.step2.hospital.title": "হাসপাতালের প্রোফাইল",
         "onboarding.step2.hospital.header": "হাসপাতালের তথ্য",
         "onboarding.step2.hospital.subtitle": "আপনার চিকিৎসা কেন্দ্রটি নিবন্ধন করুন",
@@ -453,8 +417,6 @@ const translations = {
         "onboarding.label.admin_name": "প্রশাসকের নাম *",
         "onboarding.label.admin_position": "পদবী *",
         "onboarding.placeholder.admin_position": "যেমন: পরিচালক, ব্যবস্থাপক",
-
-        // Onboarding Step 2 - Patient - BN
         "onboarding.step2.patient.title": "রোগীর প্রোফাইল",
         "onboarding.step2.patient.header": "রোগীর তথ্য",
         "onboarding.step2.patient.subtitle": "প্রয়োজনীয় রোগীর সম্পর্কে আমাদের বলুন",
@@ -475,8 +437,6 @@ const translations = {
         "onboarding.label.hospital_clinic": "হাসপাতাল/ক্লিনিক *",
         "onboarding.label.contact_phone": "ফোন *",
         "onboarding.label.contact_email": "ইমেইল",
-
-        // Onboarding Step 3 - Verification - BN
         "onboarding.step3.title": "যাচাইকরণ ও চুক্তি",
         "onboarding.step3.header": "যাচাইকরণ",
         "onboarding.step3.subtitle": "আপনার নিবন্ধন সম্পন্ন করুন",
@@ -489,8 +449,6 @@ const translations = {
         "onboarding.section.privacy": "গোপনীয়তা নীতি",
         "onboarding.label.privacy_agree": "আমি গোপনীয়তা নীতি পড়েছি এবং একমত *",
         "onboarding.btn.complete": "নিবন্ধন সম্পন্ন করুন",
-
-        // Onboarding Step 4 - Complete - BN
         "onboarding.step4.title": "সম্পন্ন!",
         "onboarding.step4.header": "লাইফলিঙ্ক-এ স্বাগতম!",
         "onboarding.step4.subtitle": "আপনার নিবন্ধন সম্পন্ন হয়েছে। আপনি এখন একটি জীবন রক্ষাকারী সম্প্রদায়ের অংশ।",
@@ -502,8 +460,51 @@ const translations = {
         "onboarding.feature.verified.desc": "নিরাপত্তার জন্য সকল অংশগ্রহণকারীকে যাচাই করা হয়",
         "onboarding.section.next_steps": "পরবর্তী পদক্ষেপ",
         "onboarding.btn.go_dashboard": "ড্যাশবোর্ডে যান",
-        "onboarding.info.help": "সাহায্য প্রয়োজন? আমাদের সহায়তা কেন্দ্রে যান"
-    }
+        "onboarding.info.help": "সাহায্য প্রয়োজন? আমাদের সহায়তা কেন্দ্রে যান",
+        "settings.title": "সেটিংস",
+        "settings.subtitle": "আপনার অ্যাকাউন্ট ও পছন্দসমূহ ব্যবস্থাপনা করুন",
+        "settings.appearance": "দেখাবিন্যাস",
+        "settings.theme_help": "আপনার পছন্দের থিম নির্বাচন করুন",
+        "settings.theme.system": "সিস্টেম",
+        "settings.theme.light": "লাইট",
+        "settings.theme.dark": "ডার্ক",
+        "settings.notifications": "নোটিফিকেশন পছন্দসমূহ",
+        "settings.notifications.email": "ইমেইল নোটিফিকেশন",
+        "settings.notifications.email_desc": "ইমেইলে আপডেট পান",
+        "settings.notifications.sms": "এসএমএস অ্যালার্ট",
+        "settings.notifications.sms_desc": "জরুরি অনুরোধের জন্য এসএমএস নোটিফিকেশন পান",
+        "settings.privacy": "প্রাইভেসি সেটিংস",
+        "settings.privacy.visibility": "প্রোফাইল দৃশ্যমানতা",
+        "settings.privacy.visibility_desc": "অন্যান্য ব্যবহারকারীদের কাছে প্রোফাইল দেখান",
+        "settings.privacy.history": "দান ইতিহাস দেখান",
+        "settings.privacy.history_desc": "আপনার দানের পরিসংখ্যান দেখান",
+        "settings.danger": "ডেঞ্জার জোন",
+        "settings.danger.deactivate": "অ্যাকাউন্ট নিষ্ক্রিয় করুন",
+        "settings.danger.delete": "স্থায়ীভাবে অ্যাকাউন্ট মুছুন",
+        "services.title": "আমাদের সেবাসমূহ",
+        "services.subtitle": "জীবন বাঁচাতে সমন্বিত স্বাস্থ্যসেবা সমাধান",
+        "services.card1.title": "রক্তদান",
+        "services.card1.desc": "রক্তদাতা হিসেবে নিবন্ধন করুন এবং প্রয়োজনীয় রোগীদের সাথে যুক্ত হন। আমাদের এআই সিস্টেম রক্তের গ্রুপ, অবস্থান ও প্রাপ্যতার ভিত্তিতে সেরা মিল খুঁজে দেয়।",
+        "services.card2.title": "জরুরি অনুরোধ",
+        "services.card2.desc": "জরুরি রক্তের অনুরোধ দিন এবং মিনিটের মধ্যে দাতাদের সাথে যুক্ত হন। আমাদের ২৪/৭ জরুরি হটলাইন তাৎক্ষণিক সাড়া নিশ্চিত করে।",
+        "services.card3.title": "ডাক্তার ডিরেক্টরি",
+        "services.card3.desc": "বাংলাদেশজুড়ে যাচাইকৃত চিকিৎসকদের খুঁজুন ও যোগাযোগ করুন। বিশেষজ্ঞতা, অবস্থান ও রেটিং অনুযায়ী ফিল্টার করুন।",
+        "services.card4.title": "হাসপাতাল নেটওয়ার্ক",
+        "services.card4.desc": "পার্টনার হাসপাতালগুলো রক্তের অনুরোধ পরিচালনা, ডোনার ডেটাবেস অ্যাক্সেস এবং সমন্বয় করতে পারে।",
+        "services.card5.title": "অঙ্গদান",
+        "services.card5.desc": "অঙ্গদাতা হিসেবে নিবন্ধন করুন এবং একাধিক জীবন বাঁচাতে সহায়তা করুন। প্রয়োজনীয় তথ্য ও আইনি গাইডলাইন পান।",
+        "services.card6.title": "এআই ম্যাচিং",
+        "services.card6.desc": "আমাদের উন্নত এআই বিভিন্ন ফ্যাক্টরের ভিত্তিতে সর্বোত্তম দাতা-গ্রহীতা ম্যাচ নিশ্চিত করে।",
+        "services.cta.title": "জীবন বাঁচাতে প্রস্তুত?",
+        "services.cta.desc": "প্রতিদিন পরিবর্তন আনা হাজারো দাতার সাথে যুক্ত হন",
+        "services.cta.button": "শুরু করুন",
+        "about.title": "লাইফলিংক সম্পর্কে",
+        "about.subtitle": "বাংলাদেশজুড়ে জীবন বাঁচাতে দাতা ও গ্রহীতাদের যুক্ত করি",
+        "about.vision.title": "আমাদের ভিশন",
+        "about.vision.desc": "একটি এমন বাংলাদেশ গড়ে তোলা, যেখানে রক্তের অভাবে কেউ মারা যাবে না। আমরা এমন এক ভবিষ্যৎ কল্পনা করি, যেখানে প্রতিটি রোগী নিরাপদ রক্ত দ্রুত পাবে।",
+        "about.mission.title": "আমাদের মিশন",
+        "about.mission.desc": "বাংলাদেশে রক্তদানের প্রক্রিয়াকে আধুনিক করা—সবচেয়ে বড় যাচাইকৃত দাতা নেটওয়ার্ক গড়ে তুলে প্রযুক্তির মাধ্যমে রক্তদানকে সহজ, দ্রুত ও কার্যকর করা।",
+        "about.impact.title": "আমাদের প্রভাব"
 };
 
 class LocalizationManager {
@@ -563,6 +564,8 @@ class LocalizationManager {
 
         // Update document dir and lang attributes if needed
         document.documentElement.lang = lang;
+        document.documentElement.classList.toggle('lang-bn', lang === 'bn');
+        document.documentElement.classList.toggle('lang-en', lang !== 'bn');
     }
 
     toggleLanguage() {
@@ -576,39 +579,39 @@ class LocalizationManager {
     }
 
     updateDOM() {
+        const lang = this.currentLang;
+        const fallback = translations.en || {};
+
+        document.documentElement.lang = lang;
+        document.documentElement.classList.toggle('lang-bn', lang === 'bn');
+        document.documentElement.classList.toggle('lang-en', lang !== 'bn');
+
         const elements = document.querySelectorAll('[data-i18n]');
         elements.forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (translations[this.currentLang][key]) {
-                // Check if element has child nodes (to preserve icons etc)
-                // For simple text replacement
+            const value = translations[lang]?.[key] ?? fallback[key];
+            if (value) {
                 if (el.children.length === 0) {
-                    el.textContent = translations[this.currentLang][key];
+                    el.textContent = value;
                 } else {
-                    el.innerHTML = translations[this.currentLang][key];
+                    el.innerHTML = value;
                 }
             }
         });
 
-        // Update placeholders
         const placeholderElements = document.querySelectorAll('[data-placeholder-i18n]');
         placeholderElements.forEach(el => {
             const key = el.getAttribute('data-placeholder-i18n');
-            if (translations[this.currentLang][key]) {
-                el.setAttribute('placeholder', translations[this.currentLang][key]);
+            const value = translations[lang]?.[key] ?? fallback[key];
+            if (value) {
+                el.setAttribute('placeholder', value);
             }
         });
 
-        // Update Toggle Button Text
         const toggleBtn = document.getElementById('lang-toggle-text');
         if (toggleBtn) {
-            toggleBtn.textContent = this.currentLang === 'en' ? 'BN' : 'EN';
+            toggleBtn.textContent = lang === 'en' ? 'BN' : 'EN';
         }
-
-        // Update document language attribute
-        document.documentElement.lang = this.currentLang;
-        
-        console.log('Language updated to:', this.currentLang);
     }
 
     setupEventListeners() {
@@ -621,54 +624,10 @@ class LocalizationManager {
         });
 
         // Settings Page
-        "settings.title": "??????",
-        "settings.subtitle": "????? ?????????? ? ????????? ??????????? ????",
-        "settings.appearance": "???????????",
-        "settings.theme_help": "????? ??????? ??? ???????? ????",
-        "settings.theme.system": "???????",
-        "settings.theme.light": "????",
-        "settings.theme.dark": "?????",
-        "settings.notifications": "?????????? ?????????",
-        "settings.notifications.email": "????? ??????????",
-        "settings.notifications.email_desc": "?????? ????? ???",
-        "settings.notifications.sms": "?????? ?????????",
-        "settings.notifications.sms_desc": "????? ???????? ???? ?????? ?????????? ???",
-        "settings.privacy": "????????? ??????",
-        "settings.privacy.visibility": "???????? ??????????",
-        "settings.privacy.visibility_desc": "???????? ?????????????? ???? ???????? ?????",
-        "settings.privacy.history": "??? ?????? ?????",
-        "settings.privacy.history_desc": "????? ????? ?????????? ?????",
-        "settings.danger": "??????? ???",
-        "settings.danger.deactivate": "?????????? ????????? ????",
-        "settings.danger.delete": "?????????? ?????????? ?????",
 
         // Services Page
-        "services.title": "?????? ????????",
-        "services.subtitle": "???? ??????? ??????? ????????????? ??????",
-        "services.card1.title": "???????",
-        "services.card1.desc": "???????? ?????? ??????? ???? ??? ????????? ??????? ???? ????? ??? ?????? ??? ??????? ?????? ?????, ??????? ? ?????????? ???????? ???? ??? ????? ????",
-        "services.card2.title": "????? ??????",
-        "services.card2.desc": "????? ?????? ?????? ??? ??? ??????? ????? ??????? ???? ????? ??? ?????? ??/? ????? ?????? ????????? ???? ??????? ????",
-        "services.card3.title": "??????? ?????????",
-        "services.card3.desc": "???????????? ???????? ?????????? ?????? ? ??????? ????? ??????????, ??????? ? ????? ??????? ??????? ?????",
-        "services.card4.title": "???????? ?????????",
-        "services.card4.desc": "???????? ???????????? ?????? ?????? ????????, ????? ??????? ????????? ??? ?????? ???? ?????",
-        "services.card5.title": "???????",
-        "services.card5.desc": "???????? ?????? ??????? ???? ??? ?????? ???? ??????? ?????? ????? ????????? ???? ? ???? ???????? ????",
-        "services.card6.title": "??? ???????",
-        "services.card6.desc": "?????? ????? ??? ??????? ?????????? ???????? ????????? ????-??????? ????? ??????? ????",
-        "services.cta.title": "???? ??????? ?????????",
-        "services.cta.desc": "???????? ???????? ??? ?????? ????? ???? ????? ??",
-        "services.cta.button": "???? ????",
 
         // About Page
-        "about.title": "???????? ????????",
-        "about.subtitle": "???????????? ???? ??????? ???? ? ?????????? ????? ???",
-        "about.vision.title": "?????? ????",
-        "about.vision.desc": "???? ??? ???????? ??? ????, ?????? ?????? ????? ??? ???? ???? ??? ???? ??? ?? ??????? ?????? ???, ?????? ??????? ???? ?????? ???? ????? ?????",
-        "about.mission.title": "?????? ????",
-        "about.mission.desc": "????????? ????????? ??????????? ?????? ?????????? ?? ???????? ???? ????????? ??? ???? ?????????? ??????? ????????? ???, ????? ? ??????? ????",
-        "about.impact.title": "?????? ??????",
     }
 }
 
