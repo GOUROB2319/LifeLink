@@ -30,6 +30,32 @@
             </div>
 
             <div class="space-y-6">
+                <!-- Theme Settings -->
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">palette</span>
+                        Appearance
+                    </h2>
+                    <div class="space-y-4">
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Choose your preferred theme</p>
+                        <div class="grid grid-cols-3 gap-4">
+                            <button type="button" data-theme="system" class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
+                                <span class="material-symbols-outlined text-3xl">brightness_auto</span>
+                                <span class="font-semibold text-sm">System</span>
+                            </button>
+                            <button type="button" data-theme="light" class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
+                                <span class="material-symbols-outlined text-3xl">light_mode</span>
+                                <span class="font-semibold text-sm">Light</span>
+                            </button>
+                            <button type="button" data-theme="dark" class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
+                                <span class="material-symbols-outlined text-3xl">dark_mode</span>
+                                <span class="font-semibold text-sm">Dark</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <div
                     class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Profile Information</h2>
@@ -158,6 +184,34 @@
     <script type="module">
         import { auth, db, initAuthObserver, logoutUser, deleteUserAccount } from '../assets/js/auth-service.js';
         import { saveUserProfile, getFullUserProfile, deleteUserProfile } from '../assets/js/db-service.js';
+
+        // Theme Selector Logic
+        const themeButtons = document.querySelectorAll('.theme-option');
+
+        function updateThemeButtons() {
+            const activeTheme = window.getTheme();
+            themeButtons.forEach(btn => {
+                const theme = btn.dataset.theme;
+                if (theme === activeTheme) {
+                    btn.classList.add('border-primary', 'bg-primary/10', 'text-primary');
+                    btn.classList.remove('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+                } else {
+                    btn.classList.remove('border-primary', 'bg-primary/10', 'text-primary');
+                    btn.classList.add('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+                }
+            });
+        }
+
+        updateThemeButtons();
+
+        themeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                window.setTheme(btn.dataset.theme);
+                updateThemeButtons();
+            });
+        });
+
+        document.addEventListener('lifelink-theme-change', updateThemeButtons);
 
         const profileForm = document.getElementById('profileForm');
 
