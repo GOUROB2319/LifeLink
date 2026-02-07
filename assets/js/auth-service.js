@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, deleteUser, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, deleteUser, updateProfile, sendPasswordResetEmail, verifyPasswordResetCode, confirmPasswordReset as firebaseConfirmPasswordReset } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import firebaseConfig from "./firebase-config.js";
 import { saveUserProfile, getUserRole, checkUserExists, getFullUserProfile } from "./db-service.js";
@@ -122,7 +122,7 @@ const loginUser = async (email, password) => {
         await handleAuthRedirect(user);
         return { success: true, user };
     } catch (error) {
-        return { success: false, error: error.message, code: error.code };
+        return { success: false, error, code: error.code };
     }
 };
 
@@ -154,10 +154,10 @@ const loginWithGoogle = async () => {
                 await signInWithRedirect(auth, googleProvider);
                 return { success: true, user: null, redirect: true };
             } catch (redirectError) {
-                return { success: false, error: redirectError.message, code: redirectError.code };
+                return { success: false, error: redirectError, code: redirectError.code };
             }
         }
-        return { success: false, error: error.message, code: error.code };
+        return { success: false, error, code: error.code };
     }
 };
 
@@ -191,7 +191,7 @@ const registerUser = async (email, password, profileData = {}) => {
         await handleAuthRedirect(user);
         return { success: true, user };
     } catch (error) {
-        return { success: false, error: error.message, code: error.code };
+        return { success: false, error, code: error.code };
     }
 };
 
@@ -204,11 +204,55 @@ const deleteUserAccount = async () => {
         return { success: true };
     } catch (error) {
         console.error("Error deleting user account:", error);
-        return { success: false, error: error.message };
+        return { success: false, error };
     }
 };
 
-export { auth, db, initAuthObserver, loginUser, registerUser, loginWithGoogle, logoutUser, deleteUserAccount, handleAuthRedirect };
+const sendPasswordReset = async (email) => {
+    try {
+        await sendPasswordResetEmail(auth, email);
+        console.log('Password reset email sent to:', email);
+        return { success: true };
+    } catch (error) {
+        console.error('Password reset error:', error);
+        return { success: false, error, code: error.code };
+    }
+};
+
+const sendPasswordResetWithCode = async (email) => {
+    try {
+        await sendPasswordResetEmail(auth, email);
+        console.log('Password reset code sent to:', email);
+        return { success: true };
+    } catch (error) {
+        console.error('Password reset error:', error);
+        return { success: false, error, code: error.code };
+    }
+};
+
+const verifyResetCode = async (code) => {
+    try {
+        await verifyPasswordResetCode(auth, code);
+        console.log('Reset code verified');
+        return { success: true };
+    } catch (error) {
+        console.error('Code verification error:', error);
+        return { success: false, error, code: error.code };
+    }
+};
+
+const confirmPasswordReset = async (code, newPassword) => {
+    try {
+        await firebaseConfirmPasswordReset(auth, code, newPassword);
+        console.log('Password reset successful');
+        return { success: true };
+    } catch (error) {
+        console.error('Password reset confirmation error:', error);
+        return { success: false, error, code: error.code };
+    }
+};
+
+export { auth, db, initAuthObserver, loginUser, registerUser, loginWithGoogle, logoutUser, deleteUserAccount, sendPasswordReset, sendPasswordResetWithCode, verifyResetCode, confirmPasswordReset, handleAuthRedirect };
 
 if (typeof window !== 'undefined') {
     window.addEventListener('lifelink-logout', async () => {

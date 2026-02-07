@@ -100,10 +100,6 @@ class Navbar extends HTMLElement {
                     </a>
                     ` : `
                     <!-- Authenticated state -->
-                    <a id="dashboard-cta" href="${resolvePath('dashboard/donor.html')}" class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold hover:bg-slate-800 transition-colors">
-                        <span class="material-symbols-outlined text-lg">dashboard</span>
-                        <span>Dashboard</span>
-                    </a>
                     <div class="relative group" id="profile-dropdown">
                         <button class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
                             <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
@@ -121,6 +117,10 @@ class Navbar extends HTMLElement {
                             <a id="dashboard-link" href="${resolvePath('dashboard/donor.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
                                 <span class="material-symbols-outlined text-[20px]">dashboard</span>
                                 <span>Dashboard</span>
+                            </a>
+                            <a href="${resolvePath('dashboard/profile.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                                <span class="material-symbols-outlined text-[20px]">person</span>
+                                <span>Profile</span>
                             </a>
                             <a href="${resolvePath('dashboard/settings.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
                                 <span class="material-symbols-outlined text-[20px]">settings</span>
@@ -169,11 +169,7 @@ class Navbar extends HTMLElement {
                     <a href="${resolvePath('auth/login.html')}" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-300" data-i18n="nav.login">Login</a>
                     <a href="${resolvePath('onboarding/step1.html')}" class="block w-full text-center py-3 rounded-xl bg-brand-gradient text-white font-bold shadow-lg shadow-primary/20 min-w-[180px]" data-i18n="nav.join">Join LifeLink</a>
                 </div>
-                ` : `
-                <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col gap-3">
-                    <a id="dashboard-cta-mobile" href="${resolvePath('dashboard/donor.html')}" class="block w-full text-center py-3 rounded-xl bg-slate-900 text-white font-bold">Dashboard</a>
-                </div>
-                `}
+                ` : ''}
             </div>
         </div>
     </header>
@@ -295,13 +291,9 @@ class Navbar extends HTMLElement {
 
         // Update dashboard link if a role-specific path is stored
         const dashboardLink = this.querySelector('#dashboard-link');
-        const dashboardCta = this.querySelector('#dashboard-cta');
-        const dashboardCtaMobile = this.querySelector('#dashboard-cta-mobile');
         const storedDashboard = localStorage.getItem('lifelink_dashboard');
         if (storedDashboard && this._resolvePath) {
             if (dashboardLink) dashboardLink.href = this._resolvePath(`dashboard/${storedDashboard}`);
-            if (dashboardCta) dashboardCta.href = this._resolvePath(`dashboard/${storedDashboard}`);
-            if (dashboardCtaMobile) dashboardCtaMobile.href = this._resolvePath(`dashboard/${storedDashboard}`);
         }
 
         // Logout logic - we expect the globally available logout function

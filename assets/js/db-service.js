@@ -20,22 +20,29 @@ export const saveUserProfile = async (db, user, role, additionalData = {}) => {
             baseData.email = resolvedEmail;
         }
 
+        const roleToSave = role ?? additionalData.role;
+
         if (!userSnap.exists()) {
             await setDoc(userRef, {
                 ...baseData,
                 displayName: additionalData.displayName || user.displayName || '',
                 photoURL: additionalData.photoURL || user.photoURL || '',
-                role: role || additionalData.role || 'patient',
+                role: roleToSave || 'patient',
                 availability: additionalData.availability ?? true,
                 createdAt: serverTimestamp(),
                 ...additionalData
             });
         } else {
-            await updateDoc(userRef, {
+            const updateData = {
                 ...baseData,
-                role: role || additionalData.role || userSnap.data().role,
                 ...additionalData
-            });
+            };
+
+            if (roleToSave) {
+                updateData.role = roleToSave;
+            }
+
+            await updateDoc(userRef, updateData);
         }
         console.log(`Profile for ${user.uid} saved successfully.`);
         return { success: true };

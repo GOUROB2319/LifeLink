@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - LifeLink</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+</head>
+<body class="bg-aurora text-slate-800 dark:text-slate-100 antialiased">
+    <app-navbar auth="true"></app-navbar>
+
+    <main class="relative z-10 pt-32 pb-12 min-h-screen px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2">আমার প্রোফাইল</h1>
+                <p class="text-slate-500">আপনার ব্যক্তিগত তথ্য দেখুন এবং আপডেট করুন</p>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successMsg" class="hidden mb-6 p-4 rounded-xl bg-primary/10 border border-primary/20 text-primary">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <span class="font-bold">প্রোফাইল সফলভাবে আপডেট হয়েছে!</span>
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMsg" class="hidden mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined">error</span>
+                    <span id="errorText">কিছু ভুল হয়েছে</span>
+                </div>
+            </div>
+
+            <!-- Profile Form -->
+            <div class="bg-white dark:bg-surface-dark rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
+                <form id="profileForm" class="space-y-6">
+                    <!-- Personal Info -->
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">person</span>
+                            ব্যক্তিগত তথ্য
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">পুরো নাম *</label>
+                                <input type="text" id="displayName" required
+                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ইমেইল</label>
+                                <input type="email" id="email" disabled
+                                    class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-xl text-slate-500 cursor-not-allowed">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ফোন নম্বর *</label>
+                                <input type="tel" id="phone" required
+                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">রক্তের গ্রুপ</label>
+                                <select id="bloodGroup"
+                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                                    <option value="">নির্বাচন করুন</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">location_on</span>
+                            ঠিকানা
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">বিভাগ</label>
+                                <input type="text" id="division"
+                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">জেলা</label>
+                                <input type="text" id="district"
+                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">সম্পূর্ণ ঠিকানা</label>
+                                <textarea id="address" rows="3"
+                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Info (for donors) -->
+                    <div id="donorFields" class="hidden">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">favorite</span>
+                            রক্তদাতার তথ্য
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ওজন (কেজি)</label>
+                                <input type="number" id="weight" min="45"
+                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">সর্বশেষ রক্তদানের তারিখ</label>
+                                <input type="date" id="lastDonation"
+                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="flex gap-4 pt-4">
+                        <button type="submit" id="saveBtn"
+                            class="flex-1 bg-brand-gradient text-white py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined">save</span>
+                            <span>পরিবর্তন সংরক্ষণ করুন</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <app-footer></app-footer>
+
+    <script src="../assets/js/localization.js"></script>
+
+    <script type="module">
+        import { auth, db, initAuthObserver } from '../assets/js/auth-service.js';
+        import { getFullUserProfile, saveUserProfile } from '../assets/js/db-service.js';
+        import { updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const form = document.getElementById('profileForm');
+        const successMsg = document.getElementById('successMsg');
+        const errorMsg = document.getElementById('errorMsg');
+        const errorText = document.getElementById('errorText');
+        const donorFields = document.getElementById('donorFields');
+
+        let currentUser = null;
+        let userProfile = null;
+
+        // Load user data
+        initAuthObserver(async (user) => {
+            if (!user) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+
+            currentUser = user;
+            userProfile = await getFullUserProfile(db, user.uid);
+
+            if (userProfile) {
+                document.getElementById('displayName').value = userProfile.displayName || '';
+                document.getElementById('email').value = userProfile.email || '';
+                document.getElementById('phone').value = userProfile.phone || '';
+                document.getElementById('bloodGroup').value = userProfile.bloodGroup || '';
+                document.getElementById('division').value = userProfile.division || '';
+                document.getElementById('district').value = userProfile.district || '';
+                document.getElementById('address').value = userProfile.address || '';
+
+                // Show donor fields if user is a donor
+                if (userProfile.role === 'donor') {
+                    donorFields.classList.remove('hidden');
+                    document.getElementById('weight').value = userProfile.weight || '';
+                    document.getElementById('lastDonation').value = userProfile.lastDonation || '';
+                }
+            }
+        });
+
+        // Save profile
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            successMsg.classList.add('hidden');
+            errorMsg.classList.add('hidden');
+
+            const displayName = document.getElementById('displayName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const bloodGroup = document.getElementById('bloodGroup').value;
+            const division = document.getElementById('division').value.trim();
+            const district = document.getElementById('district').value.trim();
+            const address = document.getElementById('address').value.trim();
+
+            if (!displayName || !phone) {
+                errorMsg.classList.remove('hidden');
+                errorText.textContent = 'নাম এবং ফোন নম্বর আবশ্যক';
+                return;
+            }
+
+            const btn = document.getElementById('saveBtn');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> <span>সংরক্ষণ হচ্ছে...</span>';
+
+            const updateData = {
+                displayName,
+                phone,
+                bloodGroup,
+                division,
+                district,
+                address
+            };
+
+            // Add donor-specific fields
+            if (userProfile.role === 'donor') {
+                updateData.weight = document.getElementById('weight').value;
+                updateData.lastDonation = document.getElementById('lastDonation').value;
+            }
+
+            // Update Firebase Auth profile
+            try {
+                await updateProfile(currentUser, { displayName });
+            } catch (error) {
+                console.error('Error updating auth profile:', error);
+            }
+
+            // Update Firestore
+            const result = await saveUserProfile(db, currentUser, null, updateData);
+
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+
+            if (result.success) {
+                successMsg.classList.remove('hidden');
+                setTimeout(() => successMsg.classList.add('hidden'), 3000);
+            } else {
+                errorMsg.classList.remove('hidden');
+                errorText.textContent = 'প্রোফাইল আপডেট করতে সমস্যা হয়েছে';
+            }
+        });
+    </script>
+</body>
+</html>
