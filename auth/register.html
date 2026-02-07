@@ -267,12 +267,13 @@
                 'Creating Account...'
             );
 
-            if (!result.success) {
+            const opResult = result.data || result;
+            if (!result.success || !opResult?.success) {
                 authError.classList.remove('hidden');
-                if (result.error?.code === 'auth/email-already-in-use') {
+                if (opResult?.error?.code === 'auth/email-already-in-use') {
                     authError.innerHTML = 'Email already in use. <a href="login.html" class="underline font-bold">Sign in here</a>.';
                 } else {
-                    authError.textContent = result.error?.message || 'Registration failed';
+                    authError.textContent = opResult?.error?.message || 'Registration failed';
                 }
             }
         });
@@ -285,9 +286,10 @@
                 'Connecting...'
             );
             if (result.data?.redirect) return;
-            if (!result.success) {
+            const opResult = result.data || result;
+            if (!result.success || !opResult?.success) {
                 authError.classList.remove('hidden');
-                authError.textContent = result.error?.message || 'Google sign-in failed';
+                authError.textContent = opResult?.error?.message || 'Google sign-in failed';
             }
         });
     </script>

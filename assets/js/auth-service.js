@@ -122,7 +122,7 @@ const loginUser = async (email, password) => {
         await handleAuthRedirect(user);
         return { success: true, user };
     } catch (error) {
-        return { success: false, error: error.message, code: error.code };
+        return { success: false, error, code: error.code };
     }
 };
 
@@ -154,10 +154,10 @@ const loginWithGoogle = async () => {
                 await signInWithRedirect(auth, googleProvider);
                 return { success: true, user: null, redirect: true };
             } catch (redirectError) {
-                return { success: false, error: redirectError.message, code: redirectError.code };
+                return { success: false, error: redirectError, code: redirectError.code };
             }
         }
-        return { success: false, error: error.message, code: error.code };
+        return { success: false, error, code: error.code };
     }
 };
 
@@ -191,7 +191,7 @@ const registerUser = async (email, password, profileData = {}) => {
         await handleAuthRedirect(user);
         return { success: true, user };
     } catch (error) {
-        return { success: false, error: error.message, code: error.code };
+        return { success: false, error, code: error.code };
     }
 };
 
@@ -204,7 +204,7 @@ const deleteUserAccount = async () => {
         return { success: true };
     } catch (error) {
         console.error("Error deleting user account:", error);
-        return { success: false, error: error.message };
+        return { success: false, error };
     }
 };
 

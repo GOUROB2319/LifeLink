@@ -171,7 +171,8 @@
     <script src="../assets/js/localization.js"></script>
 
     <script type="module">
-        import { loginUser, loginWithGoogle, initAuthObserver, handleAuthRedirect } from '../assets/js/auth-service.js';
+        import { loginUser, loginWithGoogle, initAuthObserver, handleAuthRedirect, db } from '../assets/js/auth-service.js';
+        import { getFullUserProfile } from '../assets/js/db-service.js';
         import { validateField, showFieldError, clearFieldError, setupRealtimeValidation } from '../assets/js/validation.js';
         import { handleAsyncOperation, showErrorNotification } from '../assets/js/error-handler.js';
 
@@ -229,16 +230,17 @@
                 'Signing in...'
             );
 
-            if (!result.success) {
+            const opResult = result.data || result;
+            if (!result.success || !opResult?.success) {
                 errorDiv.classList.remove('hidden');
 
                 // Improved Error Messaging
-                if (result.error?.code === 'auth/user-not-found') {
+                if (opResult?.error?.code === 'auth/user-not-found') {
                     errorMsg.innerHTML = 'No account found with this email. <a href="register.html" class="underline font-bold">Create one now?</a>';
-                } else if (result.error?.code === 'auth/wrong-password' || result.error?.code === 'auth/invalid-credential') {
+                } else if (opResult?.error?.code === 'auth/wrong-password' || opResult?.error?.code === 'auth/invalid-credential') {
                     errorMsg.innerHTML = 'Invalid email or password. Please try again or <a href="../info/contact.html" class="underline font-bold">reset password</a>.';
                 } else {
-                    errorMsg.textContent = result.error?.message || 'Login failed. Please check your credentials.';
+                    errorMsg.textContent = opResult?.error?.message || 'Login failed. Please check your credentials.';
                 }
             }
         });
@@ -254,14 +256,15 @@
             
             if (result.data?.redirect) return;
             
-            if (!result.success) {
+            const opResult = result.data || result;
+            if (!result.success || !opResult?.success) {
                 errorDiv.classList.remove('hidden');
-                if (result.error?.code === 'auth/unauthorized-domain') {
+                if (opResult?.error?.code === 'auth/unauthorized-domain') {
                     errorMsg.textContent = 'Google sign-in blocked. Please add this domain (localhost/127.0.0.1) in Firebase Authentication > Settings > Authorized domains.';
-                } else if (result.error?.code === 'auth/popup-blocked') {
+                } else if (opResult?.error?.code === 'auth/popup-blocked') {
                     errorMsg.textContent = 'Popup blocked by the browser. Please allow popups and try again.';
                 } else {
-                    errorMsg.textContent = result.error?.message || 'Google sign-in failed';
+                    errorMsg.textContent = opResult?.error?.message || 'Google sign-in failed';
                 }
             }
         });
