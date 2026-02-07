@@ -133,25 +133,25 @@ class Navbar extends HTMLElement {
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-1">
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'services' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/services.html')}" data-i18n="nav.services">Services</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'how-it-works' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#how-it-works')}" data-i18n="nav.howItWorks">How it Works</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'impact' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#impact')}" data-i18n="nav.impact">Impact</a>
-                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors ${activeLink === 'about' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/about.html')}" data-i18n="nav.about">About Us</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors ${activeLink === 'services' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/services.html')}" data-i18n="nav.services">Services</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors ${activeLink === 'how-it-works' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#how-it-works')}" data-i18n="nav.howItWorks">How it Works</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors ${activeLink === 'impact' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#impact')}" data-i18n="nav.impact">Impact</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors ${activeLink === 'about' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/about.html')}" data-i18n="nav.about">About Us</a>
                 </nav>
 
                 <!-- Actions -->
                 <div class="flex items-center gap-3">
                     <!-- Language Toggle -->
                     <button onclick="toggleLanguage()" class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-all group">
-                        <span class="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary dark:text-slate-400">translate</span>
-                        <span id="lang-toggle-text" class="text-xs font-bold text-slate-600 dark:text-slate-300 group-hover:text-primary">EN</span>
+                        <span class="material-symbols-outlined text-[18px] text-slate-700 group-hover:text-primary dark:text-slate-300">translate</span>
+                        <span id="lang-toggle-text" class="text-xs font-bold text-slate-700 dark:text-slate-200 group-hover:text-primary">EN</span>
                     </button>
 
 
                     <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
 
                     ${!isAuth ? `
-                    <a href="${resolvePath('auth/login.html')}" class="hidden sm:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
+                    <a href="${resolvePath('auth/login.html')}" class="hidden sm:block text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
                     
                     <a href="${resolvePath('auth/register.html')}" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group min-w-[180px] justify-center">
                         <span class="relative z-10 flex items-center gap-2">
