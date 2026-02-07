@@ -3,7 +3,7 @@
  * Enables offline functionality and caching
  */
 
-const CACHE_NAME = 'lifelink-v2';
+const CACHE_NAME = 'lifelink-v4';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
