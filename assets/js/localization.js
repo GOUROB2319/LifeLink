@@ -633,7 +633,9 @@ class LocalizationManager {
 
 window.localization = new LocalizationManager();
 
-// Global function for button
+// Global function for language toggle
 window.toggleLanguage = () => {
-    window.localization.toggleLanguage();
+    if (window.localization) {
+        window.localization.toggleLanguage();
+    }
 };

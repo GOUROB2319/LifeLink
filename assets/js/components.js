@@ -254,11 +254,15 @@ class Navbar extends HTMLElement {
     }
 
     initLogic() {
-        // Language Toggle
+        // Language Toggle - Setup immediately
         const langBtn = this.querySelector('#lang-toggle-btn');
         if (langBtn) {
-            langBtn.addEventListener('click', () => {
-                if (window.localization) {
+            langBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (window.toggleLanguage) {
+                    window.toggleLanguage();
+                } else if (window.localization) {
                     window.localization.toggleLanguage();
                 }
             });

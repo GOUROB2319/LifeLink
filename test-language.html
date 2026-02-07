@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Toggle Test - LifeLink</title>
+    <script src="assets/js/theme-manager.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/components.js"></script>
+    <link href="assets/css/styles.css" rel="stylesheet" />
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white min-h-screen">
+    
+    <app-navbar></app-navbar>
+
+    <main class="pt-32 pb-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl">
+                <h1 class="text-4xl font-bold mb-6" data-i18n="hero.title">Language Toggle Test</h1>
+                
+                <div class="space-y-4 text-lg">
+                    <p data-i18n="hero.subtitle">This is a test page to verify language toggle functionality.</p>
+                    <p data-i18n="nav.home">Home</p>
+                    <p data-i18n="nav.services">Services</p>
+                    <p data-i18n="nav.about">About Us</p>
+                    <p data-i18n="hero.cta.join">Join LifeLink</p>
+                </div>
+
+                <div class="mt-8 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+                    <h2 class="font-bold mb-2">Test Instructions:</h2>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Click the language toggle button in the navbar (EN/BN)</li>
+                        <li>All text should change to Bengali</li>
+                        <li>Click again to switch back to English</li>
+                        <li>Reload the page - language should persist</li>
+                    </ol>
+                </div>
+
+                <div class="mt-6">
+                    <button onclick="testToggle()" class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-primary/90">
+                        Manual Toggle Test
+                    </button>
+                    <button onclick="checkStatus()" class="ml-4 bg-slate-200 dark:bg-slate-700 px-6 py-3 rounded-xl font-bold">
+                        Check Status
+                    </button>
+                </div>
+
+                <div id="status" class="mt-6 p-4 bg-slate-100 dark:bg-slate-700 rounded-xl font-mono text-sm"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/localization.js"></script>
+    <script>
+        function testToggle() {
+            console.log('Testing toggle...');
+            if (window.toggleLanguage) {
+                window.toggleLanguage();
+                updateStatus('✅ toggleLanguage() called successfully');
+            } else {
+                updateStatus('❌ toggleLanguage() not found');
+            }
+        }
+
+        function checkStatus() {
+            const status = {
+                'window.localization exists': !!window.localization,
+                'window.toggleLanguage exists': !!window.toggleLanguage,
+                'Current language': window.localization?.currentLang || 'unknown',
+                'LocalStorage': localStorage.getItem('lifelink_lang') || 'not set'
+            };
+            updateStatus(JSON.stringify(status, null, 2));
+        }
+
+        function updateStatus(msg) {
+            document.getElementById('status').textContent = msg;
+        }
+
+        // Auto-check on load
+        setTimeout(() => {
+            checkStatus();
+        }, 1000);
+    </script>
+</body>
+</html>
