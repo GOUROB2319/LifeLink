@@ -28,6 +28,12 @@ const translations = {
         "stats.hospitals": "Partner Hospitals",
         "testimonials.title": "Patient & Donor Stories",
         "testimonials.subtitle": "Real experiences from our community members who have been part of the LifeLink mission.",
+        "testimonials.card1.role": "Regular Donor",
+        "testimonials.card1.quote": "\"LifeLink made it incredibly easy to find a donation center. Its modern interface and quick response time are unmatched.\"",
+        "testimonials.card2.role": "Hematologist",
+        "testimonials.card2.quote": "\"The algorithm efficiency is unparalleled. We've saved critical minutes during emergency procedures.\"",
+        "testimonials.card3.role": "Recipient",
+        "testimonials.card3.quote": "\"Found a rare blood type match within 40 minutes. I am forever grateful to this platform.\"",
         "footer.tagline": "The professional bridge between medical resources and human needs. Available 24/7 for emergency support.",
         "footer.quick_links": "Quick Links",
         "footer.find_donors": "Find Donors",
@@ -453,12 +459,49 @@ const translations = {
 class LocalizationManager {
     constructor() {
         this.currentLang = localStorage.getItem('lifelink_lang') || 'en';
+        this.observers = [];
         this.init();
     }
 
     init() {
-        this.updateDOM();
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.updateDOM();
+                this.setupMutationObserver();
+            });
+        } else {
+            this.updateDOM();
+            this.setupMutationObserver();
+        }
         this.setupEventListeners();
+    }
+
+    setupMutationObserver() {
+        // Watch for dynamically added elements (like web components)
+        const observer = new MutationObserver((mutations) => {
+            let shouldUpdate = false;
+            mutations.forEach((mutation) => {
+                if (mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1) { // Element node
+                            if (node.hasAttribute('data-i18n') || node.querySelector('[data-i18n]')) {
+                                shouldUpdate = true;
+                            }
+                        }
+                    });
+                }
+            });
+            if (shouldUpdate) {
+                // Small delay to ensure web components are fully rendered
+                setTimeout(() => this.updateDOM(), 50);
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     }
 
     setLanguage(lang) {
@@ -475,6 +518,10 @@ class LocalizationManager {
     toggleLanguage() {
         const newLang = this.currentLang === 'en' ? 'bn' : 'en';
         this.setLanguage(newLang);
+        
+        // Force update after a short delay to catch any late-loading elements
+        setTimeout(() => this.updateDOM(), 100);
+        
         return newLang;
     }
 
@@ -507,6 +554,11 @@ class LocalizationManager {
         if (toggleBtn) {
             toggleBtn.textContent = this.currentLang === 'en' ? 'BN' : 'EN';
         }
+
+        // Update document language attribute
+        document.documentElement.lang = this.currentLang;
+        
+        console.log('Language updated to:', this.currentLang);
     }
 
     setupEventListeners() {

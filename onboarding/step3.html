@@ -194,7 +194,8 @@
                         verificationDoc: fileInput.files[0]?.name || 'pending',
                         verificationStatus: 'pending',
                         onboardingComplete: true,
-                        onboardingCompleteAt: new Date()
+                        onboardingCompleteAt: new Date(),
+                        onboardingStep: 3
                     });
                 },
                 form.querySelector('button[type="submit"]'),

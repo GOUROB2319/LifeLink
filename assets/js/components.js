@@ -37,10 +37,12 @@ const createResolvePath = () => {
 class Navbar extends HTMLElement {
     constructor() {
         super();
+        this._isAuth = false;
     }
 
     connectedCallback() {
         const isAuth = this.getAttribute('auth') === 'true';
+        this._isAuth = isAuth;
         const activeLink = this.getAttribute('active') || '';
 
         const resolvePath = createResolvePath();
@@ -49,6 +51,13 @@ class Navbar extends HTMLElement {
         this.injectSecurityMeta();
         this.injectAppCheckScript();
 
+        this.render(isAuth, activeLink);
+        this.initLogic();
+        this.setupLanguageListener();
+    }
+
+    render(isAuth, activeLink) {
+        const resolvePath = this._resolvePath || ((p) => p);
         this.innerHTML = `
     <header class="fixed top-0 z-50 w-full transition-all duration-300 glass border-b border-white/20 dark:border-slate-800">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -83,7 +92,7 @@ class Navbar extends HTMLElement {
                     ${!isAuth ? `
                     <a href="${resolvePath('auth/login.html')}" class="hidden sm:block text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
                     
-                    <a href="${resolvePath('auth/register.html')}" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group">
+                    <a href="${resolvePath('auth/register.html')}" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group min-w-[180px] justify-center">
                         <span class="relative z-10 flex items-center gap-2">
                             <span data-i18n="nav.join">Join LifeLink</span>
                             <span class="material-symbols-outlined text-lg">arrow_forward</span>
@@ -91,6 +100,10 @@ class Navbar extends HTMLElement {
                     </a>
                     ` : `
                     <!-- Authenticated state -->
+                    <a id="dashboard-cta" href="${resolvePath('dashboard/donor.html')}" class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold hover:bg-slate-800 transition-colors">
+                        <span class="material-symbols-outlined text-lg">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
                     <div class="relative group" id="profile-dropdown">
                         <button class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
                             <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
@@ -134,9 +147,18 @@ class Navbar extends HTMLElement {
             </div>
         </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-xl transition-all duration-300 origin-top transform scale-y-0 opacity-0">
+        <!-- Mobile Menu Backdrop -->
+        <div id="mobile-backdrop" class="fixed inset-0 bg-black/30 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
+
+        <!-- Mobile Menu (Side Drawer) -->
+        <div id="mobile-menu" class="fixed top-0 right-0 h-screen w-80 max-w-[85vw] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-l border-slate-200 dark:border-slate-800 shadow-2xl transition-all duration-300 transform translate-x-full opacity-0 md:hidden">
             <div class="px-4 py-6 space-y-4">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+                    <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Menu</p>
+                    <button id="mobile-menu-close" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
                 <a href="${resolvePath('info/services.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.services">Services</a>
                 <a href="${resolvePath('index.html#how-it-works')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.howItWorks">How it Works</a>
                 <a href="${resolvePath('index.html#impact')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold transition-colors" data-i18n="nav.impact">Impact</a>
@@ -145,15 +167,25 @@ class Navbar extends HTMLElement {
                 ${!isAuth ? `
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col gap-3">
                     <a href="${resolvePath('auth/login.html')}" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-300" data-i18n="nav.login">Login</a>
-                    <a href="${resolvePath('onboarding/step1.html')}" class="block w-full text-center py-3 rounded-xl bg-brand-gradient text-white font-bold shadow-lg shadow-primary/20" data-i18n="nav.join">Join LifeLink</a>
+                    <a href="${resolvePath('onboarding/step1.html')}" class="block w-full text-center py-3 rounded-xl bg-brand-gradient text-white font-bold shadow-lg shadow-primary/20 min-w-[180px]" data-i18n="nav.join">Join LifeLink</a>
                 </div>
-                ` : ``}
+                ` : `
+                <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col gap-3">
+                    <a id="dashboard-cta-mobile" href="${resolvePath('dashboard/donor.html')}" class="block w-full text-center py-3 rounded-xl bg-slate-900 text-white font-bold">Dashboard</a>
+                </div>
+                `}
             </div>
         </div>
     </header>
         `;
+    }
 
-        this.initLogic();
+    setupLanguageListener() {
+        document.addEventListener('lifelink-language-change', () => {
+            if (window.localization) {
+                setTimeout(() => window.localization.updateDOM(), 50);
+            }
+        });
     }
 
     injectSecurityMeta() {
@@ -202,23 +234,44 @@ class Navbar extends HTMLElement {
         // Mobile Menu
         const mobileBtn = this.querySelector('#mobile-menu-btn');
         const mobileMenu = this.querySelector('#mobile-menu');
+        const mobileBackdrop = this.querySelector('#mobile-backdrop');
+        const mobileClose = this.querySelector('#mobile-menu-close');
+        const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
+
+        const openMobileMenu = () => {
+            if (!mobileMenu) return;
+            mobileMenu.classList.remove('translate-x-full', 'opacity-0');
+            mobileBackdrop && mobileBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.classList.add('overflow-hidden');
+            if (mobileBtn) mobileBtn.querySelector('span').textContent = 'close';
+        };
+
+        const closeMobileMenu = () => {
+            if (!mobileMenu) return;
+            mobileMenu.classList.add('translate-x-full', 'opacity-0');
+            mobileBackdrop && mobileBackdrop.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('overflow-hidden');
+            if (mobileBtn) mobileBtn.querySelector('span').textContent = 'menu';
+        };
+
         if (mobileBtn && mobileMenu) {
             mobileBtn.addEventListener('click', () => {
-                const isHidden = mobileMenu.classList.contains('hidden');
-                if (isHidden) {
-                    mobileMenu.classList.remove('hidden');
-                    setTimeout(() => {
-                        mobileMenu.classList.remove('scale-y-0', 'opacity-0');
-                    }, 10);
-                    mobileBtn.querySelector('span').textContent = 'close';
-                } else {
-                    mobileMenu.classList.add('scale-y-0', 'opacity-0');
-                    setTimeout(() => {
-                        mobileMenu.classList.add('hidden');
-                    }, 300);
-                    mobileBtn.querySelector('span').textContent = 'menu';
-                }
+                const isClosed = mobileMenu.classList.contains('translate-x-full');
+                if (isClosed) openMobileMenu();
+                else closeMobileMenu();
             });
+        }
+
+        if (mobileBackdrop) {
+            mobileBackdrop.addEventListener('click', closeMobileMenu);
+        }
+
+        if (mobileClose) {
+            mobileClose.addEventListener('click', closeMobileMenu);
+        }
+
+        if (mobileLinks.length) {
+            mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
         }
     }
 
@@ -228,6 +281,13 @@ class Navbar extends HTMLElement {
      */
     updateAuth(user) {
         if (!user) return;
+        if (!this._isAuth) {
+            this._isAuth = true;
+            this.setAttribute('auth', 'true');
+            this.render(true, this.getAttribute('active') || '');
+            this.initLogic();
+            this.setupLanguageListener();
+        }
 
         const displayName = user.displayName || user.email.split('@')[0];
         const nameEl = this.querySelector('#user-display-name');
@@ -235,9 +295,13 @@ class Navbar extends HTMLElement {
 
         // Update dashboard link if a role-specific path is stored
         const dashboardLink = this.querySelector('#dashboard-link');
+        const dashboardCta = this.querySelector('#dashboard-cta');
+        const dashboardCtaMobile = this.querySelector('#dashboard-cta-mobile');
         const storedDashboard = localStorage.getItem('lifelink_dashboard');
-        if (dashboardLink && storedDashboard && this._resolvePath) {
-            dashboardLink.href = this._resolvePath(`dashboard/${storedDashboard}`);
+        if (storedDashboard && this._resolvePath) {
+            if (dashboardLink) dashboardLink.href = this._resolvePath(`dashboard/${storedDashboard}`);
+            if (dashboardCta) dashboardCta.href = this._resolvePath(`dashboard/${storedDashboard}`);
+            if (dashboardCtaMobile) dashboardCtaMobile.href = this._resolvePath(`dashboard/${storedDashboard}`);
         }
 
         // Logout logic - we expect the globally available logout function
@@ -334,6 +398,16 @@ class Footer extends HTMLElement {
         </div>
     </footer>
         `;
+        
+        this.setupLanguageListener();
+    }
+
+    setupLanguageListener() {
+        document.addEventListener('lifelink-language-change', () => {
+            if (window.localization) {
+                setTimeout(() => window.localization.updateDOM(), 50);
+            }
+        });
     }
 }
 

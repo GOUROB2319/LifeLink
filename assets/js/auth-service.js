@@ -36,7 +36,15 @@ const handleAuthRedirect = async (user) => {
 
     try {
         console.log("Checking profile for redirection:", user.uid);
-        const profile = await getFullUserProfile(db, user.uid);
+        let profile = await getFullUserProfile(db, user.uid);
+
+        if (profile && !profile.onboardingComplete && profile.onboardingStep >= 3) {
+            await saveUserProfile(db, user, profile.role || null, {
+                onboardingComplete: true,
+                onboardingCompleteAt: new Date()
+            });
+            profile = await getFullUserProfile(db, user.uid);
+        }
 
         if (profile && profile.onboardingComplete) {
             const role = profile.role || 'patient';
@@ -98,6 +106,18 @@ const loginUser = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+
+        const profile = await getFullUserProfile(db, user.uid);
+        if (!profile) {
+            await saveUserProfile(db, user, null, {
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                createdAt: new Date(),
+                onboardingComplete: false,
+                authMethod: 'password'
+            });
+        }
 
         await handleAuthRedirect(user);
         return { success: true, user };
@@ -164,7 +184,8 @@ const registerUser = async (email, password, profileData = {}) => {
             ...profileData,
             email: email,
             createdAt: new Date(),
-            onboardingComplete: false
+            onboardingComplete: false,
+            onboardingStep: 1
         });
 
         await handleAuthRedirect(user);
