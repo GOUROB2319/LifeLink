@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Request - LifeLink</title>    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+</head>
+
+<body
+    class="bg-aurora text-slate-800 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+    <app-navbar auth="true"></app-navbar>
+    <main class="relative z-10 pt-28 pb-20 min-h-screen">
+        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl p-6 text-white mb-8 shadow-2xl">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-6xl">emergency</span>
+                    <div>
+                        <h1 class="text-3xl font-black mb-2">Emergency Blood Request</h1>
+                        <p class="opacity-90">Find donors immediately for urgent cases</p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 md:p-10">
+                <form id="emergencyForm" class="space-y-8">
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-emergency">bloodtype</span>
+                            Blood Requirement
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Blood
+                                    Group *</label>
+                                <select name="bloodGroup" required
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    <option value="">Select</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Units
+                                    Required *</label>
+                                <input type="number" name="units" required min="1"
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Urgency
+                                    Level *</label>
+                                <div class="grid grid-cols-3 gap-4">
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="urgency" value="low" class="peer sr-only" required>
+                                        <div
+                                            class="p-4 rounded-xl border-2 border-slate-200 peer-checked:border-yellow-500 peer-checked:bg-yellow-50 text-center transition-all">
+                                            <span
+                                                class="material-symbols-outlined text-3xl text-yellow-500 mb-2 block">schedule</span>
+                                            <p class="font-bold text-sm">Low</p>
+                                            <p class="text-xs text-slate-500">Within 7 days</p>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="urgency" value="medium" class="peer sr-only">
+                                        <div
+                                            class="p-4 rounded-xl border-2 border-slate-200 peer-checked border-orange-500 peer-checked:bg-orange-50 text-center transition-all">
+                                            <span
+                                                class="material-symbols-outlined text-3xl text-orange-500 mb-2 block">timelapse</span>
+                                            <p class="font-bold text-sm">Medium</p>
+                                            <p class="text-xs text-slate-500">Within 2 days</p>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="urgency" value="high" class="peer sr-only">
+                                        <div
+                                            class="p-4 rounded-xl border-2 border-slate-200 peer-checked:border-red-500 peer-checked:bg-red-50 text-center transition-all">
+                                            <span
+                                                class="material-symbols-outlined text-3xl text-red-500 mb-2 block">emergency</span>
+                                            <p class="font-bold text-sm">Urgent</p>
+                                            <p class="text-xs text-slate-500">Within 24 hours</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 pt-6 border-t border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-emergency">local_hospital</span>
+                            Location Details
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="md:col-span-2">
+                                <label
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Hospital/Clinic
+                                    Name *</label>
+                                <input type="text" name="hospital" required
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Division
+                                    *</label>
+                                <select name="division" required data-division-select
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                </select>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-sm font-semibold text-slate-700 mb-2">District
+                                    *</label>
+                                <select name="district" required data-district-select
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 pt-6 border-t border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-emergency">contact_phone</span>
+                            Contact Information
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Contact
+                                    Person *</label>
+                                <input type="text" name="contactName" required
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Phone
+                                    Number *</label>
+                                <input type="tel" name="phone" required
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Additional
+                                    Notes</label>
+                                <textarea name="notes" rows="4"
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                    placeholder="Any specific requirements or additional information"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-8">
+                        <a href="donor.html"
+                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 text-slate-700 font-bold text-center hover:bg-slate-50 transition-all">
+                            Cancel
+                        </a>
+                        <button type="submit"
+                            class="flex-1 bg-gradient-to-r from-red-600 to-orange-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-red-500/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined">emergency_share</span>
+                            <span>Submit Emergency Request</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <app-footer></app-footer>    <script src="../assets/js/districts.js"></script>
+    <script src="../assets/js/divisions.js"></script>
+    <script src="../assets/js/animations.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <!-- AI Triaging Modal -->
+    <div id="aiModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div
+            class="relative bg-white rounded-[2rem] shadow-2xl p-8 max-w-lg w-full border border-slate-200 animate-slide-up">
+            <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                <span class="material-symbols-outlined text-4xl text-primary animate-pulse">psychology</span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 mb-4">AI Emergency Analysis</h2>
+            <div id="aiResponse" class="text-slate-600 mb-8 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-2 bg-slate-200 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary animate-progress-ind"></div>
+                    </div>
+                    <span>Analyzing urgency...</span>
+                </div>
+            </div>
+            <button onclick="closeAiModal()"
+                class="w-full bg-brand-gradient text-white py-4 rounded-xl font-bold shadow-lg hover:scale-[1.02] transition-all">
+                Understood
+            </button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, db } from '../assets/js/auth-service.js';
+        import { askGemini } from '../assets/js/gemini-service.js';
+        import { submitEmergencyRequest } from '../assets/js/db-service.js';
+        import { validateField, showFieldError, clearFieldError } from '../assets/js/validation.js';
+        import { showErrorNotification, showSuccessNotification } from '../assets/js/error-handler.js';
+
+        const form = document.getElementById('emergencyForm');
+        const modal = document.getElementById('aiModal');
+        const responseDiv = document.getElementById('aiResponse');
+
+        const bloodGroupInput = form.querySelector('[name="bloodGroup"]');
+        const phoneInput = form.querySelector('[name="phone"]');
+
+        window.closeAiModal = () => {
+            modal.classList.add('hidden');
+            window.location.href = 'donor.html';
+        };
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            if (!auth.currentUser) {
+                showErrorNotification('Please login to submit an emergency request.');
+                window.location.href = '../auth/login.html';
+                return;
+            }
+
+            // Clear errors
+            clearFieldError(bloodGroupInput);
+            clearFieldError(phoneInput);
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            // Validate
+            const bloodError = validateField('bloodGroup', data.bloodGroup);
+            const phoneError = validateField('phone', data.phone);
+
+            if (bloodError) { showFieldError(bloodGroupInput, bloodError); return; }
+            if (phoneError) { showFieldError(phoneInput, phoneError); return; }
+
+            if (!data.urgency) {
+                showErrorNotification('Please select urgency level');
+                return;
+            }
+
+            // Show Modal
+            modal.classList.remove('hidden');
+            responseDiv.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-2 bg-slate-200 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary animate-pulse w-full"></div>
+                    </div>
+                    <span>Saving request & analyzing...</span>
+                </div>
+            `;
+
+            // Save to Firestore
+            const requestData = {
+                ...data,
+                userId: auth.currentUser.uid,
+                userEmail: auth.currentUser.email || ''
+            };
+
+            const submitResult = await submitEmergencyRequest(db, requestData);
+            if (!submitResult.success) {
+                responseDiv.innerHTML = '<p class="text-emergency font-bold">Failed to submit your request. Please try again.</p>';
+                return;
+            }
+
+            showSuccessNotification('Emergency request submitted successfully');
+
+            // AI Triaging
+            const prompt = `
+                I have an emergency blood request:
+                - Blood Group: ${data.bloodGroup}
+                - Units: ${data.units}
+                - Urgency: ${data.urgency}
+                - Location: ${data.hospital}, ${data.district}
+                - Notes: ${data.notes}
+                
+                Please provide:
+                1. 3 professional first-aid/preparatory tips for this specific situation.
+                2. A brief analysis of the urgency.
+                3. Advice for the patient's family.
+                Keep it concise and professional.
+            `;
+
+            try {
+                const aiText = await askGemini(prompt);
+
+                const formattedText = aiText
+                    .replace(/\n\n/g, '</div><div class="space-y-4 pt-2">')
+                    .replace(/\* /g, '• ')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-primary">$1</strong>');
+
+                responseDiv.innerHTML = `
+                    <div class="bg-emerald-50 p-4 rounded-xl mb-4 text-emerald-600 text-sm font-bold flex items-center gap-2">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        Request successfully shared with nearby donors.
+                    </div>
+                    <div class="space-y-4 text-slate-700">
+                        ${formattedText}
+                    </div>
+                `;
+            } catch (err) {
+                responseDiv.innerHTML = '<p class="text-emerald-600 font-bold">✅ Your request has been shared with nearby donors.</p>';
+            }
+        });
+    </script>
+</body>
+
+</html>

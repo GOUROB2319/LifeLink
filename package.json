@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Blood Donation Platform for Bangladesh",
   "scripts": {
-    "dev": "live-server public --port=3000",
-    "build:css": "npx tailwindcss -i ./public/assets/css/main.css -o ./public/assets/css/main.min.css --minify",
-    "watch:css": "npx tailwindcss -i ./public/assets/css/main.css -o ./public/assets/css/main.min.css --watch"
+    "dev": "live-server --port=3000",
+    "build:css": "npx tailwindcss -i ./assets/css/styles.css -o ./assets/css/output.css --minify",
+    "watch:css": "npx tailwindcss -i ./assets/css/styles.css -o ./assets/css/output.css --watch"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",

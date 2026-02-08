@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Manage your LifeLink account settings, preferences, theme, notifications, and privacy options.">
+    <title>Settings - LifeLink</title>    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+</head>
+
+<body
+    class="bg-aurora text-slate-800 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+    <app-navbar auth="true"></app-navbar>
+    <main class="relative z-10 pt-28 pb-20">
+        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <h1 class="text-4xl font-black text-slate-900 mb-2" data-i18n="settings.title">Settings
+                </h1>
+                <p class="text-slate-600" data-i18n="settings.subtitle">Manage your account and
+                    preferences</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Theme Settings -->
+                <div
+                    class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">palette</span>
+                        <span data-i18n="settings.appearance">Appearance</span>
+                    </h2>
+                    <div class="space-y-4">
+                        <p class="text-sm text-slate-600 mb-4" data-i18n="settings.theme_help">
+                            Choose your preferred theme</p>
+                        <div class="grid grid-cols-3 gap-4">
+                            <button type="button" data-theme="system"
+                                class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
+                                <span class="material-symbols-outlined text-3xl">brightness_auto</span>
+                                <span class="font-semibold text-sm" data-i18n="settings.theme.system">System</span>
+                            </button>
+                            <button type="button" data-theme="light"
+                                class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
+                                <span class="material-symbols-outlined text-3xl">light_mode</span>
+                                <span class="font-semibold text-sm" data-i18n="settings.theme.light">Light</span>
+                            </button>
+                            <button type="button" data-theme="dark"
+                                class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
+                                <span class="material-symbols-outlined text-3xl">dark_mode</span>
+                                <span class="font-semibold text-sm" data-i18n="settings.theme.dark">Dark</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6"
+                        data-i18n="settings.notifications">Notification Preferences</h2>
+                    <div class="space-y-4">
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <p class="font-semibold text-slate-900"
+                                    data-i18n="settings.notifications.email">Email Notifications</p>
+                                <p class="text-sm text-slate-600"
+                                    data-i18n="settings.notifications.email_desc">Receive updates via email</p>
+                            </div>
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
+                            </div>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <p class="font-semibold text-slate-900"
+                                    data-i18n="settings.notifications.sms">SMS Alerts</p>
+                                <p class="text-sm text-slate-600"
+                                    data-i18n="settings.notifications.sms_desc">Get notified via SMS for urgent
+                                    requests</p>
+                            </div>
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="settings.privacy">
+                        Privacy Settings</h2>
+                    <div class="space-y-4">
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <p class="font-semibold text-slate-900"
+                                    data-i18n="settings.privacy.visibility">Profile Visibility</p>
+                                <p class="text-sm text-slate-600"
+                                    data-i18n="settings.privacy.visibility_desc">Show profile to other users</p>
+                            </div>
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
+                            </div>
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <p class="font-semibold text-slate-900"
+                                    data-i18n="settings.privacy.history">Show Donation History</p>
+                                <p class="text-sm text-slate-600"
+                                    data-i18n="settings.privacy.history_desc">Display your donation statistics
+                                </p>
+                            </div>
+                            <input type="checkbox" checked class="sr-only peer">
+                            <div
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                    <h2 class="text-2xl font-bold text-emergency mb-6" data-i18n="settings.danger">Danger Zone</h2>
+                    <div class="space-y-4">
+                        <button id="deactivateBtn"
+                            class="w-full px-6 py-3 rounded-xl border-2 border-emergency text-emergency font-semibold hover:bg-emergency hover:text-white transition-all">
+                            <span data-i18n="settings.danger.deactivate">Deactivate Account</span>
+                        </button>
+                        <button id="deleteAccBtn"
+                            class="w-full px-6 py-3 rounded-xl bg-emergency text-white font-semibold hover:bg-red-700 transition-all">
+                        </button>
+                        <button id="deleteAccBtn"
+                            class="w-full px-6 py-3 rounded-xl bg-emergency text-white font-semibold hover:bg-red-700 transition-all">
+                            <span data-i18n="settings.danger.delete">Delete Account Permanently</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>    <script type="module">
+        import { auth, db, initAuthObserver, logoutUser, deleteUserAccount } from '../assets/js/auth-service.js';
+        import { saveUserProfile, deleteUserProfile } from '../assets/js/db-service.js';
+        function updateThemeButtons() {
+            const activeTheme = window.getTheme();
+            themeButtons.forEach(btn => {
+                const theme = btn.dataset.theme;
+                if (theme === activeTheme) {
+                    btn.classList.add('border-primary', 'bg-primary/10', 'text-primary');
+                    btn.classList.remove('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+                } else {
+                    btn.classList.remove('border-primary', 'bg-primary/10', 'text-primary');
+                    btn.classList.add('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+                }
+            });
+        }
+
+        updateThemeButtons();
+
+        themeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                window.setTheme(btn.dataset.theme);
+                updateThemeButtons();
+            });
+        });
+
+        document.addEventListener('lifelink-theme-change', updateThemeButtons);
+
+        initAuthObserver(async (user) => {
+            const navbar = document.querySelector('app-navbar');
+            if (user) {
+                if (navbar && navbar.updateAuth) navbar.updateAuth(user);
+            } else {
+                window.location.href = '../auth/login.html';
+            }
+        });
+
+        // Danger Zone Actions
+        const deactivateBtn = document.getElementById('deactivateBtn');
+        const deleteAccBtn = document.getElementById('deleteAccBtn');
+
+        deactivateBtn.addEventListener('click', async () => {
+            if (!confirm('Are you sure you want to deactivate your account? Your profile will be hidden from others.')) return;
+
+            deactivateBtn.disabled = true;
+            deactivateBtn.textContent = 'Deactivating...';
+
+            const result = await saveUserProfile(db, auth.currentUser, null, { status: 'inactive' });
+            if (result.success) {
+                alert('Account deactivated successfully.');
+                await logoutUser();
+            } else {
+                alert('Error: ' + result.error);
+                deactivateBtn.disabled = false;
+                deactivateBtn.textContent = 'Deactivate Account';
+            }
+        });
+
+        deleteAccBtn.addEventListener('click', async () => {
+            if (!confirm('CRITICAL: This will permanently delete your data and account. This action cannot be undone. Proceed?')) return;
+
+            deleteAccBtn.disabled = true;
+            deleteAccBtn.textContent = 'Deleting Account...';
+
+            // 1. Delete Firestore Data
+            const dbResult = await deleteUserProfile(db, auth.currentUser.uid);
+
+            if (dbResult.success) {
+                // 2. Delete Auth Account
+                const authResult = await deleteUserAccount();
+                if (!authResult.success) {
+                    alert('Data deleted, but account removal failed (might need recent login). Please contact support.');
+                    deleteAccBtn.disabled = false;
+                    deleteAccBtn.textContent = 'Delete Account Permanently';
+                }
+            } else {
+                alert('Error deleting data: ' + dbResult.error);
+                deleteAccBtn.disabled = false;
+                deleteAccBtn.textContent = 'Delete Account Permanently';
+            }
+        });
+    </script>
+</body>

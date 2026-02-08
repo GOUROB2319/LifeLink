@@ -1,0 +1,420 @@
+const getBaseUrl = () => {
+    const currentUrl = new URL(window.location.href);
+    const htmlBase = document.documentElement.getAttribute('data-base');
+    if (htmlBase) {
+        return new URL(htmlBase, currentUrl.href).toString();
+    }
+
+    const path = currentUrl.pathname;
+    const roots = ['/auth/', '/dashboard/', '/info/', '/onboarding/'];
+    let rootPath = '/';
+    let matchedRoot = false;
+    for (const seg of roots) {
+        if (path.includes(seg)) {
+            rootPath = path.split(seg)[0] + '/';
+            matchedRoot = true;
+            break;
+        }
+    }
+
+    // If on index or unknown, fallback to directory root
+    if (!matchedRoot && rootPath === '/' && path.endsWith('.html')) {
+        rootPath = path.slice(0, path.lastIndexOf('/') + 1);
+    }
+
+    const origin = currentUrl.protocol === 'file:' ? 'file://' : `${currentUrl.protocol}//${currentUrl.host}`;
+    return `${origin}${rootPath}`;
+};
+
+const createResolvePath = () => {
+    const baseUrl = getBaseUrl();
+    return (path) => {
+        const clean = path.replace(/^\/+/, '');
+        return new URL(clean, baseUrl).toString();
+    };
+};
+
+// Global auth observer for navbar consistency
+(function () {
+    if (window.__lifelinkAuthObserverReady) return;
+    window.__lifelinkAuthObserverReady = true;
+
+    const init = async () => {
+        try {
+            const resolvePath = createResolvePath();
+            const authUrl = resolvePath('assets/js/auth-service.js');
+            const module = await import(authUrl);
+            if (!module?.initAuthObserver) return;
+            module.initAuthObserver((user) => {
+                document.querySelectorAll('app-navbar').forEach((nav) => {
+                    if (user && nav.updateAuth) nav.updateAuth(user);
+                });
+            });
+        } catch (err) {
+            console.warn('Navbar auth observer init failed:', err);
+        }
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+class Navbar extends HTMLElement {
+    constructor() {
+        super();
+        this._isAuth = false;
+    }
+
+    connectedCallback() {
+        const isAuth = this.getAttribute('auth') === 'true';
+        this._isAuth = isAuth;
+        const activeLink = this.getAttribute('active') || '';
+
+        const resolvePath = createResolvePath();
+        this._resolvePath = resolvePath;
+
+        this.injectSecurityMeta();
+        this.injectAppCheckScript();
+
+        this.render(isAuth, activeLink);
+        this.initLogic();
+    }
+
+    render(isAuth, activeLink) {
+        const resolvePath = this._resolvePath || ((p) => p);
+        this.innerHTML = `
+    <header class="fixed top-0 z-50 w-full transition-all duration-300 glass dark:glass-dark dark:bg-slate-900/95 border-b border-white/20 dark:border-slate-800">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-20 items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-0.5 cursor-pointer group" onclick="window.location.href='${resolvePath('index.html')}'">
+                    <div class="relative flex items-center justify-center w-12 h-12 transition-transform duration-300 hover:scale-105">
+                        <img src="${resolvePath('assets/images/lifelink-logo.svg')}" alt="LifeLink BD Logo" class="w-full h-full object-contain">
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-slate-800 dark:text-white">LifeLink <span class="text-secondary">BD</span></span>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1">
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors ${activeLink === 'services' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/services.html')}" data-i18n="nav.services">Services</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors ${activeLink === 'how-it-works' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#how-it-works')}" data-i18n="nav.howItWorks">How it Works</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors ${activeLink === 'impact' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('index.html#impact')}" data-i18n="nav.impact">Impact</a>
+                    <a class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors ${activeLink === 'about' ? 'bg-primary/10 text-primary' : ''}" href="${resolvePath('info/about.html')}" data-i18n="nav.about">About Us</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-3">
+                    <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
+
+                    ${!isAuth ? `
+                    <a href="${resolvePath('auth/login.html')}" class="hidden sm:block text-sm font-semibold text-slate-900 dark:text-white hover:text-primary transition-colors px-2" data-i18n="nav.login">Login</a>
+                    
+                    <a href="${resolvePath('auth/register.html')}" class="hidden sm:flex relative overflow-hidden bg-brand-gradient text-white text-sm font-bold px-6 py-2.5 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300 group min-w-[180px] justify-center">
+                        <span class="relative z-10 flex items-center gap-2">
+                            <span data-i18n="nav.join">Join LifeLink</span>
+                            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                        </span>
+                    </a>
+                    ` : `
+                    <!-- Authenticated state -->
+                    <div class="relative group" id="profile-dropdown">
+                        <button class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                            <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+                                <span class="material-symbols-outlined">account_circle</span>
+                            </div>
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">expand_more</span>
+                        </button>
+                        
+                        <div class="absolute right-0 mt-2 w-56 origin-top-right bg-white dark:bg-surface-dark rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[100] transform scale-95 group-hover:scale-100">
+                            <div class="px-4 py-3 border-b border-slate-100 dark:border-slate-800">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Account</p>
+                                <p id="user-display-name" class="text-sm font-bold text-slate-900 dark:text-white truncate">User Name</p>
+                            </div>
+                            
+                            <a id="dashboard-link" href="${resolvePath('dashboard/donor.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                                <span class="material-symbols-outlined text-[20px]">dashboard</span>
+                                <span>Dashboard</span>
+                            </a>
+                            <a href="${resolvePath('dashboard/profile.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                                <span class="material-symbols-outlined text-[20px]">person</span>
+                                <span>Profile</span>
+                            </a>
+                            <a href="${resolvePath('dashboard/settings.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                                <span class="material-symbols-outlined text-[20px]">settings</span>
+                                <span>Settings</span>
+                            </a>
+                            <a href="${resolvePath('dashboard/admin_dashboard.html')}" class="flex items-center gap-3 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary transition-all">
+                                <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+                                <span>Admin Dashboard</span>
+                            </a>
+                            <div class="h-[1px] bg-slate-100 dark:bg-slate-800 my-1"></div>
+                            <button id="logout-btn" class="w-full flex items-center gap-3 px-4 py-3 text-sm text-emergency hover:bg-red-50 dark:hover:bg-red-900/10 transition-all font-bold">
+                                <span class="material-symbols-outlined text-[20px]">logout</span>
+                                <span>Sign Out</span>
+                            </button>
+                        </div>
+                    </div>
+                    `}
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Backdrop -->
+        <div id="mobile-backdrop" class="fixed inset-0 bg-black/30 opacity-0 pointer-events-none transition-opacity md:hidden"></div>
+
+        <!-- Mobile Menu (Side Drawer) -->
+        <div id="mobile-menu" class="fixed top-0 right-0 h-screen w-80 max-w-[85vw] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-l border-slate-200 dark:border-slate-800 shadow-2xl transition-all duration-300 transform translate-x-full opacity-0 md:hidden">
+            <div class="px-4 py-6 space-y-4">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+                    <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Menu</p>
+                    <button id="mobile-menu-close" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <a href="${resolvePath('info/services.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold transition-colors" data-i18n="nav.services">Services</a>
+                <a href="${resolvePath('index.html#how-it-works')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold transition-colors" data-i18n="nav.howItWorks">How it Works</a>
+                <a href="${resolvePath('index.html#impact')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold transition-colors" data-i18n="nav.impact">Impact</a>
+                <a href="${resolvePath('info/about.html')}" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold transition-colors" data-i18n="nav.about">About Us</a>
+                
+                ${!isAuth ? `
+                <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col gap-3">
+                    <a href="${resolvePath('auth/login.html')}" class="block w-full text-center py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-300" data-i18n="nav.login">Login</a>
+                    <a href="${resolvePath('onboarding/step1.html')}" class="block w-full text-center py-3 rounded-xl bg-brand-gradient text-white font-bold shadow-lg shadow-primary/20 min-w-[180px]" data-i18n="nav.join">Join LifeLink</a>
+                </div>
+                ` : ''}
+            </div>
+        </div>
+    </header>
+        `;
+    }
+
+    injectSecurityMeta() {
+        const head = document.head;
+        if (!head) return;
+
+        const ensureMeta = (key, value, isHttpEquiv = false) => {
+            const selector = isHttpEquiv ? `meta[http-equiv="${key}"]` : `meta[name="${key}"]`;
+            if (head.querySelector(selector)) return;
+            const meta = document.createElement('meta');
+            if (isHttpEquiv) {
+                meta.setAttribute('http-equiv', key);
+            } else {
+                meta.setAttribute('name', key);
+            }
+            meta.setAttribute('content', value);
+            head.appendChild(meta);
+        };
+
+        ensureMeta('Content-Security-Policy',
+            "default-src 'self'; " +
+            "script-src 'self' https://cdn.tailwindcss.com https://www.gstatic.com https://www.googleapis.com https://apis.google.com https://accounts.google.com 'unsafe-inline' blob:; " +
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+            "font-src https://fonts.gstatic.com data:; " +
+            "img-src 'self' data: https:; " +
+            "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://www.gstatic.com https://accounts.google.com https://www.google-analytics.com; " +
+            "frame-src https://accounts.google.com https://*.google.com https://*.firebaseapp.com;",
+            true
+        );
+
+        ensureMeta('Referrer-Policy', 'no-referrer');
+        ensureMeta('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+    }
+
+    injectAppCheckScript() {
+        if (document.querySelector('script[data-app-check]')) return;
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = this._resolvePath('assets/js/app-check.js');
+        script.setAttribute('data-app-check', 'true');
+        document.head.appendChild(script);
+    }
+
+    initLogic() {
+        // Mobile Menu
+        const mobileBtn = this.querySelector('#mobile-menu-btn');
+        const mobileMenu = this.querySelector('#mobile-menu');
+        const mobileBackdrop = this.querySelector('#mobile-backdrop');
+        const mobileClose = this.querySelector('#mobile-menu-close');
+        const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
+
+        const openMobileMenu = () => {
+            if (!mobileMenu) return;
+            mobileMenu.classList.remove('translate-x-full', 'opacity-0');
+            mobileBackdrop && mobileBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.classList.add('overflow-hidden');
+            if (mobileBtn) mobileBtn.querySelector('span').textContent = 'close';
+        };
+
+        const closeMobileMenu = () => {
+            if (!mobileMenu) return;
+            mobileMenu.classList.add('translate-x-full', 'opacity-0');
+            mobileBackdrop && mobileBackdrop.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('overflow-hidden');
+            if (mobileBtn) mobileBtn.querySelector('span').textContent = 'menu';
+        };
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                const isClosed = mobileMenu.classList.contains('translate-x-full');
+                if (isClosed) openMobileMenu();
+                else closeMobileMenu();
+            });
+        }
+
+        if (mobileBackdrop) {
+            mobileBackdrop.addEventListener('click', closeMobileMenu);
+        }
+
+        if (mobileClose) {
+            mobileClose.addEventListener('click', closeMobileMenu);
+        }
+
+        if (mobileLinks.length) {
+            mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+        }
+    }
+
+    /**
+     * Update the navbar to show authenticated state
+     * @param {Object} user - Firebase user
+     */
+    updateAuth(user) {
+        if (!user) return;
+        if (!this._isAuth) {
+            this._isAuth = true;
+            this.setAttribute('auth', 'true');
+            this.render(true, this.getAttribute('active') || '');
+            this.initLogic();
+            this.setupLanguageListener();
+            if (window.localization) {
+                window.localization.updateDOM();
+            }
+        }
+
+        const displayName = user.displayName || user.email.split('@')[0];
+        const nameEl = this.querySelector('#user-display-name');
+        if (nameEl) nameEl.textContent = displayName;
+
+        // Update dashboard link if a role-specific path is stored
+        const dashboardLink = this.querySelector('#dashboard-link');
+        const storedDashboard = localStorage.getItem('lifelink_dashboard');
+        if (storedDashboard && this._resolvePath) {
+            if (dashboardLink) dashboardLink.href = this._resolvePath(`dashboard/${storedDashboard}`);
+        }
+
+        // Logout logic - we expect the globally available logout function
+        const logoutBtn = this.querySelector('#logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+                // Try to find the logoutUser function from auth-service
+                if (window.dispatchEvent) {
+                    window.dispatchEvent(new CustomEvent('lifelink-logout'));
+                }
+            });
+        }
+    }
+}
+
+customElements.define('app-navbar', Navbar);
+
+class Footer extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        const resolvePath = createResolvePath();
+        this.innerHTML = `
+    <footer class="bg-slate-900 text-slate-300 py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-1 mb-6">
+                        <div class="w-20 h-20 bg-white/5 rounded-2xl flex items-center justify-center p-2">
+                            <img src="${resolvePath('assets/images/lifelink-logo.svg')}" alt="LifeLink BD Logo" class="w-full h-full object-contain">
+                        </div>
+                        <span class="text-2xl font-bold text-white">LifeLink <span class="text-secondary">BD</span></span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed" data-i18n="footer.tagline">
+                        The professional bridge between medical resources and human needs. Available 24/7 for emergency support.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-4" data-i18n="footer.quick_links">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="${resolvePath('dashboard/donor.html')}" class="hover:text-primary transition-colors" data-i18n="footer.find_donors">Find Donors</a></li>
+                        <li><a href="${resolvePath('dashboard/hospital.html')}" class="hover:text-primary transition-colors" data-i18n="footer.hospital_partners">Hospital Partners</a></li>
+                        <li><a href="${resolvePath('dashboard/emergency.html')}" class="hover:text-primary transition-colors" data-i18n="footer.emergency">Emergency</a></li>
+                        <li><a href="${resolvePath('dashboard/directory.html')}" class="hover:text-primary transition-colors" data-i18n="footer.find_doctor">Find a Doctor</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-white font-bold mb-4" data-i18n="footer.support">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="${resolvePath('info/services.html')}" class="hover:text-primary transition-colors" data-i18n="footer.help_center">Help Center</a></li>
+                        <li><a href="${resolvePath('info/privacy.html')}" class="hover:text-primary transition-colors" data-i18n="footer.terms_privacy">Terms & Privacy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold mb-4" data-i18n="footer.contact_us">Contact Us</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-lg">mail</span>
+                            support@lifelink.org
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-lg">phone</span>
+                            +880 1234-567890
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+                            <span data-i18n="footer.address">Dhaka, Bangladesh</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex flex-col gap-1 text-center md:text-left">
+                    <p class="text-sm text-slate-400" data-i18n="footer.rights">&copy; 2024 LifeLink BD. All rights reserved.</p>
+                    <p class="text-[10px] text-slate-500 opacity-60">
+                        Red Cross logo by International Committee of the Red Cross - <a href="http://www.icrc.org/Web/Eng/siteeng0.nsf/htmlall/p4012/%24File/ICRC_002_4012.PDF" rel="nofollow" class="hover:text-primary underline">Source</a>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=9937766" class="hover:text-primary underline">Link</a>
+                    </p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="https://www.facebook.com/LifeLinkB" class="text-slate-400 hover:text-primary transition-colors" rel="noopener" target="_blank">Facebook</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+        `;
+
+        this.setupLanguageListener();
+    }
+
+    setupLanguageListener() {
+        document.addEventListener('lifelink-language-change', () => {
+            if (window.localization) {
+                setTimeout(() => window.localization.updateDOM(), 50);
+            }
+        });
+    }
+}
+
+customElements.define('app-footer', Footer);

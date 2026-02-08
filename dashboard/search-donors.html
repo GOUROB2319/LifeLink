@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Donors - LifeLink</title>    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+</head>
+
+<body class="bg-aurora text-slate-800 antialiased">
+    <app-navbar auth="true"></app-navbar>
+    <main class="relative z-10 pt-28 pb-20 min-h-screen">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h1 class="text-4xl font-black text-slate-900 mb-4">Find Blood Donors</h1>
+                <p class="text-slate-600">Search for available donors near you</p>
+            </div>
+
+            <!-- Search Filters -->
+            <div
+                class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <select id="bloodGroupFilter"
+                        class="px-4 py-3 rounded-xl border-2 border-slate-200">
+                        <option value="">All Blood Groups</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                    <select id="divisionFilter" data-division-select
+                        class="px-4 py-3 rounded-xl border-2 border-slate-200"></select>
+                    <select id="districtFilter" data-district-select
+                        class="px-4 py-3 rounded-xl border-2 border-slate-200"></select>
+                    <button id="searchBtn"
+                        class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition-all">
+                        <span class="material-symbols-outlined inline-block mr-2">search</span>Search
+                    </button>
+                </div>
+                <button id="useLocationBtn"
+                    class="mt-4 text-sm text-primary font-bold flex items-center gap-2 hover:underline">
+                    <span class="material-symbols-outlined text-lg">my_location</span>
+                    Use my current location
+                </button>
+            </div>
+
+            <!-- Results -->
+            <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div id="loading" class="hidden text-center py-12">
+                <div
+                    class="inline-block w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin">
+                </div>
+                <p class="mt-4 text-slate-600">Searching donors...</p>
+            </div>
+            <div id="empty" class="hidden text-center py-12">
+                <span class="material-symbols-outlined text-6xl text-slate-400 mb-4 block">person_search</span>
+                <p class="text-slate-600">No donors found. Try different filters.</p>
+            </div>
+        </div>
+    </main>    <script src="../assets/js/districts.js"></script>
+    <script src="../assets/js/divisions.js"></script>
+    <script type="module">
+        import { db } from '../assets/js/auth-service.js';
+        import { searchDirectory } from '../assets/js/db-service.js';
+        import { getCurrentLocation, findNearby, formatDistance } from '../assets/js/geolocation.js';
+        import { showLoading, hideLoading, showEmptyState } from '../assets/js/loading.js';
+        import { showErrorNotification } from '../assets/js/error-handler.js';
+
+        const resultsDiv = document.getElementById('results');
+        const loadingDiv = document.getElementById('loading');
+        const emptyDiv = document.getElementById('empty');
+        let userLocation = null;
+
+        document.getElementById('useLocationBtn').addEventListener('click', async () => {
+            try {
+                userLocation = await getCurrentLocation();
+                showErrorNotification(`Location detected: ${userLocation.latitude.toFixed(2)}, ${userLocation.longitude.toFixed(2)}`);
+                searchDonors();
+            } catch (error) {
+                showErrorNotification('Could not get your location. Please enable location services.');
+            }
+        });
+
+        document.getElementById('searchBtn').addEventListener('click', () => searchDonors());
+
+        async function searchDonors() {
+            resultsDiv.innerHTML = '';
+            loadingDiv.classList.remove('hidden');
+            emptyDiv.classList.add('hidden');
+
+            const bloodGroup = document.getElementById('bloodGroupFilter').value;
+            const division = document.getElementById('divisionFilter').value;
+            const district = document.getElementById('districtFilter').value;
+
+            try {
+                let donors = await searchDirectory(db, { role: 'donor', bloodGroup, division });
+
+                if (userLocation && donors.length > 0) {
+                    donors = findNearby(userLocation, donors, 100);
+                }
+
+                loadingDiv.classList.add('hidden');
+
+                if (donors.length === 0) {
+                    emptyDiv.classList.remove('hidden');
+                    return;
+                }
+
+                donors.forEach(donor => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white rounded-xl shadow-lg border border-slate-200 p-6 hover:shadow-2xl transition-all';
+                    card.innerHTML = `
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-2xl">person</span>
+                            </div>
+                            <span class="px-3 py-1 bg-emergency/10 text-emergency rounded-full text-sm font-bold">${donor.bloodGroup || 'N/A'}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">${donor.displayName || 'Anonymous'}</h3>
+                        <div class="space-y-2 text-sm text-slate-600">
+                            <p class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-lg">location_on</span>
+                                ${donor.district || 'N/A'}, ${donor.division || 'N/A'}
+                            </p>
+                            ${donor.distance ? `<p class="flex items-center gap-2 text-primary font-bold">
+                                <span class="material-symbols-outlined text-lg">near_me</span>
+                                ${formatDistance(donor.distance)}
+                            </p>` : ''}
+                            <p class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-lg">${donor.availability ? 'check_circle' : 'cancel'}</span>
+                                ${donor.availability ? 'Available' : 'Not Available'}
+                            </p>
+                        </div>
+                        <button onclick="contactDonor('${donor.id}')" class="mt-4 w-full bg-primary text-white py-2 rounded-lg font-bold hover:scale-105 transition-all">
+                            Contact Donor
+                        </button>
+                    `;
+                    resultsDiv.appendChild(card);
+                });
+            } catch (error) {
+                loadingDiv.classList.add('hidden');
+                showErrorNotification('Failed to search donors');
+            }
+        }
+
+        window.contactDonor = (id) => {
+            showErrorNotification('Contact feature coming soon!');
+        };
+
+        searchDonors();
+    </script>
+</body>
+
+</html>

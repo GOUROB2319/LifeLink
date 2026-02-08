@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Toggle Debug - LifeLink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8 text-slate-900 dark:text-white">Language Toggle Debug Tool</h1>
+        
+        <!-- Test 1: Check if scripts loaded -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 mb-6 shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-slate-800 dark:text-white">1. Script Loading Status</h2>
+            <div id="script-status" class="space-y-2"></div>
+        </div>
+
+        <!-- Test 2: Manual Toggle Button -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 mb-6 shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-slate-800 dark:text-white">2. Manual Toggle Test</h2>
+            <button id="manual-toggle" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors">
+                Click to Toggle Language
+            </button>
+            <p id="toggle-result" class="mt-4 text-slate-600 dark:text-slate-300"></p>
+        </div>
+
+        <!-- Test 3: Navbar Component -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 mb-6 shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-slate-800 dark:text-white">3. Navbar Component Test</h2>
+            <app-navbar></app-navbar>
+            <p class="mt-4 text-sm text-slate-500">Check if the navbar language toggle button works</p>
+        </div>
+
+        <!-- Test 4: Translation Test -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 mb-6 shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-slate-800 dark:text-white">4. Translation Test</h2>
+            <div class="space-y-2">
+                <p data-i18n="nav.home" class="text-lg text-slate-700 dark:text-slate-200">Home</p>
+                <p data-i18n="hero.title" class="text-lg text-slate-700 dark:text-slate-200">Connecting Lives</p>
+                <p data-i18n="nav.services" class="text-lg text-slate-700 dark:text-slate-200">Services</p>
+            </div>
+        </div>
+
+        <!-- Test 5: Console Logs -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-slate-800 dark:text-white">5. Console Logs</h2>
+            <p class="text-sm text-slate-500 mb-2">Open browser console (F12) to see detailed logs</p>
+            <div id="console-output" class="bg-slate-100 dark:bg-slate-900 p-4 rounded font-mono text-sm"></div>
+        </div>
+    </div>
+
+    <!-- Load scripts in order -->
+    <script src="assets/js/components.js"></script>
+    <script src="assets/js/localization.js"></script>
+    
+    <script>
+        // Custom console logger
+        const logOutput = document.getElementById('console-output');
+        const scriptStatus = document.getElementById('script-status');
+        const toggleResult = document.getElementById('toggle-result');
+        const manualToggle = document.getElementById('manual-toggle');
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-slate-700 dark:text-slate-300';
+            logOutput.innerHTML += `<div class="${color}">[${timestamp}] ${message}</div>`;
+            console.log(`[DEBUG] ${message}`);
+        }
+
+        // Test 1: Check script loading
+        function checkScriptLoading() {
+            const checks = [
+                { name: 'window.localization', exists: !!window.localization },
+                { name: 'window.toggleLanguage', exists: !!window.toggleLanguage },
+                { name: 'customElements (app-navbar)', exists: customElements.get('app-navbar') !== undefined }
+            ];
+
+            checks.forEach(check => {
+                const status = check.exists ? '✅' : '❌';
+                const color = check.exists ? 'text-green-600' : 'text-red-600';
+                scriptStatus.innerHTML += `<div class="${color}">${status} ${check.name}: ${check.exists ? 'Loaded' : 'Not Found'}</div>`;
+                log(`Script check: ${check.name} = ${check.exists}`);
+            });
+        }
+
+        // Test 2: Manual toggle
+        manualToggle.addEventListener('click', () => {
+            log('Manual toggle button clicked');
+            
+            if (window.toggleLanguage) {
+                try {
+                    window.toggleLanguage();
+                    const currentLang = window.localization?.currentLang || 'unknown';
+                    toggleResult.innerHTML = `<span class="text-green-600">✅ Toggle successful! Current language: ${currentLang}</span>`;
+                    log(`Toggle successful, current lang: ${currentLang}`, 'success');
+                } catch (error) {
+                    toggleResult.innerHTML = `<span class="text-red-600">❌ Error: ${error.message}</span>`;
+                    log(`Toggle error: ${error.message}`, 'error');
+                }
+            } else {
+                toggleResult.innerHTML = '<span class="text-red-600">❌ window.toggleLanguage not found!</span>';
+                log('window.toggleLanguage not found', 'error');
+            }
+        });
+
+        // Run checks when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    log('DOM loaded, running checks...');
+                    checkScriptLoading();
+                }, 500);
+            });
+        } else {
+            setTimeout(() => {
+                log('DOM already loaded, running checks...');
+                checkScriptLoading();
+            }, 500);
+        }
+
+        // Monitor language changes
+        document.addEventListener('lifelink-language-change', (e) => {
+            log(`Language changed to: ${e.detail.lang}`, 'success');
+        });
+    </script>
+</body>
+</html>

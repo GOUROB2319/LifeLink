@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html  lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor & Hospital Directory - LifeLink</title>  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/components.js"></script>
+  <link href="../assets/css/styles.css" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+</head>
+
+<body
+  class="bg-aurora text-slate-800 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+  <app-navbar auth="true"></app-navbar>
+  <main class="relative z-10 pt-28 pb-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12">
+        <h1 class="text-4xl font-black text-slate-900 mb-4">Doctor & Hospital Directory</h1>
+        <p class="text-slate-600 text-lg">Find verified healthcare professionals across Bangladesh
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <input type="text" id="searchInput" placeholder="Search by name..."
+            class="px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+          <select id="specialtyFilter"
+            class="px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+            <option value="">All Specialties</option>
+            <option value="cardiology">Cardiology</option>
+            <option value="neurology">Neurology</option>
+            <option value="orthopedics">Orthopedics</option>
+            <option value="pediatrics">Pediatrics</option>
+            <option value="gynecology">Gynecology</option>
+          </select>
+          <select id="divisionFilter"
+            class="px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+            <option value="">All Divisions</option>
+            <option value="dhaka">Dhaka</option>
+            <option value="chittagong">Chittagong</option>
+            <option value="rajshahi">Rajshahi</option>
+            <option value="khulna">Khulna</option>
+          </select>
+          <button id="searchBtn"
+            class="bg-brand-gradient text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all duration-300">
+            Search
+          </button>
+        </div>
+      </div>
+
+      <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Results will be loaded here -->
+        <div class="col-span-full py-20 text-center">
+          <div class="animate-spin w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full mx-auto mb-4">
+          </div>
+          <p class="text-slate-500">Loading directory...</p>
+        </div>
+      </div>
+    </div>
+  </main>  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script type="module">
+    import { db, initAuthObserver } from '../assets/js/auth-service.js';
+    import { searchDirectory } from '../assets/js/db-service.js';
+
+    const resultsGrid = document.getElementById('resultsGrid');
+    const searchInput = document.getElementById('searchInput');
+    const specialtyFilter = document.getElementById('specialtyFilter');
+    const divisionFilter = document.getElementById('divisionFilter');
+    const searchBtn = document.getElementById('searchBtn');
+
+    const fallbackAfter = (container, message, delay = 6000) => {
+      setTimeout(() => {
+        if (container && container.textContent.includes('Searching records')) {
+          container.innerHTML = `<p class="col-span-full text-center text-slate-500 py-10">${message}</p>`;
+        }
+      }, delay);
+    };
+
+    initAuthObserver(async (user) => {
+      const navbar = document.querySelector('app-navbar');
+      if (user && navbar && navbar.updateAuth) navbar.updateAuth(user);
+
+      performSearch();
+    });
+
+    async function performSearch() {
+      resultsGrid.innerHTML = `
+              <div class="col-span-full py-20 text-center">
+                  <div class="animate-spin w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full mx-auto mb-4"></div>
+                  <p class="text-slate-500">Searching records...</p>
+              </div>
+          `;
+      fallbackAfter(resultsGrid, 'No directory data found.');
+
+      const criteria = {
+        name: searchInput.value,
+        specialty: specialtyFilter.value,
+        division: divisionFilter.value
+      };
+
+      try {
+        const results = await searchDirectory(db, criteria);
+        renderResults(results);
+      } catch (err) {
+        console.error("Search error:", err);
+        resultsGrid.innerHTML = `<p class="col-span-full text-center text-emergency font-bold py-10">Error loading data. Please try again.</p>`;
+      }
+    }
+
+    function getDeterministicRating(seed) {
+      const text = String(seed || 'lifelink');
+      let hash = 0;
+      for (let i = 0; i < text.length; i++) {
+        hash = (hash * 31 + text.charCodeAt(i)) % 1000;
+      }
+      return (3.6 + (hash % 14) / 10).toFixed(1); // 3.6 - 5.0
+    }
+
+    function renderResults(results) {
+      if (results.length === 0) {
+        resultsGrid.innerHTML = `
+                  <div class="col-span-full py-20 text-center">
+                      <span class="material-symbols-outlined text-6xl text-slate-300 mb-4">search_off</span>
+                      <p class="text-xl font-bold text-slate-400">No results found matching your criteria.</p>
+                  </div>
+              `;
+        return;
+      }
+
+      resultsGrid.innerHTML = results.map(item => {
+        const isDoctor = item.role === 'doctor';
+        const rating = item.rating || getDeterministicRating(item.uid || item.id || item.displayName || item.hospitalName);
+        const stars = Array(5).fill(0).map((_, i) => `
+                  <span class="material-symbols-outlined ${i < Math.floor(rating) ? 'text-amber-500' : 'text-slate-300'} text-sm">star</span>
+              `).join('');
+
+        return `
+                  <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-xl transition-all animate-fade-in">
+                      <div class="flex items-start gap-4 mb-4">
+                          <div class="w-16 h-16 ${isDoctor ? 'bg-primary/10' : 'bg-blue-100'} rounded-full flex items-center justify-center flex-shrink-0">
+                              <span class="material-symbols-outlined text-3xl ${isDoctor ? 'text-primary' : 'text-blue-600'}">${isDoctor ? 'person' : 'local_hospital'}</span>
+                          </div>
+                          <div class="flex-1">
+                              <h3 class="text-lg font-bold text-slate-900 mb-1 truncate">${item.displayName || item.hospitalName}</h3>
+                              <p class="text-sm text-slate-600">${item.specialty || item.hospitalType || (isDoctor ? 'General Practitioner' : 'General Hospital')}</p>
+                              <div class="flex items-center gap-1 mt-2">
+                                  ${stars}
+                                  <span class="text-xs text-slate-500 ml-1">(${rating})</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="space-y-2 text-sm text-slate-600 mb-4">
+                          <p class="flex items-center gap-2">
+                              <span class="material-symbols-outlined text-lg">${isDoctor ? 'local_hospital' : 'location_on'}</span>
+                              ${item.hospitalName || item.address || item.district || 'Location details private'}
+                          </p>
+                          <p class="flex items-center gap-2">
+                              <span class="material-symbols-outlined text-lg">phone</span>
+                              ${item.phone || 'N/A'}
+                          </p>
+                          <p class="flex items-center gap-2">
+                              <span class="material-symbols-outlined text-lg">${isDoctor ? 'work' : 'schedule'}</span>
+                              ${isDoctor ? (item.experience || 'Experienced') : (item.hours || '24/7 Emergency')}
+                          </p>
+                      </div>
+                      <button class="w-full px-4 py-2 rounded-xl bg-primary/10 text-primary font-semibold hover:bg-primary hover:text-white transition-all">
+                          View ${isDoctor ? 'Profile' : 'Details'}
+                      </button>
+                  </div>
+              `;
+      }).join('');
+    }
+
+    searchBtn.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
+  </script>
+</body>
+
+</html>

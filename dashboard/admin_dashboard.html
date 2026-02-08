@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - LifeLink</title>    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a57db",
+                        "background-light": "#f8f9fb",
+                        "background-dark": "#111621",
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="../assets/js/components.js"></script>
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+</head>
+
+<body class="bg-[#f8f9fb] text-slate-800 antialiased min-h-screen">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside
+            class="w-64 flex-shrink-0 bg-white#1a1f2e] border-r border-[#f0f2f4] flex flex-col py-6 px-4">
+            <div class="flex items-center gap-3 px-2 mb-10">
+                <div class="bg-primary rounded-lg p-1.5 text-white">
+                    <span class="material-symbols-outlined">health_and_safety</span>
+                </div>
+                <div>
+                    <h1 class="text-[#111318] text-lg font-bold leading-none">LifeLink</h1>
+                    <p class="text-[#636e88] text-xs font-medium">Admin Portal</p>
+                </div>
+            </div>
+            <nav class="flex flex-col gap-1">
+                <div class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg cursor-pointer">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <p class="text-sm font-bold">Dashboard</p>
+                </div>
+                <div onclick="window.location.reload()"
+                    class="flex items-center gap-3 px-3 py-2.5 text-[#636e88] hover:bg-gray-100 rounded-lg cursor-pointer transition-colors">
+                    <span class="material-symbols-outlined">fact_check</span>
+                    <p class="text-sm font-medium">Verification Queue</p>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+            <app-navbar auth="true"></app-navbar>
+            <main class="flex-1 overflow-auto p-8 pt-24">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex items-center justify-between mb-8">
+                        <div>
+                            <h2 class="text-3xl font-black text-[#111318] leading-tight">Verification
+                                Queue</h2>
+                            <p class="text-slate-500 font-medium">Review and approve medical practitioner credentials
+                            </p>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="bg-white#1a1f2e] p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+                                <div class="bg-yellow-500/10 p-2 rounded-lg text-yellow-600">
+                                    <span class="material-symbols-outlined">pending_actions</span>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Pending</p>
+                                    <p id="pending-count" class="text-2xl font-black">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white#1a1f2e] rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-left">
+                            <thead
+                                class="bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                        Practitioner</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                        Specialty</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                        Applied Date</th>
+                                    <th
+                                        class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
+                                        Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="verification-list" class="divide-y divide-slate-100">
+                                <!-- Dynamic Rows -->
+                                <tr>
+                                    <td colspan="4" class="px-6 py-20 text-center">
+                                        <div
+                                            class="animate-spin w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full mx-auto mb-4">
+                                        </div>
+                                        <p class="text-slate-500">Loading queue...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import { db, initAuthObserver } from '../assets/js/auth-service.js';
+        import { getPendingVerifications } from '../assets/js/db-service.js';
+
+        const listContainer = document.getElementById('verification-list');
+        const pendingCount = document.getElementById('pending-count');
+
+        initAuthObserver(async (user) => {
+            const navbar = document.querySelector('app-navbar');
+            if (user && navbar && navbar.updateAuth) navbar.updateAuth(user);
+
+            loadQueue();
+        });
+
+        async function loadQueue() {
+            try {
+                const requests = await getPendingVerifications(db);
+                pendingCount.textContent = requests.length;
+
+                if (requests.length === 0) {
+                    listContainer.innerHTML = `
+                        <tr>
+                            <td colspan="4" class="px-6 py-20 text-center">
+                                <span class="material-symbols-outlined text-6xl text-slate-200 mb-4">task_alt</span>
+                                <p class="text-xl font-bold text-slate-400">All caught up!</p>
+                                <p class="text-slate-500">No pending verifications at this time.</p>
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                listContainer.innerHTML = requests.map(doc => `
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                                    ${doc.displayName ? doc.displayName.charAt(0) : 'D'}
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-900">${doc.displayName || 'Unknown Doctor'}</p>
+                                    <p class="text-xs text-slate-500">${doc.email}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 font-medium text-slate-600">${doc.specialty || 'General Practitioner'}</td>
+                        <td class="px-6 py-4 text-slate-500 text-sm">${new Date(doc.createdAt?.seconds * 1000).toLocaleDateString() || 'N/A'}</td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="doctor_verification.html?uid=${doc.uid}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition-colors">
+                                Review Application
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </a>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error("Queue load error:", err);
+                listContainer.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-red-500 font-bold">Failed to load queue.</td></tr>`;
+            }
+        }
+    </script></body>
+
+</html>
