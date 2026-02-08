@@ -1,12 +1,10 @@
 ﻿<!DOCTYPE html>
-<html class="theme-preload" lang="en">
+<html  lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - LifeLink</title>
-    <script src="../assets/js/theme-manager.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>My Profile - LifeLink</title>    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
@@ -20,14 +18,14 @@
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
 </head>
 
-<body class="bg-aurora text-slate-800 dark:text-slate-100 antialiased">
+<body class="bg-aurora text-slate-800 antialiased">
     <app-navbar auth="true"></app-navbar>
 
     <main class="relative z-10 pt-32 pb-12 min-h-screen px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
             <!-- Header -->
             <div class="mb-8">
-                <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2">My Profile</h1>
+                <h1 class="text-4xl font-black text-slate-900 mb-2">My Profile</h1>
                 <p class="text-slate-500">View and update your personal information</p>
             </div>
 
@@ -41,7 +39,7 @@
 
             <!-- Error Message -->
             <div id="errorMsg"
-                class="hidden mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400">
+                class="hidden mb-6 p-4 rounded-xl bg-red-50 border border-red-100 text-red-600">
                 <div class="flex items-center gap-3">
                     <span class="material-symbols-outlined">error</span>
                     <span id="errorText">Something went wrong</span>
@@ -50,39 +48,39 @@
 
             <!-- Profile Form -->
             <div
-                class="bg-white dark:bg-surface-dark rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
+                class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
                 <form id="profileForm" class="space-y-6">
                     <!-- Personal Info -->
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">person</span>
                             Personal Information
                         </h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Full Name
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Full Name
                                     *</label>
                                 <input type="text" id="displayName" required
-                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                                    class="w-full px-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Email</label>
+                                    class="block text-sm font-bold text-slate-700 mb-2">Email</label>
                                 <input type="email" id="email" disabled
-                                    class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-xl text-slate-500 cursor-not-allowed">
+                                    class="w-full px-4 py-3 bg-slate-100 border-2 border-slate-200 rounded-xl text-slate-500 cursor-not-allowed">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Phone
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Phone
                                     Number
                                     *</label>
                                 <input type="tel" id="phone" required
-                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                                    class="w-full px-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Blood
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Blood
                                     Group</label>
                                 <select id="bloodGroup"
-                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                                    class="w-full px-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                                     <option value="">Select</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
@@ -99,50 +97,50 @@
 
                     <!-- Location -->
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">location_on</span>
                             Address
                         </h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
                                 <label
-                                    class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Division</label>
+                                    class="block text-sm font-bold text-slate-700 mb-2">Division</label>
                                 <input type="text" id="division"
-                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                                    class="w-full px-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">District</label>
+                                    class="block text-sm font-bold text-slate-700 mb-2">District</label>
                                 <input type="text" id="district"
-                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                                    class="w-full px-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div class="md:col-span-2">
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Full
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Full
                                     Address</label>
                                 <textarea id="address" rows="3"
-                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none"></textarea>
+                                    class="w-full px-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <!-- Additional Info (for donors) -->
                     <div id="donorFields" class="hidden">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary">favorite</span>
                             Donor Information
                         </h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Weight
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Weight
                                     (kg)</label>
                                 <input type="number" id="weight" min="45"
-                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                                    class="w-full px-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Last
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Last
                                     Donation Date</label>
                                 <input type="date" id="lastDonation"
-                                    class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
+                                    class="w-full px-4 py-3 bg-slate-50 border-2 border-slate-100 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                         </div>
                     </div>

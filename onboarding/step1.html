@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html class="theme-preload" lang="en">
+<html  lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,8 +7,6 @@
     <meta name="description"
         content="Step 1 of 4: Choose your role - Join LifeLink as a blood donor, hospital, or patient.">
     <title>Join LifeLink - Step 1</title>
-    <script src="../assets/js/theme-manager.js"></script>
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +33,7 @@
 </head>
 
 <body
-    class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+    class="bg-aurora text-slate-800 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
 
     <!-- Navigation Bar -->
     <app-navbar></app-navbar>
@@ -49,25 +47,25 @@
                     <span class="text-sm font-semibold text-primary" data-i18n="onboarding.step1.of">Step 1 of 4</span>
                     <span class="text-sm text-slate-500" data-i18n="onboarding.step1.role">Choose Your Role</span>
                 </div>
-                <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
                     <div class="h-full bg-brand-gradient w-1/4 transition-all duration-500"></div>
                 </div>
             </div>
 
             <!-- Main Card -->
             <div
-                class="bg-white dark:bg-surface-dark rounded-[2rem] shadow-2xl border border-slate-200 dark:border-slate-700 p-8 md:p-12">
+                class="bg-white rounded-[2rem] shadow-2xl border border-slate-200 p-8 md:p-12">
 
                 <!-- Header -->
                 <div class="text-center mb-10">
                     <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                         <span class="material-symbols-outlined text-5xl text-primary">person_add</span>
                     </div>
-                    <h1 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-3"
+                    <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-3"
                         data-i18n="onboarding.step1.title">
                         Join LifeLink
                     </h1>
-                    <p class="text-slate-600 dark:text-slate-400 text-lg" data-i18n="onboarding.step1.subtitle">
+                    <p class="text-slate-600 text-lg" data-i18n="onboarding.step1.subtitle">
                         Select your role to get started
                     </p>
                 </div>
@@ -79,23 +77,23 @@
                         <label class="block cursor-pointer group">
                             <input type="radio" name="role" value="donor" class="peer sr-only" required>
                             <div
-                                class="p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-xl">
+                                class="p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-slate-200 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-xl">
                                 <div class="flex items-start gap-3 md:gap-6">
                                     <div
-                                        class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                                        class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
                                         <span
                                             class="material-symbols-outlined text-2xl md:text-4xl">volunteer_activism</span>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <h3 class="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mb-1 md:mb-2"
+                                        <h3 class="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2"
                                             data-i18n="onboarding.role.donor.title">Blood Donor</h3>
-                                        <p class="text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
+                                        <p class="text-sm md:text-base text-slate-600 leading-relaxed"
                                             data-i18n="onboarding.role.donor.desc">
                                             Register as a blood donor and help save lives.
                                         </p>
                                     </div>
                                     <div
-                                        class="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                        class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center flex-shrink-0 mt-1">
                                         <span
                                             class="w-2.5 h-2.5 rounded-full bg-primary scale-0 peer-checked:scale-100 transition-transform"></span>
                                     </div>
@@ -107,23 +105,23 @@
                         <label class="block cursor-pointer group">
                             <input type="radio" name="role" value="hospital" class="peer sr-only">
                             <div
-                                class="p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-xl">
+                                class="p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-slate-200 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-xl">
                                 <div class="flex items-start gap-3 md:gap-6">
                                     <div
-                                        class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                                        class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0">
                                         <span
                                             class="material-symbols-outlined text-2xl md:text-4xl">local_hospital</span>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <h3 class="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mb-1 md:mb-2"
+                                        <h3 class="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2"
                                             data-i18n="onboarding.role.hospital.title">Hospital / Clinic</h3>
-                                        <p class="text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
+                                        <p class="text-sm md:text-base text-slate-600 leading-relaxed"
                                             data-i18n="onboarding.role.hospital.desc">
                                             Manage patient requests and find donors.
                                         </p>
                                     </div>
                                     <div
-                                        class="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                        class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center flex-shrink-0 mt-1">
                                         <span
                                             class="w-2.5 h-2.5 rounded-full bg-primary scale-0 peer-checked:scale-100 transition-transform"></span>
                                     </div>
@@ -135,23 +133,23 @@
                         <label class="block cursor-pointer group">
                             <input type="radio" name="role" value="patient" class="peer sr-only">
                             <div
-                                class="p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-xl">
+                                class="p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-slate-200 peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 hover:shadow-xl">
                                 <div class="flex items-start gap-3 md:gap-6">
                                     <div
-                                        class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-red-100 dark:bg-red-900/30 text-emergency flex items-center justify-center flex-shrink-0">
+                                        class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-red-100 text-emergency flex items-center justify-center flex-shrink-0">
                                         <span
                                             class="material-symbols-outlined text-2xl md:text-4xl">personal_injury</span>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <h3 class="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mb-1 md:mb-2"
+                                        <h3 class="text-lg md:text-2xl font-bold text-slate-900 mb-1 md:mb-2"
                                             data-i18n="onboarding.role.patient.title">Patient / Recipient</h3>
-                                        <p class="text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
+                                        <p class="text-sm md:text-base text-slate-600 leading-relaxed"
                                             data-i18n="onboarding.role.patient.desc">
                                             Request blood urgently and connect with donors.
                                         </p>
                                     </div>
                                     <div
-                                        class="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center flex-shrink-0 mt-1">
+                                        class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center flex-shrink-0 mt-1">
                                         <span
                                             class="w-2.5 h-2.5 rounded-full bg-primary scale-0 peer-checked:scale-100 transition-transform"></span>
                                     </div>
@@ -171,8 +169,8 @@
                 </form>
 
                 <!-- Already have account -->
-                <div class="text-center mt-8 pt-8 border-t border-slate-200 dark:border-slate-700">
-                    <p class="text-slate-600 dark:text-slate-400">
+                <div class="text-center mt-8 pt-8 border-t border-slate-200">
+                    <p class="text-slate-600">
                         <span data-i18n="onboarding.already_have_account">Already have an account?</span>
                         <a href="../auth/login.html" class="text-primary font-semibold hover:underline"
                             data-i18n="onboarding.sign_in">Sign in</a>

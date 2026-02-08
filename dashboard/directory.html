@@ -1,12 +1,10 @@
 ﻿<!DOCTYPE html>
-<html class="theme-preload" lang="en">
+<html  lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doctor & Hospital Directory - LifeLink</title>
-  <script src="../assets/js/theme-manager.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>Doctor & Hospital Directory - LifeLink</title>  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
@@ -21,23 +19,23 @@
 </head>
 
 <body
-  class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+  class="bg-aurora text-slate-800 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
   <app-navbar auth="true"></app-navbar>
   <main class="relative z-10 pt-28 pb-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mb-12">
-        <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-4">Doctor & Hospital Directory</h1>
-        <p class="text-slate-600 dark:text-slate-400 text-lg">Find verified healthcare professionals across Bangladesh
+        <h1 class="text-4xl font-black text-slate-900 mb-4">Doctor & Hospital Directory</h1>
+        <p class="text-slate-600 text-lg">Find verified healthcare professionals across Bangladesh
         </p>
       </div>
 
       <div
-        class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 mb-8">
+        class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 mb-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
           <input type="text" id="searchInput" placeholder="Search by name..."
-            class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+            class="px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
           <select id="specialtyFilter"
-            class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+            class="px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
             <option value="">All Specialties</option>
             <option value="cardiology">Cardiology</option>
             <option value="neurology">Neurology</option>
@@ -46,7 +44,7 @@
             <option value="gynecology">Gynecology</option>
           </select>
           <select id="divisionFilter"
-            class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+            class="px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
             <option value="">All Divisions</option>
             <option value="dhaka">Dhaka</option>
             <option value="chittagong">Chittagong</option>
@@ -148,21 +146,21 @@
               `).join('');
 
         return `
-                  <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all animate-fade-in">
+                  <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-xl transition-all animate-fade-in">
                       <div class="flex items-start gap-4 mb-4">
-                          <div class="w-16 h-16 ${isDoctor ? 'bg-primary/10' : 'bg-blue-100 dark:bg-blue-900/30'} rounded-full flex items-center justify-center flex-shrink-0">
+                          <div class="w-16 h-16 ${isDoctor ? 'bg-primary/10' : 'bg-blue-100'} rounded-full flex items-center justify-center flex-shrink-0">
                               <span class="material-symbols-outlined text-3xl ${isDoctor ? 'text-primary' : 'text-blue-600'}">${isDoctor ? 'person' : 'local_hospital'}</span>
                           </div>
                           <div class="flex-1">
-                              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 truncate">${item.displayName || item.hospitalName}</h3>
-                              <p class="text-sm text-slate-600 dark:text-slate-400">${item.specialty || item.hospitalType || (isDoctor ? 'General Practitioner' : 'General Hospital')}</p>
+                              <h3 class="text-lg font-bold text-slate-900 mb-1 truncate">${item.displayName || item.hospitalName}</h3>
+                              <p class="text-sm text-slate-600">${item.specialty || item.hospitalType || (isDoctor ? 'General Practitioner' : 'General Hospital')}</p>
                               <div class="flex items-center gap-1 mt-2">
                                   ${stars}
                                   <span class="text-xs text-slate-500 ml-1">(${rating})</span>
                               </div>
                           </div>
                       </div>
-                      <div class="space-y-2 text-sm text-slate-600 dark:text-slate-400 mb-4">
+                      <div class="space-y-2 text-sm text-slate-600 mb-4">
                           <p class="flex items-center gap-2">
                               <span class="material-symbols-outlined text-lg">${isDoctor ? 'local_hospital' : 'location_on'}</span>
                               ${item.hospitalName || item.address || item.district || 'Location details private'}

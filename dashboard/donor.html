@@ -1,12 +1,10 @@
 ﻿<!DOCTYPE html>
-<html class="theme-preload" lang="en">
+<html  lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donor Dashboard - LifeLink</title>
-    <script src="../assets/js/theme-manager.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>Donor Dashboard - LifeLink</title>    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
@@ -21,17 +19,17 @@
 </head>
 
 <body
-    class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+    class="bg-aurora text-slate-800 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
     <app-navbar auth="true"></app-navbar>
     <main class="relative z-10 pt-28 pb-20 min-h-screen">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-10">
                 <div>
-                    <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2">Donor Dashboard</h1>
-                    <p class="text-slate-600 dark:text-slate-400">Manage your donations and availability</p>
+                    <h1 class="text-4xl font-black text-slate-900 mb-2">Donor Dashboard</h1>
+                    <p class="text-slate-600">Manage your donations and availability</p>
                 </div>
                 <a href="settings.html"
-                    class="px-6 py-3 rounded-xl border-2 border-slate-300 dark:border-slate-600 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2">
+                    class="px-6 py-3 rounded-xl border-2 border-slate-300 font-semibold hover:bg-slate-50 transition-all flex items-center gap-2">
                     <span class="material-symbols-outlined">settings</span>
                     <span>Settings</span>
                 </a>
@@ -39,17 +37,17 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <div
-                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-slate-900 dark:text-white">Availability Status</h3>
+                        <h3 class="font-bold text-slate-900">Availability Status</h3>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="availabilityToggle" class="sr-only peer" checked>
                             <div
-                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
                             </div>
                         </label>
                     </div>
-                    <p class="text-sm text-slate-600 dark:text-slate-400" id="availabilityText">You are currently
+                    <p class="text-sm text-slate-600" id="availabilityText">You are currently
                         available for donation</p>
                 </div>
                 <div class="bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl p-6 text-white shadow-lg">
@@ -66,8 +64,8 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <div
-                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">history</span>
                         Donation History
                     </h3>
@@ -82,31 +80,31 @@
                 </div>
 
                 <div
-                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">emoji_events</span>
                         Achievements
                     </h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div
-                            class="text-center p-4 rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20">
+                            class="text-center p-4 rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50">
                             <span
                                 class="material-symbols-outlined text-5xl text-amber-500 mb-2 block">military_tech</span>
-                            <p class="font-bold text-slate-900 dark:text-white text-sm">First Donor</p>
+                            <p class="font-bold text-slate-900 text-sm">First Donor</p>
                         </div>
                         <div
-                            class="text-center p-4 rounded-xl bg-gradient-to-br from-emerald-50 to-cyan-50 dark:from-emerald-900/20 dark:to-cyan-900/20">
+                            class="text-center p-4 rounded-xl bg-gradient-to-br from-emerald-50 to-cyan-50">
                             <span class="material-symbols-outlined text-5xl text-emerald-500 mb-2 block">favorite</span>
-                            <p class="font-bold text-slate-900 dark:text-white text-sm">Lifesaver</p>
+                            <p class="font-bold text-slate-900 text-sm">Lifesaver</p>
                         </div>
                         <div
-                            class="text-center p-4 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+                            class="text-center p-4 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50">
                             <span
                                 class="material-symbols-outlined text-5xl text-blue-500 mb-2 block">workspace_premium</span>
-                            <p class="font-bold text-slate-900 dark:text-white text-sm">Regular Donor</p>
+                            <p class="font-bold text-slate-900 text-sm">Regular Donor</p>
                         </div>
                         <div
-                            class="text-center p-4 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600">
+                            class="text-center p-4 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300">
                             <span class="material-symbols-outlined text-5xl text-slate-400 mb-2 block">lock</span>
                             <p class="font-bold text-slate-500 text-sm">Hero Status</p>
                         </div>
@@ -115,8 +113,8 @@
             </div>
 
             <div
-                class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                     <span class="material-symbols-outlined text-emergency">emergency</span>
                     Lives at Stake (Real-time)
                 </h3>
@@ -208,13 +206,13 @@
                     const date = item.date.toDate ? item.date.toDate() : new Date(item.date);
                     const timeAgo = formatTimeAgo(date);
                     return `
-                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50">
                             <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span class="material-symbols-outlined text-primary">bloodtype</span>
                             </div>
                             <div class="flex-1">
-                                <p class="font-semibold text-slate-900 dark:text-white">${item.bloodGroup || 'Blood'} Donation</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">${item.hospitalName || item.hospital || 'Hospital'}</p>
+                                <p class="font-semibold text-slate-900">${item.bloodGroup || 'Blood'} Donation</p>
+                                <p class="text-sm text-slate-600">${item.hospitalName || item.hospital || 'Hospital'}</p>
                             </div>
                             <p class="text-sm text-slate-500">${timeAgo}</p>
                         </div>
@@ -288,19 +286,19 @@
                 snapshot.forEach((doc) => {
                     const data = doc.data();
                     const card = document.createElement('div');
-                    card.className = "p-4 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/20 animate-pulse-subtle";
+                    card.className = "p-4 rounded-xl bg-red-50 border border-red-100 animate-pulse-subtle";
                     card.innerHTML = `
                         <div class="flex justify-between items-start mb-2">
                             <span class="px-2 py-1 rounded bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider">Urgent ${data.urgency || ''}</span>
                             <span class="text-xs text-slate-500">Just now</span>
                         </div>
-                        <h4 class="font-bold text-slate-900 dark:text-white mb-1">${data.hospital || 'Hospital'}</h4>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">${data.district || ''}, ${data.division || ''}</p>
+                        <h4 class="font-bold text-slate-900 mb-1">${data.hospital || 'Hospital'}</h4>
+                        <p class="text-xs text-slate-600 mb-3">${data.district || ''}, ${data.division || ''}</p>
                         <div class="flex gap-2">
                             <a href="tel:${data.phone}" class="flex-1 py-2 rounded-lg bg-emerald-500 text-white text-xs font-bold text-center flex items-center justify-center gap-1">
                                 <span class="material-symbols-outlined text-sm">call</span> Call
                             </a>
-                            <button class="flex-1 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold transition-all hover:bg-slate-50">Details</button>
+                            <button class="flex-1 py-2 rounded-lg bg-white border border-slate-200 text-xs font-bold transition-all hover:bg-slate-50">Details</button>
                         </div>
                     `;
                     alertContainer.appendChild(card);

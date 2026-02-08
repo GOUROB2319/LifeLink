@@ -1,12 +1,10 @@
 ﻿<!DOCTYPE html>
-<html class="theme-preload" lang="en">
+<html  lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - LifeLink</title>
-    <script src="../assets/js/theme-manager.js"></script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>Admin Dashboard - LifeLink</title>    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
@@ -29,18 +27,18 @@
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
 </head>
 
-<body class="bg-[#f8f9fb] dark:bg-background-dark text-slate-800 dark:text-slate-100 antialiased min-h-screen">
+<body class="bg-[#f8f9fb] text-slate-800 antialiased min-h-screen">
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
         <aside
-            class="w-64 flex-shrink-0 bg-white dark:bg-[#1a1f2e] border-r border-[#f0f2f4] dark:border-gray-800 flex flex-col py-6 px-4">
+            class="w-64 flex-shrink-0 bg-white#1a1f2e] border-r border-[#f0f2f4] flex flex-col py-6 px-4">
             <div class="flex items-center gap-3 px-2 mb-10">
                 <div class="bg-primary rounded-lg p-1.5 text-white">
                     <span class="material-symbols-outlined">health_and_safety</span>
                 </div>
                 <div>
-                    <h1 class="text-[#111318] dark:text-white text-lg font-bold leading-none">LifeLink</h1>
-                    <p class="text-[#636e88] dark:text-gray-400 text-xs font-medium">Admin Portal</p>
+                    <h1 class="text-[#111318] text-lg font-bold leading-none">LifeLink</h1>
+                    <p class="text-[#636e88] text-xs font-medium">Admin Portal</p>
                 </div>
             </div>
             <nav class="flex flex-col gap-1">
@@ -49,7 +47,7 @@
                     <p class="text-sm font-bold">Dashboard</p>
                 </div>
                 <div onclick="window.location.reload()"
-                    class="flex items-center gap-3 px-3 py-2.5 text-[#636e88] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors">
+                    class="flex items-center gap-3 px-3 py-2.5 text-[#636e88] hover:bg-gray-100 rounded-lg cursor-pointer transition-colors">
                     <span class="material-symbols-outlined">fact_check</span>
                     <p class="text-sm font-medium">Verification Queue</p>
                 </div>
@@ -63,14 +61,14 @@
                 <div class="max-w-6xl mx-auto">
                     <div class="flex items-center justify-between mb-8">
                         <div>
-                            <h2 class="text-3xl font-black text-[#111318] dark:text-white leading-tight">Verification
+                            <h2 class="text-3xl font-black text-[#111318] leading-tight">Verification
                                 Queue</h2>
                             <p class="text-slate-500 font-medium">Review and approve medical practitioner credentials
                             </p>
                         </div>
                         <div class="flex gap-4">
                             <div
-                                class="bg-white dark:bg-[#1a1f2e] p-4 rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm flex items-center gap-4">
+                                class="bg-white#1a1f2e] p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
                                 <div class="bg-yellow-500/10 p-2 rounded-lg text-yellow-600">
                                     <span class="material-symbols-outlined">pending_actions</span>
                                 </div>
@@ -83,10 +81,10 @@
                     </div>
 
                     <div
-                        class="bg-white dark:bg-[#1a1f2e] rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm overflow-hidden">
+                        class="bg-white#1a1f2e] rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                         <table class="w-full text-left">
                             <thead
-                                class="bg-slate-50 dark:bg-gray-800/50 border-b border-slate-200 dark:border-gray-800">
+                                class="bg-slate-50 border-b border-slate-200">
                                 <tr>
                                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
                                         Practitioner</th>
@@ -99,7 +97,7 @@
                                         Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="verification-list" class="divide-y divide-slate-100 dark:divide-gray-800">
+                            <tbody id="verification-list" class="divide-y divide-slate-100">
                                 <!-- Dynamic Rows -->
                                 <tr>
                                     <td colspan="4" class="px-6 py-20 text-center">
@@ -150,19 +148,19 @@
                 }
 
                 listContainer.innerHTML = requests.map(doc => `
-                    <tr class="hover:bg-slate-50 dark:hover:bg-gray-800/20 transition-colors">
+                    <tr class="hover:bg-slate-50 transition-colors">
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
                                     ${doc.displayName ? doc.displayName.charAt(0) : 'D'}
                                 </div>
                                 <div>
-                                    <p class="font-bold text-slate-900 dark:text-white">${doc.displayName || 'Unknown Doctor'}</p>
+                                    <p class="font-bold text-slate-900">${doc.displayName || 'Unknown Doctor'}</p>
                                     <p class="text-xs text-slate-500">${doc.email}</p>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4 font-medium text-slate-600 dark:text-slate-400">${doc.specialty || 'General Practitioner'}</td>
+                        <td class="px-6 py-4 font-medium text-slate-600">${doc.specialty || 'General Practitioner'}</td>
                         <td class="px-6 py-4 text-slate-500 text-sm">${new Date(doc.createdAt?.seconds * 1000).toLocaleDateString() || 'N/A'}</td>
                         <td class="px-6 py-4 text-right">
                             <a href="doctor_verification.html?uid=${doc.uid}" class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition-colors">

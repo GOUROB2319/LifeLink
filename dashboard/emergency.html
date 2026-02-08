@@ -1,12 +1,10 @@
 ﻿<!DOCTYPE html>
-<html class="theme-preload" lang="en">
+<html  lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergency Request - LifeLink</title>
-    <script src="../assets/js/theme-manager.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>Emergency Request - LifeLink</title>    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
@@ -21,7 +19,7 @@
 </head>
 
 <body
-    class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+    class="bg-aurora text-slate-800 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
     <app-navbar auth="true"></app-navbar>
     <main class="relative z-10 pt-28 pb-20 min-h-screen">
         <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -36,19 +34,19 @@
             </div>
 
             <div
-                class="bg-white dark:bg-surface-dark rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8 md:p-10">
+                class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 md:p-10">
                 <form id="emergencyForm" class="space-y-8">
                     <div class="space-y-6">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                             <span class="material-symbols-outlined text-emergency">bloodtype</span>
                             Blood Requirement
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Blood
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Blood
                                     Group *</label>
                                 <select name="bloodGroup" required
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                                     <option value="">Select</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
@@ -61,20 +59,20 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Units
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Units
                                     Required *</label>
                                 <input type="number" name="units" required min="1"
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                             </div>
                             <div class="md:col-span-2">
                                 <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Urgency
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Urgency
                                     Level *</label>
                                 <div class="grid grid-cols-3 gap-4">
                                     <label class="cursor-pointer">
                                         <input type="radio" name="urgency" value="low" class="peer sr-only" required>
                                         <div
-                                            class="p-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-yellow-500 peer-checked:bg-yellow-50 dark:peer-checked:bg-yellow-900/20 text-center transition-all">
+                                            class="p-4 rounded-xl border-2 border-slate-200 peer-checked:border-yellow-500 peer-checked:bg-yellow-50 text-center transition-all">
                                             <span
                                                 class="material-symbols-outlined text-3xl text-yellow-500 mb-2 block">schedule</span>
                                             <p class="font-bold text-sm">Low</p>
@@ -84,7 +82,7 @@
                                     <label class="cursor-pointer">
                                         <input type="radio" name="urgency" value="medium" class="peer sr-only">
                                         <div
-                                            class="p-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked border-orange-500 peer-checked:bg-orange-50 dark:peer-checked:bg-orange-900/20 text-center transition-all">
+                                            class="p-4 rounded-xl border-2 border-slate-200 peer-checked border-orange-500 peer-checked:bg-orange-50 text-center transition-all">
                                             <span
                                                 class="material-symbols-outlined text-3xl text-orange-500 mb-2 block">timelapse</span>
                                             <p class="font-bold text-sm">Medium</p>
@@ -94,7 +92,7 @@
                                     <label class="cursor-pointer">
                                         <input type="radio" name="urgency" value="high" class="peer sr-only">
                                         <div
-                                            class="p-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:border-red-500 peer-checked:bg-red-50 dark:peer-checked:bg-red-900/20 text-center transition-all">
+                                            class="p-4 rounded-xl border-2 border-slate-200 peer-checked:border-red-500 peer-checked:bg-red-50 text-center transition-all">
                                             <span
                                                 class="material-symbols-outlined text-3xl text-red-500 mb-2 block">emergency</span>
                                             <p class="font-bold text-sm">Urgent</p>
@@ -106,63 +104,63 @@
                         </div>
                     </div>
 
-                    <div class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <div class="space-y-6 pt-6 border-t border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                             <span class="material-symbols-outlined text-emergency">local_hospital</span>
                             Location Details
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="md:col-span-2">
                                 <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Hospital/Clinic
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Hospital/Clinic
                                     Name *</label>
                                 <input type="text" name="hospital" required
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Division
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Division
                                     *</label>
                                 <select name="division" required data-division-select
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                                 </select>
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">District
+                                    class="block text-sm font-semibold text-slate-700 mb-2">District
                                     *</label>
                                 <select name="district" required data-district-select
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <div class="space-y-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <div class="space-y-6 pt-6 border-t border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
                             <span class="material-symbols-outlined text-emergency">contact_phone</span>
                             Contact Information
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Contact
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Contact
                                     Person *</label>
                                 <input type="text" name="contactName" required
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Phone
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Phone
                                     Number *</label>
                                 <input type="tel" name="phone" required
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                             </div>
                             <div class="md:col-span-2">
                                 <label
-                                    class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Additional
+                                    class="block text-sm font-semibold text-slate-700 mb-2">Additional
                                     Notes</label>
                                 <textarea name="notes" rows="4"
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                                     placeholder="Any specific requirements or additional information"></textarea>
                             </div>
                         </div>
@@ -170,7 +168,7 @@
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-8">
                         <a href="donor.html"
-                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-bold text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                            class="flex-1 px-6 py-4 rounded-xl border-2 border-slate-300 text-slate-700 font-bold text-center hover:bg-slate-50 transition-all">
                             Cancel
                         </a>
                         <button type="submit"
@@ -191,14 +189,14 @@
     <div id="aiModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
         <div
-            class="relative bg-white dark:bg-surface-dark rounded-[2rem] shadow-2xl p-8 max-w-lg w-full border border-slate-200 dark:border-slate-700 animate-slide-up">
+            class="relative bg-white rounded-[2rem] shadow-2xl p-8 max-w-lg w-full border border-slate-200 animate-slide-up">
             <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
                 <span class="material-symbols-outlined text-4xl text-primary animate-pulse">psychology</span>
             </div>
-            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">AI Emergency Analysis</h2>
-            <div id="aiResponse" class="text-slate-600 dark:text-slate-400 mb-8 space-y-4">
+            <h2 class="text-2xl font-bold text-slate-900 mb-4">AI Emergency Analysis</h2>
+            <div id="aiResponse" class="text-slate-600 mb-8 space-y-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                    <div class="w-12 h-2 bg-slate-200 rounded-full overflow-hidden">
                         <div class="h-full bg-primary animate-progress-ind"></div>
                     </div>
                     <span>Analyzing urgency...</span>
@@ -262,7 +260,7 @@
             modal.classList.remove('hidden');
             responseDiv.innerHTML = `
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                    <div class="w-12 h-2 bg-slate-200 rounded-full overflow-hidden">
                         <div class="h-full bg-primary animate-pulse w-full"></div>
                     </div>
                     <span>Saving request & analyzing...</span>
@@ -309,16 +307,16 @@
                     .replace(/\*\*(.*?)\*\*/g, '<strong class="text-primary">$1</strong>');
 
                 responseDiv.innerHTML = `
-                    <div class="bg-emerald-50 dark:bg-emerald-900/10 p-4 rounded-xl mb-4 text-emerald-600 dark:text-emerald-400 text-sm font-bold flex items-center gap-2">
+                    <div class="bg-emerald-50 p-4 rounded-xl mb-4 text-emerald-600 text-sm font-bold flex items-center gap-2">
                         <span class="material-symbols-outlined">check_circle</span>
                         Request successfully shared with nearby donors.
                     </div>
-                    <div class="space-y-4 text-slate-700 dark:text-slate-300">
+                    <div class="space-y-4 text-slate-700">
                         ${formattedText}
                     </div>
                 `;
             } catch (err) {
-                responseDiv.innerHTML = '<p class="text-emerald-600 dark:text-emerald-400 font-bold">✅ Your request has been shared with nearby donors.</p>';
+                responseDiv.innerHTML = '<p class="text-emerald-600 font-bold">✅ Your request has been shared with nearby donors.</p>';
             }
         });
     </script>

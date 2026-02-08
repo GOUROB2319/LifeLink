@@ -1,14 +1,12 @@
 ﻿<!DOCTYPE html>
-<html class="theme-preload" lang="en">
+<html  lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Manage your LifeLink account settings, preferences, theme, notifications, and privacy options.">
-    <title>Settings - LifeLink</title>
-    <script src="../assets/js/theme-manager.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>Settings - LifeLink</title>    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
@@ -23,27 +21,27 @@
 </head>
 
 <body
-    class="bg-aurora text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
+    class="bg-aurora text-slate-800 antialiased selection:bg-primary/30 selection:text-primary-dark transition-colors duration-500 overflow-x-hidden">
     <app-navbar auth="true"></app-navbar>
     <main class="relative z-10 pt-28 pb-20">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div class="mb-10">
-                <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2" data-i18n="settings.title">Settings
+                <h1 class="text-4xl font-black text-slate-900 mb-2" data-i18n="settings.title">Settings
                 </h1>
-                <p class="text-slate-600 dark:text-slate-400" data-i18n="settings.subtitle">Manage your account and
+                <p class="text-slate-600" data-i18n="settings.subtitle">Manage your account and
                     preferences</p>
             </div>
 
             <div class="space-y-6">
                 <!-- Theme Settings -->
                 <div
-                    class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">palette</span>
                         <span data-i18n="settings.appearance">Appearance</span>
                     </h2>
                     <div class="space-y-4">
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4" data-i18n="settings.theme_help">
+                        <p class="text-sm text-slate-600 mb-4" data-i18n="settings.theme_help">
                             Choose your preferred theme</p>
                         <div class="grid grid-cols-3 gap-4">
                             <button type="button" data-theme="system"
@@ -66,73 +64,73 @@
                 </div>
 
                 <div
-                    class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6"
+                    class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6"
                         data-i18n="settings.notifications">Notification Preferences</h2>
                     <div class="space-y-4">
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white"
+                                <p class="font-semibold text-slate-900"
                                     data-i18n="settings.notifications.email">Email Notifications</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400"
+                                <p class="text-sm text-slate-600"
                                     data-i18n="settings.notifications.email_desc">Receive updates via email</p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
                             <div
-                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
                             </div>
                         </label>
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white"
+                                <p class="font-semibold text-slate-900"
                                     data-i18n="settings.notifications.sms">SMS Alerts</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400"
+                                <p class="text-sm text-slate-600"
                                     data-i18n="settings.notifications.sms_desc">Get notified via SMS for urgent
                                     requests</p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
                             <div
-                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
                             </div>
                         </label>
                     </div>
                 </div>
 
                 <div
-                    class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6" data-i18n="settings.privacy">
+                    class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="settings.privacy">
                         Privacy Settings</h2>
                     <div class="space-y-4">
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white"
+                                <p class="font-semibold text-slate-900"
                                     data-i18n="settings.privacy.visibility">Profile Visibility</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400"
+                                <p class="text-sm text-slate-600"
                                     data-i18n="settings.privacy.visibility_desc">Show profile to other users</p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
                             <div
-                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
                             </div>
                         </label>
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white"
+                                <p class="font-semibold text-slate-900"
                                     data-i18n="settings.privacy.history">Show Donation History</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400"
+                                <p class="text-sm text-slate-600"
                                     data-i18n="settings.privacy.history_desc">Display your donation statistics
                                 </p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
                             <div
-                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors dark:bg-slate-600/60 dark:border-slate-600 peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
+                                class="relative w-12 h-6 bg-slate-200/80 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer border border-slate-200 shadow-inner transition-colors peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-white/70 after:rounded-full after:h-5 after:w-5 after:shadow after:transition-transform peer-checked:after:translate-x-6">
                             </div>
                         </label>
                     </div>
                 </div>
 
                 <div
-                    class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
+                    class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
                     <h2 class="text-2xl font-bold text-emergency mb-6" data-i18n="settings.danger">Danger Zone</h2>
                     <div class="space-y-4">
                         <button id="deactivateBtn"
