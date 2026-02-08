@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donor Dashboard - LifeLink</title>
+  <script>
+    (function() {
+      const theme = localStorage.getItem('lifelink-theme') || 'light';
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{DEFAULT:'#10B981',dark:'#059669'}}}}}</script>
+</head>
+<body class="bg-aurora text-slate-800 dark:text-slate-100 min-h-screen">
+  <div id="navbar"></div>
+  <main class="pt-20 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold mb-2" data-i18n="dashboard.donor">Donor Dashboard</h1>
+        <p class="text-slate-600 dark:text-slate-400">Manage your donation status and history</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="card">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-lg">Availability Status</h3>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="availabilityToggle" class="sr-only peer">
+              <div class="w-11 h-6 bg-slate-300 peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+            </label>
+          </div>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Toggle to update your availability</p>
+        </div>
+
+        <a href="profile.html" class="card hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer group">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition">
+              <span class="material-symbols-outlined text-primary text-3xl">person</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">My Profile</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Update information</p>
+            </div>
+          </div>
+        </a>
+
+        <div class="card bg-gradient-to-br from-primary/10 to-blue-500/10">
+          <h3 class="font-bold text-lg mb-2">Total Donations</h3>
+          <p class="text-4xl font-black text-primary" id="donationCount">0</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">Lives saved</p>
+        </div>
+      </div>
+
+      <div class="card mb-8">
+        <h2 class="text-2xl font-bold mb-6">Donation History</h2>
+        <div id="history-list" class="space-y-4">
+          <div class="text-center py-8 text-slate-500">
+            <span class="material-symbols-outlined text-5xl mb-2 opacity-50">history</span>
+            <p>No donation history yet</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer"></div>
+  <script type="module">
+    import { themeController } from '../assets/js/core/theme.js';
+    import { i18n } from '../assets/js/core/i18n.js';
+    import { authService } from '../assets/js/core/auth.js';
+    import { initNavbar } from '../assets/js/components/navbar.js';
+    import { initFooter } from '../assets/js/components/footer.js';
+
+    themeController.init();
+    i18n.init();
+    initNavbar();
+    initFooter();
+
+    authService.onAuthChange((user) => {
+      if (!user) window.location.href = '../auth/login.html';
+    });
+  </script>
+</body>
+</html>

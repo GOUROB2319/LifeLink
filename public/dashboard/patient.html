@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard - LifeLink</title>
+  
+  <script>
+    (function() {
+      const theme = localStorage.getItem('lifelink-theme') || 'light';
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { primary: { DEFAULT: '#10B981', dark: '#059669' } } } }
+    }
+  </script>
+</head>
+<body class="bg-aurora text-slate-800 dark:text-slate-100 min-h-screen">
+  
+  <div id="navbar"></div>
+
+  <main class="pt-20 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold mb-2" data-i18n="dashboard.patient">Patient Dashboard</h1>
+        <p class="text-slate-600 dark:text-slate-400">Manage your health requests and appointments</p>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <a href="emergency.html" class="card hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer group">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center group-hover:scale-110 transition">
+              <span class="material-symbols-outlined text-red-600 dark:text-red-400 text-3xl">emergency</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">Emergency Request</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Request blood urgently</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="directory.html" class="card hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer group">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center group-hover:scale-110 transition">
+              <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-3xl">search</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">Find Doctors</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Search medical directory</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="profile.html" class="card hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer group">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition">
+              <span class="material-symbols-outlined text-primary text-3xl">person</span>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg">My Profile</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Update your information</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Active Requests -->
+      <div class="card mb-8">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold" data-i18n="dashboard.requests">Active Requests</h2>
+          <button class="btn-primary">New Request</button>
+        </div>
+        
+        <div id="requests-list" class="space-y-4">
+          <!-- Requests will be loaded here -->
+          <div class="text-center py-8 text-slate-500">
+            <span class="material-symbols-outlined text-5xl mb-2 opacity-50">inbox</span>
+            <p>No active requests</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <h2 class="text-2xl font-bold mb-6" data-i18n="dashboard.history">Recent Activity</h2>
+        
+        <div id="activity-list" class="space-y-4">
+          <!-- Activity will be loaded here -->
+          <div class="text-center py-8 text-slate-500">
+            <span class="material-symbols-outlined text-5xl mb-2 opacity-50">history</span>
+            <p>No recent activity</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module">
+    import { themeController } from '../assets/js/core/theme.js';
+    import { i18n } from '../assets/js/core/i18n.js';
+    import { authService } from '../assets/js/core/auth.js';
+    import { dbService } from '../assets/js/core/db.js';
+    import { initNavbar } from '../assets/js/components/navbar.js';
+    import { initFooter } from '../assets/js/components/footer.js';
+
+    // Initialize systems
+    themeController.init();
+    i18n.init();
+    initNavbar();
+    initFooter();
+
+    // Auth guard
+    authService.onAuthChange(async (user) => {
+      if (!user) {
+        window.location.href = '../auth/login.html';
+        return;
+      }
+
+      // Load user's requests
+      const result = await dbService.getRequests({ userId: user.uid, status: 'active' });
+      if (result.success && result.data.length > 0) {
+        displayRequests(result.data);
+      }
+    });
+
+    function displayRequests(requests) {
+      const container = document.getElementById('requests-list');
+      container.innerHTML = requests.map(req => `
+        <div class="p-4 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-primary transition">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-bold">Blood Type: ${req.bloodGroup}</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Priority: ${req.priority}</p>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Hospital: ${req.hospital}</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-sm font-semibold bg-primary/10 text-primary">
+              ${req.status}
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>

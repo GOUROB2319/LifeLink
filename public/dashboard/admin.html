@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - LifeLink</title>
+  <script>
+    (function() {
+      const theme = localStorage.getItem('lifelink-theme') || 'light';
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{DEFAULT:'#10B981',dark:'#059669'}}}}}</script>
+</head>
+<body class="bg-aurora text-slate-800 dark:text-slate-100 min-h-screen">
+  <div id="navbar"></div>
+  <main class="pt-20 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold mb-2" data-i18n="dashboard.admin">Admin Dashboard</h1>
+        <p class="text-slate-600 dark:text-slate-400">System management and verification</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="card bg-gradient-to-br from-blue-500/10 to-cyan-500/10">
+          <h3 class="font-bold mb-2">Total Users</h3>
+          <p class="text-3xl font-black text-blue-600" id="totalUsers">0</p>
+        </div>
+        <div class="card bg-gradient-to-br from-primary/10 to-emerald-500/10">
+          <h3 class="font-bold mb-2">Active Donors</h3>
+          <p class="text-3xl font-black text-primary" id="activeDonors">0</p>
+        </div>
+        <div class="card bg-gradient-to-br from-purple-500/10 to-pink-500/10">
+          <h3 class="font-bold mb-2">Hospitals</h3>
+          <p class="text-3xl font-black text-purple-600" id="totalHospitals">0</p>
+        </div>
+        <div class="card bg-gradient-to-br from-amber-500/10 to-orange-500/10">
+          <h3 class="font-bold mb-2">Pending</h3>
+          <p class="text-3xl font-black text-amber-600" id="pendingVerifications">0</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="card">
+          <h2 class="text-2xl font-bold mb-6">Pending Verifications</h2>
+          <div id="verifications-list" class="space-y-4">
+            <div class="text-center py-8 text-slate-500">
+              <span class="material-symbols-outlined text-5xl mb-2 opacity-50">verified_user</span>
+              <p>No pending verifications</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="text-2xl font-bold mb-6">Recent Activity</h2>
+          <div id="activity-list" class="space-y-4">
+            <div class="text-center py-8 text-slate-500">
+              <span class="material-symbols-outlined text-5xl mb-2 opacity-50">activity_zone</span>
+              <p>No recent activity</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="text-2xl font-bold mb-6">System Statistics</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="text-center p-4 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-2xl font-bold text-primary">0</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Requests Today</p>
+          </div>
+          <div class="text-center p-4 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-2xl font-bold text-blue-600">0</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Donations Today</p>
+          </div>
+          <div class="text-center p-4 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-2xl font-bold text-purple-600">0</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400">New Users</p>
+          </div>
+          <div class="text-center p-4 border border-slate-200 dark:border-slate-700 rounded-lg">
+            <p class="text-2xl font-bold text-amber-600">0</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Success Rate</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="footer"></div>
+  <script type="module">
+    import { themeController } from '../assets/js/core/theme.js';
+    import { i18n } from '../assets/js/core/i18n.js';
+    import { authService } from '../assets/js/core/auth.js';
+    import { initNavbar } from '../assets/js/components/navbar.js';
+    import { initFooter } from '../assets/js/components/footer.js';
+
+    themeController.init();
+    i18n.init();
+    initNavbar();
+    initFooter();
+
+    authService.onAuthChange((user) => {
+      if (!user) window.location.href = '../auth/login.html';
+    });
+  </script>
+</body>
+</html>

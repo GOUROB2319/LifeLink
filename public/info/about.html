@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - LifeLink</title>
+  <script>
+    (function() {
+      const theme = localStorage.getItem('lifelink-theme') || 'light';
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{DEFAULT:'#10B981',dark:'#059669'}}}}}</script>
+</head>
+<body class="bg-aurora text-slate-800 dark:text-slate-100">
+  <div id="navbar"></div>
+  <main class="pt-20">
+    <section class="py-20">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-5xl font-bold mb-6">About LifeLink</h1>
+        <p class="text-xl text-slate-600 dark:text-slate-400 mb-8">Connecting lives through technology and compassion</p>
+      </div>
+    </section>
+
+    <section class="py-16 bg-white dark:bg-slate-900">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+            <p class="text-lg text-slate-600 dark:text-slate-400 mb-4">LifeLink is dedicated to saving lives by connecting blood donors, patients, doctors, and hospitals in a unified digital ecosystem.</p>
+            <p class="text-lg text-slate-600 dark:text-slate-400">We believe that access to blood and medical care should be fast, reliable, and available to everyone in Bangladesh.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-6">
+            <div class="card text-center">
+              <p class="text-4xl font-black text-primary mb-2">15k+</p>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Units Donated</p>
+            </div>
+            <div class="card text-center">
+              <p class="text-4xl font-black text-blue-600 mb-2">8.9k+</p>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Lives Saved</p>
+            </div>
+            <div class="card text-center">
+              <p class="text-4xl font-black text-purple-600 mb-2">450+</p>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Hospitals</p>
+            </div>
+            <div class="card text-center">
+              <p class="text-4xl font-black text-amber-600 mb-2">24/7</p>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Support</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Values</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="card text-center">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="material-symbols-outlined text-primary text-3xl">favorite</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Compassion</h3>
+            <p class="text-slate-600 dark:text-slate-400">Every life matters. We treat each request with urgency and care.</p>
+          </div>
+          <div class="card text-center">
+            <div class="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="material-symbols-outlined text-blue-600 text-3xl">verified</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Trust</h3>
+            <p class="text-slate-600 dark:text-slate-400">Verified professionals and secure data handling you can rely on.</p>
+          </div>
+          <div class="card text-center">
+            <div class="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="material-symbols-outlined text-purple-600 text-3xl">speed</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Speed</h3>
+            <p class="text-slate-600 dark:text-slate-400">Fast matching and response times when every second counts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-slate-900 text-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-6">Join Our Mission</h2>
+        <p class="text-xl text-slate-300 mb-8">Be part of a community that saves lives every day</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="../auth/register.html" class="btn-primary">Register as Donor</a>
+          <a href="../info/contact.html" class="btn-secondary">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="footer"></div>
+  <script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>

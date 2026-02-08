@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - LifeLink</title>
+  <script>
+    (function() {
+      const theme = localStorage.getItem('lifelink-theme') || 'light';
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{DEFAULT:'#10B981',dark:'#059669'}}}}}</script>
+</head>
+<body class="bg-aurora text-slate-800 dark:text-slate-100">
+  <div id="navbar"></div>
+  <main class="pt-20">
+    <section class="py-20">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-5xl font-bold mb-6">Contact Us</h1>
+        <p class="text-xl text-slate-600 dark:text-slate-400">We're here to help. Reach out anytime.</p>
+      </div>
+    </section>
+
+    <section class="py-16">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <h2 class="text-3xl font-bold mb-8">Get in Touch</h2>
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-primary">email</span>
+                </div>
+                <div>
+                  <h3 class="font-bold mb-1">Email</h3>
+                  <p class="text-slate-600 dark:text-slate-400">support@lifelink.bd</p>
+                  <p class="text-slate-600 dark:text-slate-400">info@lifelink.bd</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-blue-600">call</span>
+                </div>
+                <div>
+                  <h3 class="font-bold mb-1">Phone</h3>
+                  <p class="text-slate-600 dark:text-slate-400">+880 1XXX-XXXXXX</p>
+                  <p class="text-sm text-slate-500 dark:text-slate-500">Available 24/7 for emergencies</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-purple-600">location_on</span>
+                </div>
+                <div>
+                  <h3 class="font-bold mb-1">Address</h3>
+                  <p class="text-slate-600 dark:text-slate-400">Dhaka, Bangladesh</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-amber-600">schedule</span>
+                </div>
+                <div>
+                  <h3 class="font-bold mb-1">Support Hours</h3>
+                  <p class="text-slate-600 dark:text-slate-400">24/7 Emergency Support</p>
+                  <p class="text-slate-600 dark:text-slate-400">9 AM - 6 PM General Inquiries</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="text-2xl font-bold mb-6">Send us a Message</h2>
+            <form id="contactForm" class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Name *</label>
+                <input type="text" id="name" required class="input-field" placeholder="Your name">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-2">Email *</label>
+                <input type="email" id="email" required class="input-field" placeholder="your@email.com">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-2">Subject *</label>
+                <select id="subject" required class="input-field">
+                  <option value="">Select a subject</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="support">Technical Support</option>
+                  <option value="emergency">Emergency Assistance</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="feedback">Feedback</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-2">Message *</label>
+                <textarea id="message" required rows="5" class="input-field" placeholder="How can we help you?"></textarea>
+              </div>
+
+              <button type="submit" class="w-full btn-primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-slate-50 dark:bg-slate-900">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+        <p class="text-slate-600 dark:text-slate-400 mb-8">Find quick answers to common questions</p>
+        <a href="#" class="text-primary hover:underline font-semibold text-lg">Visit FAQ Page →</a>
+      </div>
+    </section>
+  </main>
+  <div id="footer"></div>
+  <script type="module">
+    import { themeController } from '../assets/js/core/theme.js';
+    import { i18n } from '../assets/js/core/i18n.js';
+    import { initNavbar } from '../assets/js/components/navbar.js';
+    import { initFooter } from '../assets/js/components/footer.js';
+
+    themeController.init();
+    i18n.init();
+    initNavbar();
+    initFooter();
+
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for your message! We will get back to you soon.');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Blood Request - LifeLink</title>
+  <script>
+    (function() {
+      const theme = localStorage.getItem('lifelink-theme') || 'light';
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{DEFAULT:'#10B981',dark:'#059669'}}}}}</script>
+</head>
+<body class="bg-aurora text-slate-800 dark:text-slate-100 min-h-screen">
+  <div id="navbar"></div>
+  <main class="pt-20 pb-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full mb-4">
+          <span class="material-symbols-outlined text-red-600 dark:text-red-400 text-4xl animate-pulse">emergency</span>
+        </div>
+        <h1 class="text-4xl font-bold mb-2">Emergency Blood Request</h1>
+        <p class="text-slate-600 dark:text-slate-400">Submit urgent blood requirement details</p>
+      </div>
+
+      <div class="card">
+        <form id="emergencyForm" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium mb-2">Blood Group *</label>
+              <select id="bloodGroup" required class="input-field">
+                <option value="">Select blood group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Priority Level *</label>
+              <select id="priority" required class="input-field">
+                <option value="">Select priority</option>
+                <option value="critical">Critical (Life-threatening)</option>
+                <option value="urgent">Urgent (Within 24 hours)</option>
+                <option value="standard">Standard (Within 48 hours)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Hospital Name *</label>
+            <input type="text" id="hospital" required class="input-field" placeholder="Enter hospital name">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium mb-2">Division *</label>
+              <select id="division" required class="input-field">
+                <option value="">Select division</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chittagong">Chittagong</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Barisal">Barisal</option>
+                <option value="Sylhet">Sylhet</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Mymensingh">Mymensingh</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">District *</label>
+              <input type="text" id="district" required class="input-field" placeholder="Enter district">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium mb-2">Contact Name *</label>
+              <input type="text" id="contactName" required class="input-field" placeholder="Your name">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Contact Phone *</label>
+              <input type="tel" id="contactPhone" required class="input-field" placeholder="+880 1XXX-XXXXXX">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Additional Notes</label>
+            <textarea id="notes" rows="4" class="input-field" placeholder="Any additional information..."></textarea>
+          </div>
+
+          <div class="flex gap-4">
+            <button type="submit" class="flex-1 btn-emergency flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined">send</span>
+              <span>Submit Emergency Request</span>
+            </button>
+            <a href="patient.html" class="btn-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <div id="footer"></div>
+  <script type="module">
+    import { themeController } from '../assets/js/core/theme.js';
+    import { i18n } from '../assets/js/core/i18n.js';
+    import { authService } from '../assets/js/core/auth.js';
+    import { dbService } from '../assets/js/core/db.js';
+    import { initNavbar } from '../assets/js/components/navbar.js';
+    import { initFooter } from '../assets/js/components/footer.js';
+
+    themeController.init();
+    i18n.init();
+    initNavbar();
+    initFooter();
+
+    authService.onAuthChange((user) => {
+      if (!user) window.location.href = '../auth/login.html';
+    });
+
+    document.getElementById('emergencyForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const user = authService.getCurrentUser();
+      if (!user) return;
+
+      const requestData = {
+        userId: user.uid,
+        bloodGroup: document.getElementById('bloodGroup').value,
+        priority: document.getElementById('priority').value,
+        hospital: document.getElementById('hospital').value,
+        location: {
+          division: document.getElementById('division').value,
+          district: document.getElementById('district').value
+        },
+        contactName: document.getElementById('contactName').value,
+        contactPhone: document.getElementById('contactPhone').value,
+        notes: document.getElementById('notes').value
+      };
+
+      const result = await dbService.createRequest(requestData);
+      if (result.success) {
+        alert('Emergency request submitted successfully!');
+        window.location.href = 'patient.html';
+      } else {
+        alert('Failed to submit request: ' + result.error);
+      }
+    });
+  </script>
+</body>
+</html>
