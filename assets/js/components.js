@@ -81,7 +81,6 @@ class Navbar extends HTMLElement {
 
         this.render(isAuth, activeLink);
         this.initLogic();
-        this.setupLanguageListener();
     }
 
     render(isAuth, activeLink) {
@@ -108,13 +107,6 @@ class Navbar extends HTMLElement {
 
                 <!-- Actions -->
                 <div class="flex items-center gap-3">
-                    <!-- Language Toggle -->
-                    <button id="lang-toggle-btn" class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-all group">
-                        <span class="material-symbols-outlined text-[18px] text-slate-700 group-hover:text-primary dark:text-slate-300">translate</span>
-                        <span id="lang-toggle-text" class="text-xs font-bold text-slate-700 dark:text-slate-200 group-hover:text-primary">EN</span>
-                    </button>
-
-
                     <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
 
                     ${!isAuth ? `
@@ -204,21 +196,6 @@ class Navbar extends HTMLElement {
         `;
     }
 
-    setupLanguageListener() {
-        document.addEventListener('lifelink-language-change', () => {
-            if (window.localization) {
-                setTimeout(() => window.localization.updateDOM(), 50);
-            }
-        });
-
-        // Listen for localization ready event
-        document.addEventListener('lifelink-localization-ready', () => {
-            if (window.localization) {
-                window.localization.updateDOM();
-            }
-        });
-    }
-
     injectSecurityMeta() {
         const head = document.head;
         if (!head) return;
@@ -261,24 +238,6 @@ class Navbar extends HTMLElement {
     }
 
     initLogic() {
-        // Language Toggle - Setup immediately
-        const langBtn = this.querySelector('#lang-toggle-btn');
-        if (langBtn) {
-            langBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                // Check at runtime, not at setup time
-                if (typeof window.toggleLanguage === 'function') {
-                    window.toggleLanguage();
-                } else if (window.localization && typeof window.localization.toggleLanguage === 'function') {
-                    window.localization.toggleLanguage();
-                } else {
-                    console.warn('Language toggle function not available yet. Localization.js may not be loaded.');
-                }
-            });
-        }
-
         // Mobile Menu
         const mobileBtn = this.querySelector('#mobile-menu-btn');
         const mobileMenu = this.querySelector('#mobile-menu');
