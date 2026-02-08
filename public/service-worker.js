@@ -1,13 +1,13 @@
 const CACHE_NAME = 'lifelink-v1';
 const ASSETS = [
-  '/public/',
-  '/public/index.html',
-  '/public/assets/css/main.css',
-  '/public/assets/js/app.js',
-  '/public/assets/js/core/theme.js',
-  '/public/assets/js/core/i18n.js',
-  '/public/assets/js/components/navbar.js',
-  '/public/assets/js/components/footer.js'
+  '/',
+  '/index.html',
+  '/assets/css/main.css',
+  '/assets/js/app.js',
+  '/assets/js/core/theme.js',
+  '/assets/js/core/i18n.js',
+  '/assets/js/components/navbar.js',
+  '/assets/js/components/footer.js'
 ];
 
 self.addEventListener('install', (e) => {

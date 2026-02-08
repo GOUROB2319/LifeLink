@@ -6,7 +6,7 @@ export async function registerServiceWorker() {
   }
 
   try {
-    const registration = await navigator.serviceWorker.register('/public/service-worker.js');
+    const registration = await navigator.serviceWorker.register('/service-worker.js');
     console.log('Service Worker registered:', registration.scope);
 
     registration.addEventListener('updatefound', () => {
@@ -50,11 +50,4 @@ function showInstallButton() {
       installBtn.style.display = 'none';
     });
   }
-}
-
-// Auto-register on load
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', registerServiceWorker);
-} else {
-  registerServiceWorker();
 }

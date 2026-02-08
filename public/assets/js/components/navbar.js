@@ -1,22 +1,24 @@
 // Navbar Component
+import { authService } from '../core/auth.js';
+
 export function createNavbar(isAuthenticated = false, userRole = null) {
   return `
     <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200 dark:border-slate-700">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <!-- Logo -->
-          <a href="/public/index.html" class="flex items-center gap-2 font-bold text-xl text-slate-900 dark:text-white">
+          <a href="/index.html" class="flex items-center gap-2 font-bold text-xl text-slate-900 dark:text-white">
             <span class="material-symbols-outlined text-primary text-3xl">favorite</span>
             <span>LifeLink</span>
           </a>
 
           <!-- Desktop Nav -->
           <div class="hidden md:flex items-center gap-6">
-            <a href="/public/index.html" class="text-slate-700 dark:text-slate-300 hover:text-primary transition" data-i18n="nav.home">Home</a>
-            <a href="/public/info/about.html" class="text-slate-700 dark:text-slate-300 hover:text-primary transition" data-i18n="nav.about">About</a>
-            <a href="/public/info/services.html" class="text-slate-700 dark:text-slate-300 hover:text-primary transition" data-i18n="nav.services">Services</a>
-            <a href="/public/dashboard/emergency.html" class="text-red-600 dark:text-red-400 hover:text-red-700 font-semibold transition" data-i18n="nav.emergency">Emergency</a>
-            <a href="/public/dashboard/directory.html" class="text-slate-700 dark:text-slate-300 hover:text-primary transition" data-i18n="nav.directory">Directory</a>
+            <a href="/index.html" class="text-slate-700 dark:text-slate-300 hover:text-primary transition" data-i18n="nav.home">Home</a>
+            <a href="/info/about.html" class="text-slate-700 dark:text-slate-300 hover:text-primary transition" data-i18n="nav.about">About</a>
+            <a href="/info/services.html" class="text-slate-700 dark:text-slate-300 hover:text-primary transition" data-i18n="nav.services">Services</a>
+            <a href="/dashboard/emergency.html" class="text-red-600 dark:text-red-400 hover:text-red-700 font-semibold transition" data-i18n="nav.emergency">Emergency</a>
+            <a href="/dashboard/directory.html" class="text-slate-700 dark:text-slate-300 hover:text-primary transition" data-i18n="nav.directory">Directory</a>
           </div>
 
           <!-- Actions -->
@@ -32,11 +34,11 @@ export function createNavbar(isAuthenticated = false, userRole = null) {
             </button>
 
             ${isAuthenticated ? `
-              <a href="/public/dashboard/${userRole || 'patient'}.html" class="btn-primary" data-i18n="nav.dashboard">Dashboard</a>
+              <a href="/dashboard/${userRole || 'patient'}.html" class="btn-primary" data-i18n="nav.dashboard">Dashboard</a>
               <button data-logout class="btn-secondary" data-i18n="nav.logout">Logout</button>
             ` : `
-              <a href="/public/auth/login.html" class="btn-secondary" data-i18n="nav.login">Login</a>
-              <a href="/public/auth/register.html" class="btn-primary" data-i18n="nav.register">Register</a>
+              <a href="/auth/login.html" class="btn-secondary" data-i18n="nav.login">Login</a>
+              <a href="/auth/register.html" class="btn-primary" data-i18n="nav.register">Register</a>
             `}
 
             <!-- Mobile Menu Toggle -->
@@ -50,11 +52,11 @@ export function createNavbar(isAuthenticated = false, userRole = null) {
       <!-- Mobile Menu -->
       <div data-mobile-menu class="hidden md:hidden border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
         <div class="px-4 py-4 space-y-3">
-          <a href="/public/index.html" class="block py-2 text-slate-700 dark:text-slate-300" data-i18n="nav.home">Home</a>
-          <a href="/public/info/about.html" class="block py-2 text-slate-700 dark:text-slate-300" data-i18n="nav.about">About</a>
-          <a href="/public/info/services.html" class="block py-2 text-slate-700 dark:text-slate-300" data-i18n="nav.services">Services</a>
-          <a href="/public/dashboard/emergency.html" class="block py-2 text-red-600 dark:text-red-400 font-semibold" data-i18n="nav.emergency">Emergency</a>
-          <a href="/public/dashboard/directory.html" class="block py-2 text-slate-700 dark:text-slate-300" data-i18n="nav.directory">Directory</a>
+          <a href="/index.html" class="block py-2 text-slate-700 dark:text-slate-300" data-i18n="nav.home">Home</a>
+          <a href="/info/about.html" class="block py-2 text-slate-700 dark:text-slate-300" data-i18n="nav.about">About</a>
+          <a href="/info/services.html" class="block py-2 text-slate-700 dark:text-slate-300" data-i18n="nav.services">Services</a>
+          <a href="/dashboard/emergency.html" class="block py-2 text-red-600 dark:text-red-400 font-semibold" data-i18n="nav.emergency">Emergency</a>
+          <a href="/dashboard/directory.html" class="block py-2 text-slate-700 dark:text-slate-300" data-i18n="nav.directory">Directory</a>
         </div>
       </div>
     </nav>
@@ -65,13 +67,10 @@ export function initNavbar() {
   const navContainer = document.getElementById('navbar');
   if (!navContainer) return;
 
-  // Check auth state and render
-  import('./core/auth.js').then(({ authService }) => {
-    authService.onAuthChange((user) => {
-      const role = user?.role || 'patient';
-      navContainer.innerHTML = createNavbar(!!user, role);
-      setupNavbarListeners();
-    });
+  authService.onAuthChange((user) => {
+    const role = user?.role || 'patient';
+    navContainer.innerHTML = createNavbar(!!user, role);
+    setupNavbarListeners();
   });
 }
 
@@ -87,8 +86,7 @@ function setupNavbarListeners() {
   // Logout
   const logoutBtn = document.querySelector('[data-logout]');
   logoutBtn?.addEventListener('click', async () => {
-    const { authService } = await import('./core/auth.js');
     await authService.logout();
-    window.location.href = '/public/index.html';
+    window.location.href = '/index.html';
   });
 }

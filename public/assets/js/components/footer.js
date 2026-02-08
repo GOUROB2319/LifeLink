@@ -17,10 +17,10 @@ export function createFooter() {
           <div>
             <h3 class="font-semibold text-white mb-4" data-i18n="footer.quickLinks">Quick Links</h3>
             <ul class="space-y-2 text-sm">
-              <li><a href="/public/index.html" class="hover:text-primary transition" data-i18n="nav.home">Home</a></li>
-              <li><a href="/public/info/about.html" class="hover:text-primary transition" data-i18n="nav.about">About</a></li>
-              <li><a href="/public/info/services.html" class="hover:text-primary transition" data-i18n="nav.services">Services</a></li>
-              <li><a href="/public/dashboard/emergency.html" class="hover:text-primary transition" data-i18n="nav.emergency">Emergency</a></li>
+              <li><a href="/index.html" class="hover:text-primary transition" data-i18n="nav.home">Home</a></li>
+              <li><a href="/info/about.html" class="hover:text-primary transition" data-i18n="nav.about">About</a></li>
+              <li><a href="/info/services.html" class="hover:text-primary transition" data-i18n="nav.services">Services</a></li>
+              <li><a href="/dashboard/emergency.html" class="hover:text-primary transition" data-i18n="nav.emergency">Emergency</a></li>
             </ul>
           </div>
 
@@ -28,8 +28,8 @@ export function createFooter() {
           <div>
             <h3 class="font-semibold text-white mb-4" data-i18n="footer.legal">Legal</h3>
             <ul class="space-y-2 text-sm">
-              <li><a href="/public/info/privacy.html" class="hover:text-primary transition" data-i18n="footer.privacy">Privacy Policy</a></li>
-              <li><a href="/public/info/terms.html" class="hover:text-primary transition" data-i18n="footer.terms">Terms of Service</a></li>
+              <li><a href="/info/privacy.html" class="hover:text-primary transition" data-i18n="footer.privacy">Privacy Policy</a></li>
+              <li><a href="/info/terms.html" class="hover:text-primary transition" data-i18n="footer.terms">Terms of Service</a></li>
             </ul>
           </div>
 
@@ -37,7 +37,7 @@ export function createFooter() {
           <div>
             <h3 class="font-semibold text-white mb-4" data-i18n="footer.contact">Contact Us</h3>
             <ul class="space-y-2 text-sm">
-              <li><a href="/public/info/contact.html" class="hover:text-primary transition" data-i18n="footer.contact">Contact</a></li>
+              <li><a href="/info/contact.html" class="hover:text-primary transition" data-i18n="footer.contact">Contact</a></li>
               <li class="text-slate-400">support@lifelink.bd</li>
             </ul>
           </div>
