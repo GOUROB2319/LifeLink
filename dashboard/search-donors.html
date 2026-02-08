@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="theme-preload" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Donors - LifeLink</title>
-    <script src="../assets/js/theme-init.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+    <script src="../assets/js/theme-manager.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../assets/js/config.js"></script>
     <script src="../assets/js/components.js"></script>
     <link href="../assets/css/styles.css" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
 </head>
+
 <body class="bg-aurora text-slate-800 dark:text-slate-100 antialiased">
     <app-navbar auth="true"></app-navbar>
     <main class="relative z-10 pt-28 pb-20 min-h-screen">
@@ -23,9 +28,11 @@
             </div>
 
             <!-- Search Filters -->
-            <div class="bg-white dark:bg-surface-dark rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-6 mb-8">
+            <div
+                class="bg-white dark:bg-surface-dark rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-6 mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <select id="bloodGroupFilter" class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800">
+                    <select id="bloodGroupFilter"
+                        class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800">
                         <option value="">All Blood Groups</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
@@ -36,13 +43,17 @@
                         <option value="O+">O+</option>
                         <option value="O-">O-</option>
                     </select>
-                    <select id="divisionFilter" data-division-select class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800"></select>
-                    <select id="districtFilter" data-district-select class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800"></select>
-                    <button id="searchBtn" class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition-all">
+                    <select id="divisionFilter" data-division-select
+                        class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800"></select>
+                    <select id="districtFilter" data-district-select
+                        class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 dark:bg-slate-800"></select>
+                    <button id="searchBtn"
+                        class="bg-primary text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition-all">
                         <span class="material-symbols-outlined inline-block mr-2">search</span>Search
                     </button>
                 </div>
-                <button id="useLocationBtn" class="mt-4 text-sm text-primary font-bold flex items-center gap-2 hover:underline">
+                <button id="useLocationBtn"
+                    class="mt-4 text-sm text-primary font-bold flex items-center gap-2 hover:underline">
                     <span class="material-symbols-outlined text-lg">my_location</span>
                     Use my current location
                 </button>
@@ -51,7 +62,9 @@
             <!-- Results -->
             <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             <div id="loading" class="hidden text-center py-12">
-                <div class="inline-block w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                <div
+                    class="inline-block w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin">
+                </div>
                 <p class="mt-4 text-slate-600 dark:text-slate-400">Searching donors...</p>
             </div>
             <div id="empty" class="hidden text-center py-12">
@@ -98,7 +111,7 @@
 
             try {
                 let donors = await searchDirectory(db, { role: 'donor', bloodGroup, division });
-                
+
                 if (userLocation && donors.length > 0) {
                     donors = findNearby(userLocation, donors, 100);
                 }
@@ -154,4 +167,5 @@
         searchDonors();
     </script>
 </body>
+
 </html>

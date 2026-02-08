@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html class="theme-preload" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - LifeLink</title>
-    <script src="../assets/js/theme-init.js"></script>
+    <script src="../assets/js/theme-manager.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../assets/js/config.js"></script>
     <script src="../assets/js/components.js"></script>
     <link href="../assets/css/styles.css" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
 </head>
+
 <body class="bg-aurora text-slate-800 dark:text-slate-100 antialiased">
     <app-navbar auth="true"></app-navbar>
 
@@ -35,7 +40,8 @@
             </div>
 
             <!-- Error Message -->
-            <div id="errorMsg" class="hidden mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400">
+            <div id="errorMsg"
+                class="hidden mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400">
                 <div class="flex items-center gap-3">
                     <span class="material-symbols-outlined">error</span>
                     <span id="errorText">কিছু ভুল হয়েছে</span>
@@ -43,7 +49,8 @@
             </div>
 
             <!-- Profile Form -->
-            <div class="bg-white dark:bg-surface-dark rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
+            <div
+                class="bg-white dark:bg-surface-dark rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
                 <form id="profileForm" class="space-y-6">
                     <!-- Personal Info -->
                     <div>
@@ -53,22 +60,26 @@
                         </h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">পুরো নাম *</label>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">পুরো নাম
+                                    *</label>
                                 <input type="text" id="displayName" required
                                     class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ইমেইল</label>
+                                <label
+                                    class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ইমেইল</label>
                                 <input type="email" id="email" disabled
                                     class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-xl text-slate-500 cursor-not-allowed">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ফোন নম্বর *</label>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ফোন নম্বর
+                                    *</label>
                                 <input type="tel" id="phone" required
                                     class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">রক্তের গ্রুপ</label>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">রক্তের
+                                    গ্রুপ</label>
                                 <select id="bloodGroup"
                                     class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                                     <option value="">নির্বাচন করুন</option>
@@ -93,17 +104,20 @@
                         </h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">বিভাগ</label>
+                                <label
+                                    class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">বিভাগ</label>
                                 <input type="text" id="division"
                                     class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">জেলা</label>
+                                <label
+                                    class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">জেলা</label>
                                 <input type="text" id="district"
                                     class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div class="md:col-span-2">
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">সম্পূর্ণ ঠিকানা</label>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">সম্পূর্ণ
+                                    ঠিকানা</label>
                                 <textarea id="address" rows="3"
                                     class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none"></textarea>
                             </div>
@@ -118,12 +132,14 @@
                         </h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ওজন (কেজি)</label>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ওজন
+                                    (কেজি)</label>
                                 <input type="number" id="weight" min="45"
                                     class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">সর্বশেষ রক্তদানের তারিখ</label>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">সর্বশেষ
+                                    রক্তদানের তারিখ</label>
                                 <input type="date" id="lastDonation"
                                     class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:border-primary focus:ring-0 transition-all outline-none">
                             </div>
@@ -251,4 +267,5 @@
         });
     </script>
 </body>
+
 </html>

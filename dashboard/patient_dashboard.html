@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Dashboard - LifeLink</title>
-    <script src="../assets/js/theme-init.js"></script>
+    <script src="../assets/js/theme-manager.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -45,7 +45,8 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
                     <p class="text-sm text-slate-500 mb-2">Active Requests</p>
                     <p id="activeCount" class="text-4xl font-black text-slate-900 dark:text-white">0</p>
                     <p class="text-xs text-slate-500 mt-2">In the last 7 days</p>
@@ -63,20 +64,24 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
                     <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">history</span>
                         Your Requests
                     </h3>
                     <div id="requestsList" class="space-y-4">
                         <div class="text-center py-10">
-                            <div class="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4"></div>
+                            <div
+                                class="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4">
+                            </div>
                             <p class="text-slate-500">Loading requests...</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
                     <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">person</span>
                         Patient Profile
@@ -113,7 +118,8 @@
             </div>
 
             <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
                     <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">notifications</span>
                         Notification Preferences
@@ -143,7 +149,8 @@
                             class="w-full bg-brand-gradient text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all">
                             Save Preferences
                         </button>
-                        <p class="text-xs text-slate-500">SMS delivery requires a backend provider. This UI stores your preference.</p>
+                        <p class="text-xs text-slate-500">SMS delivery requires a backend provider. This UI stores your
+                            preference.</p>
                     </div>
                 </div>
             </div>

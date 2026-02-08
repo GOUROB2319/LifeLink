@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Manage your LifeLink account settings, preferences, theme, notifications, and privacy options.">
+    <meta name="description"
+        content="Manage your LifeLink account settings, preferences, theme, notifications, and privacy options.">
     <title>Settings - LifeLink</title>
     <script src="../assets/js/theme-manager.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,8 +28,10 @@
     <main class="relative z-10 pt-28 pb-20">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div class="mb-10">
-                <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2" data-i18n="settings.title">Settings</h1>
-                <p class="text-slate-600 dark:text-slate-400" data-i18n="settings.subtitle">Manage your account and preferences</p>
+                <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2" data-i18n="settings.title">Settings
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400" data-i18n="settings.subtitle">Manage your account and
+                    preferences</p>
             </div>
 
             <div class="space-y-6">
@@ -40,17 +43,21 @@
                         <span data-i18n="settings.appearance">Appearance</span>
                     </h2>
                     <div class="space-y-4">
-                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4" data-i18n="settings.theme_help">Choose your preferred theme</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4" data-i18n="settings.theme_help">
+                            Choose your preferred theme</p>
                         <div class="grid grid-cols-3 gap-4">
-                            <button type="button" data-theme="system" class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
+                            <button type="button" data-theme="system"
+                                class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
                                 <span class="material-symbols-outlined text-3xl">brightness_auto</span>
                                 <span class="font-semibold text-sm" data-i18n="settings.theme.system">System</span>
                             </button>
-                            <button type="button" data-theme="light" class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
+                            <button type="button" data-theme="light"
+                                class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
                                 <span class="material-symbols-outlined text-3xl">light_mode</span>
                                 <span class="font-semibold text-sm" data-i18n="settings.theme.light">Light</span>
                             </button>
-                            <button type="button" data-theme="dark" class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
+                            <button type="button" data-theme="dark"
+                                class="theme-option flex flex-col items-center gap-3 p-4 rounded-xl border-2 transition-all hover:scale-105">
                                 <span class="material-symbols-outlined text-3xl">dark_mode</span>
                                 <span class="font-semibold text-sm" data-i18n="settings.theme.dark">Dark</span>
                             </button>
@@ -60,12 +67,15 @@
 
                 <div
                     class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6" data-i18n="settings.notifications">Notification Preferences</h2>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6"
+                        data-i18n="settings.notifications">Notification Preferences</h2>
                     <div class="space-y-4">
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white" data-i18n="settings.notifications.email">Email Notifications</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400" data-i18n="settings.notifications.email_desc">Receive updates via email</p>
+                                <p class="font-semibold text-slate-900 dark:text-white"
+                                    data-i18n="settings.notifications.email">Email Notifications</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400"
+                                    data-i18n="settings.notifications.email_desc">Receive updates via email</p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
                             <div
@@ -74,8 +84,10 @@
                         </label>
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white" data-i18n="settings.notifications.sms">SMS Alerts</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400" data-i18n="settings.notifications.sms_desc">Get notified via SMS for urgent
+                                <p class="font-semibold text-slate-900 dark:text-white"
+                                    data-i18n="settings.notifications.sms">SMS Alerts</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400"
+                                    data-i18n="settings.notifications.sms_desc">Get notified via SMS for urgent
                                     requests</p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
@@ -88,12 +100,15 @@
 
                 <div
                     class="bg-white dark:bg-surface-dark rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6" data-i18n="settings.privacy">Privacy Settings</h2>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6" data-i18n="settings.privacy">
+                        Privacy Settings</h2>
                     <div class="space-y-4">
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white" data-i18n="settings.privacy.visibility">Profile Visibility</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400" data-i18n="settings.privacy.visibility_desc">Show profile to other users</p>
+                                <p class="font-semibold text-slate-900 dark:text-white"
+                                    data-i18n="settings.privacy.visibility">Profile Visibility</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400"
+                                    data-i18n="settings.privacy.visibility_desc">Show profile to other users</p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
                             <div
@@ -102,8 +117,10 @@
                         </label>
                         <label class="flex items-center justify-between cursor-pointer">
                             <div>
-                                <p class="font-semibold text-slate-900 dark:text-white" data-i18n="settings.privacy.history">Show Donation History</p>
-                                <p class="text-sm text-slate-600 dark:text-slate-400" data-i18n="settings.privacy.history_desc">Display your donation statistics
+                                <p class="font-semibold text-slate-900 dark:text-white"
+                                    data-i18n="settings.privacy.history">Show Donation History</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400"
+                                    data-i18n="settings.privacy.history_desc">Display your donation statistics
                                 </p>
                             </div>
                             <input type="checkbox" checked class="sr-only peer">
@@ -124,6 +141,9 @@
                         </button>
                         <button id="deleteAccBtn"
                             class="w-full px-6 py-3 rounded-xl bg-emergency text-white font-semibold hover:bg-red-700 transition-all">
+                        </button>
+                        <button id="deleteAccBtn"
+                            class="w-full px-6 py-3 rounded-xl bg-emergency text-white font-semibold hover:bg-red-700 transition-all">
                             <span data-i18n="settings.danger.delete">Delete Account Permanently</span>
                         </button>
                     </div>
@@ -131,13 +151,10 @@
             </div>
         </div>
     </main>
+    <script src="../assets/js/localization.js"></script>
     <script type="module">
         import { auth, db, initAuthObserver, logoutUser, deleteUserAccount } from '../assets/js/auth-service.js';
         import { saveUserProfile, deleteUserProfile } from '../assets/js/db-service.js';
-
-        // Theme Selector Logic
-        const themeButtons = document.querySelectorAll('.theme-option');
-
         function updateThemeButtons() {
             const activeTheme = window.getTheme();
             themeButtons.forEach(btn => {
@@ -217,5 +234,4 @@
             }
         });
     </script>
-    <script src="../assets/js/localization.js"></script>
 </body>

@@ -505,6 +505,7 @@ const translations = {
         "about.mission.title": "আমাদের মিশন",
         "about.mission.desc": "বাংলাদেশে রক্তদানের প্রক্রিয়াকে আধুনিক করা—সবচেয়ে বড় যাচাইকৃত দাতা নেটওয়ার্ক গড়ে তুলে প্রযুক্তির মাধ্যমে রক্তদানকে সহজ, দ্রুত ও কার্যকর করা।",
         "about.impact.title": "আমাদের প্রভাব"
+    }
 };
 
 class LocalizationManager {
@@ -571,10 +572,10 @@ class LocalizationManager {
     toggleLanguage() {
         const newLang = this.currentLang === 'en' ? 'bn' : 'en';
         this.setLanguage(newLang);
-        
+
         // Force update after a short delay to catch any late-loading elements
         setTimeout(() => this.updateDOM(), 100);
-        
+
         return newLang;
     }
 
@@ -635,7 +636,14 @@ window.localization = new LocalizationManager();
 
 // Global function for language toggle
 window.toggleLanguage = () => {
-    if (window.localization) {
+    if (window.localization && typeof window.localization.toggleLanguage === 'function') {
         window.localization.toggleLanguage();
+    } else {
+        console.error('LocalizationManager not initialized yet');
     }
 };
+
+// Dispatch event to notify components that localization is ready
+if (typeof window.dispatchEvent === 'function') {
+    window.dispatchEvent(new CustomEvent('lifelink-localization-ready'));
+}

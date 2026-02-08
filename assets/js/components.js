@@ -35,7 +35,7 @@ const createResolvePath = () => {
 };
 
 // Global auth observer for navbar consistency
-(function() {
+(function () {
     if (window.__lifelinkAuthObserverReady) return;
     window.__lifelinkAuthObserverReady = true;
 
@@ -210,6 +210,13 @@ class Navbar extends HTMLElement {
                 setTimeout(() => window.localization.updateDOM(), 50);
             }
         });
+
+        // Listen for localization ready event
+        document.addEventListener('lifelink-localization-ready', () => {
+            if (window.localization) {
+                window.localization.updateDOM();
+            }
+        });
     }
 
     injectSecurityMeta() {
@@ -260,10 +267,14 @@ class Navbar extends HTMLElement {
             langBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                if (window.toggleLanguage) {
+
+                // Check at runtime, not at setup time
+                if (typeof window.toggleLanguage === 'function') {
                     window.toggleLanguage();
-                } else if (window.localization) {
+                } else if (window.localization && typeof window.localization.toggleLanguage === 'function') {
                     window.localization.toggleLanguage();
+                } else {
+                    console.warn('Language toggle function not available yet. Localization.js may not be loaded.');
                 }
             });
         }
@@ -434,7 +445,7 @@ class Footer extends HTMLElement {
         </div>
     </footer>
         `;
-        
+
         this.setupLanguageListener();
     }
 

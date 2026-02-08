@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Dashboard - LifeLink</title>
-    <script src="../assets/js/theme-init.js"></script>
+    <script src="../assets/js/theme-manager.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -47,7 +47,8 @@
             <div id="verificationBanner" class="hidden mb-6"></div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-bold text-slate-900 dark:text-white">Accepting Appointments</h3>
                         <label class="relative inline-flex items-center cursor-pointer">
@@ -72,20 +73,24 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
                     <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">event</span>
                         Upcoming Appointments
                     </h3>
                     <div id="appointments" class="space-y-4">
                         <div class="text-center py-10">
-                            <div class="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4"></div>
+                            <div
+                                class="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4">
+                            </div>
                             <p class="text-slate-500">Loading appointments...</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
                     <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">badge</span>
                         Professional Summary
@@ -95,21 +100,24 @@
                             <span class="material-symbols-outlined text-primary">stethoscope</span>
                             <div>
                                 <p class="text-sm text-slate-500">Specialty</p>
-                                <p id="doctorSpecialty" class="font-semibold text-slate-900 dark:text-white">General Practitioner</p>
+                                <p id="doctorSpecialty" class="font-semibold text-slate-900 dark:text-white">General
+                                    Practitioner</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
                             <span class="material-symbols-outlined text-primary">location_on</span>
                             <div>
                                 <p class="text-sm text-slate-500">Location</p>
-                                <p id="doctorLocation" class="font-semibold text-slate-900 dark:text-white">Not provided</p>
+                                <p id="doctorLocation" class="font-semibold text-slate-900 dark:text-white">Not provided
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
                             <span class="material-symbols-outlined text-primary">verified</span>
                             <div>
                                 <p class="text-sm text-slate-500">Verification</p>
-                                <p id="doctorVerification" class="font-semibold text-slate-900 dark:text-white">Pending</p>
+                                <p id="doctorVerification" class="font-semibold text-slate-900 dark:text-white">Pending
+                                </p>
                             </div>
                         </div>
                         <a href="settings.html"
